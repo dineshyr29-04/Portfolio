@@ -3,32 +3,9 @@ import { useState, useEffect, useRef, useCallback } from "react";
 /* ═══════════════════════════════════════════════════════════════
    Default code for the interactive playground
    ═══════════════════════════════════════════════════════════════ */
-const DEFAULT_CODE = `import torch
-import torch.nn as nn
-
-class TransformerBlock(nn.Module):
-    def __init__(self, d_model=512, heads=8):
-        super().__init__()
-        self.attn = nn.MultiheadAttention(
-            d_model, heads, batch_first=True
-        )
-        self.norm = nn.LayerNorm(d_model)
-        self.ff = nn.Sequential(
-            nn.Linear(d_model, d_model * 4),
-            nn.GELU(),
-            nn.Linear(d_model * 4, d_model)
-        )
-
-    def forward(self, x):
-        out, _ = self.attn(x, x, x)
-        x = self.norm(x + out)
-        return self.norm(x + self.ff(x))
-
-model = TransformerBlock(512, 8)
-params = sum(p.numel() for p in model.parameters())
-print(f"Params: {params:,}")
-print(f"Architecture: Transformer (d=512, h=8)")
-print(f"Status: Ready for training ✓")`;
+const DEFAULT_CODE = `print("Dinesh A. - AI/ML Engineer & Researcher")
+print("Doing projects for solving real-world problems in machine learning and AI.")
+print("Skills include Python, C++, Javascript, TailwindCSS, React.js, and more.")`;
 
 /* ═══════════════════════════════════════════════════════════════
    DATA
@@ -42,48 +19,38 @@ const NAV_ITEMS: [string, string][] = [
 ];
 
 const SKILL_GROUPS: [string, string[]][] = [
-  [
-    "ML & AI",
-    [
-      "PyTorch", "TensorFlow", "HuggingFace", "Transformers",
-      "Scikit-learn", "XGBoost", "ONNX", "LangChain",
-      "RAG Systems", "LoRA / QLoRA",
-    ],
-  ],
+  
   [
     "MLOps & Infrastructure",
     [
       "Docker", "Kubernetes", "MLflow", "Weights & Biases",
-      "FastAPI", "Triton", "Redis", "PostgreSQL",
-      "Prometheus", "Celery",
+      "FastAPI"
     ],
   ],
-  ["Languages", ["Python", "SQL", "Bash", "C++", "TypeScript"]],
-  [
-    "Cloud & Platforms",
-    ["AWS SageMaker", "AWS EC2 / S3", "GCP Vertex AI", "Azure ML", "Lambda"],
-  ],
+  ["Languages", ["Python", "SQL", "Bash", "C++", "TypeScript","JavaScript",]],
+  ["Backend & Cloud", ["Node.js", "Express.js", "MongoDB", "MySQL"]],
+  
   [
     "Research Areas",
     [
       "Large Language Models", "Diffusion Models",
-      "Reinforcement Learning", "Model Quantization",
+      "Reinforcement Learning", "K-means Clustering",
       "Retrieval Augmented Gen.",
     ],
   ],
   [
     "Tools & Workflow",
-    ["Git", "Linux", "Jupyter", "Airflow", "Terraform", "VS Code"],
+    ["Git", "Linux", "Jupyter",  "VS Code"],
   ],
 ];
 
 const PROJECTS = [
   {
-    type: "LLM Fine-tuning",
-    title: "Domain-Adapted LLM Pipeline",
+    type: "A AI based triaging system for customer support",
+    title: "Cardio Nerve",
     desc: "End-to-end fine-tuning system for domain-specific LLMs using LoRA/QLoRA. Handles data curation, distributed training, evaluation, and model registry with full experiment tracking.",
     metric: "34% accuracy gain \u00B7 80% memory reduction",
-    stack: ["PyTorch", "HuggingFace", "LoRA", "W&B", "SageMaker"],
+    stack: ["Python", "Arduino coding", "Next.js"],
   },
   {
     type: "MLOps \u00B7 Inference",
@@ -379,9 +346,7 @@ export default function App() {
                 Building systems that learn &amp; scale.
               </p>
               <p className="hero-bio">
-                I design and deploy production ML systems — from model
-                architecture to inference pipelines — with a focus on
-                reliability, efficiency, and real-world impact.
+                I design and deploy production Apps that would solve any real-world problem in the field of AI and machine learning. My expertise includes Python, C++, Javascript, TailwindCSS, React.js, and more.
               </p>
               <div className="ctas">
                 <a
@@ -686,7 +651,7 @@ body{
 ::-webkit-scrollbar-thumb{background:var(--border2)}
 
 /* ─── Layout ─── */
-.wrap{width:100%;max-width:1360px;margin-left:auto;margin-right:auto;padding-left:64px;padding-right:64px}
+.wrap{width:100%;margin-left:auto;margin-right:auto;padding-left:64px;padding-right:64px}
 section{padding:120px 0}
 
 /* ─── Nav ─── */
@@ -822,6 +787,7 @@ section{padding:120px 0}
   opacity:0;animation:fromRight .7s ease .45s forwards;
   display:flex;flex-direction:column;
   max-height:480px;
+  min-height:400px;
 }
 .pg-header{
   background:var(--surface2);
