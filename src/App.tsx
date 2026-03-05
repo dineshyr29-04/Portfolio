@@ -215,11 +215,13 @@ export default function App() {
   );
   const [outputLines, setOutputLines] = useState<string[]>([]);
   const [outputDone, setOutputDone] = useState(false);
+  const [carIdx, setCarIdx] = useState(0);
 
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const lnumsRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<number>(0);
   const autoRan = useRef(false);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   /* ── Active section via scroll ── */
   useEffect(() => {
@@ -252,24 +254,7 @@ export default function App() {
     return () => obs.disconnect();
   }, []);
 
-  /* ── Project card stagger ── */
-  useEffect(() => {
-    const cards = document.querySelectorAll<HTMLElement>(".pc");
-    const obs = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            const d =
-              parseInt((e.target as HTMLElement).dataset.i || "0") * 120;
-            setTimeout(() => e.target.classList.add("visible"), d);
-            obs.unobserve(e.target);
-          }
-        }),
-      { threshold: 0.08, rootMargin: "0px 0px -30px 0px" }
-    );
-    cards.forEach((c) => obs.observe(c));
-    return () => obs.disconnect();
-  }, []);
+
 
   /* ── Experience reveal ── */
   useEffect(() => {
@@ -399,6 +384,26 @@ export default function App() {
     []
   );
 
+  /* ── Carousel navigation ── */
+  const scrollCarousel = useCallback((dir: -1 | 1) => {
+    setCarIdx((prev) => {
+      const next = prev + dir;
+      if (next < 0 || next >= PROJECTS.length) return prev;
+      return next;
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!trackRef.current) return;
+    const card = trackRef.current.children[carIdx] as HTMLElement | undefined;
+    if (card) {
+      trackRef.current.scrollTo({
+        left: card.offsetLeft - trackRef.current.offsetWidth / 2 + card.offsetWidth / 2,
+        behavior: "smooth",
+      });
+    }
+  }, [carIdx]);
+
   /* ════════════════════════ RENDER ════════════════════════ */
   return (
     <>
@@ -496,15 +501,16 @@ export default function App() {
             </p>
             <div className="hero-ctas">
               <a
-                href="#projects"
+                href="https://github.com/dineshyr29-04"
+                target="_blank"
                 className="btn-glass btn-glow"
-                onClick={(e) => scrollTo(e, "projects")}
+                
               >
                 View My Work →
               </a>
               <a
                 href="https://www.linkedin.com/in/dinesh-a-122983374/"
-                target="_blank"
+                target="_blank" 
                 rel="noopener noreferrer"
                 className="btn-glass"
               >
@@ -681,49 +687,93 @@ export default function App() {
         <div className="wrap">
           <div className="label rv">// 03 — SELECTED WORK</div>
           <h2 className="sec-h rv d1">What I've Built</h2>
-          <div className="proj-grid">
-            {PROJECTS.map((p, i) => (
-              <div
-                key={p.title}
-                className="pc glass-2"
-                data-i={i}
-                onMouseMove={handleCardMouse}
-                onMouseLeave={handleCardLeave}
-              >
-                {/* Spotlight layer */}
-                <div className="pc-spot" />
-                {/* Scanline */}
-                <div className="pc-scan" />
-                {/* Content */}
-                <div className="pc-content">
-                  <span className="pc-num">
-                    {String(i + 1).padStart(2, "0")} ——
-                  </span>
-                  <span
-                    className="pc-type glass-3"
-                    style={
-                      {
-                        "--tc": p.color,
-                      } as React.CSSProperties
-                    }
+
+          {/* Rod / rail */}
+          <div className="hang-rail rv d2" />
+
+          {/* Carousel wrapper */}
+          <div className="hang-carousel">
+            <button
+              className="car-arrow car-prev"
+              onClick={() => scrollCarousel(-1)}
+              disabled={carIdx === 0}
+              aria-label="Previous project"
+            >
+              ‹
+            </button>
+
+            <div className="hang-track" ref={trackRef}>
+              {PROJECTS.map((p, i) => (
+                <div
+                  key={p.title}
+                  className={`hang-item${carIdx === i ? " active" : ""}`}
+                >
+                  {/* Thread from rail to card */}
+                  <div className="hang-thread">
+                    <div className="hang-knot" />
+                  </div>
+
+                  {/* The card */}
+                  <div
+                    className="pc glass-2"
+                    data-i={i}
+                    onMouseMove={handleCardMouse}
+                    onMouseLeave={handleCardLeave}
                   >
-                    {p.type}
-                  </span>
-                  <h3 className="pc-title">{p.title}</h3>
-                  <p className="pc-desc">{p.desc}</p>
-                  <div className="pc-metric">{p.metric}</div>
-                  <div className="pc-stack">
-                    {p.stack.map((s) => (
-                      <span key={s} className="glass-3">
-                        {s}
+                    <div className="pc-spot" />
+                    <div className="pc-scan" />
+                    <div className="pc-content">
+                      <span className="pc-num">
+                        {String(i + 1).padStart(2, "0")} ——
                       </span>
+                      <span
+                        className="pc-type glass-3"
+                        style={{ "--tc": p.color } as React.CSSProperties}
+                      >
+                        {p.type}
+                      </span>
+                      <h3 className="pc-title">{p.title}</h3>
+                      <p className="pc-desc">{p.desc}</p>
+                      <div className="pc-metric">{p.metric}</div>
+                    </div>
+                  </div>
+
+                  {/* Threads down to each tech pill */}
+                  <div className="hang-branches">
+                    {p.stack.map((s, si) => (
+                      <div
+                        key={s}
+                        className="branch"
+                        style={{ "--bi": si } as React.CSSProperties}
+                      >
+                        <div className="branch-wire" />
+                        <span className="branch-pill glass-3">{s}</span>
+                      </div>
                     ))}
                   </div>
-                  <a href="#" className="pc-link">
-                    View Details →
-                  </a>
                 </div>
-              </div>
+              ))}
+            </div>
+
+            <button
+              className="car-arrow car-next"
+              onClick={() => scrollCarousel(1)}
+              disabled={carIdx === PROJECTS.length - 1}
+              aria-label="Next project"
+            >
+              ›
+            </button>
+          </div>
+
+          {/* Dot indicators */}
+          <div className="car-dots rv d3">
+            {PROJECTS.map((_, i) => (
+              <button
+                key={i}
+                className={`car-dot${carIdx === i ? " on" : ""}`}
+                onClick={() => setCarIdx(i)}
+                aria-label={`Go to project ${i + 1}`}
+              />
             ))}
           </div>
         </div>
@@ -1196,31 +1246,73 @@ section{padding:clamp(60px,10vw,120px) 0;position:relative;z-index:1}
   color:var(--text-muted);padding:6px 14px;cursor:default;
 }
 
-/* ─── PROJECTS ─── */
-.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr));gap:22px}
-.pc{
-  position:relative;overflow:hidden;border-radius:16px;
-  transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s cubic-bezier(.16,1,.3,1),border-color .4s cubic-bezier(.16,1,.3,1),opacity .6s ease;
-  opacity:0;transform:translateY(32px);
-  will-change:transform,opacity;
+/* ─── PROJECTS (Hanging thread carousel) ─── */
+
+/* Rail — the wall rod */
+.hang-rail{
+  width:100%;height:3px;border-radius:3px;
+  background:linear-gradient(90deg,transparent 2%,rgba(99,102,241,0.35) 20%,rgba(139,92,246,0.4) 50%,rgba(99,102,241,0.35) 80%,transparent 98%);
+  box-shadow:0 0 12px rgba(99,102,241,0.25),0 2px 6px rgba(0,0,0,0.6);
+  margin-bottom:0;position:relative;z-index:3;
 }
-.pc.visible{opacity:1;transform:translateY(0)}
+
+/* Carousel shell */
+.hang-carousel{
+  position:relative;display:flex;align-items:flex-start;
+}
+.hang-track{
+  display:flex;gap:32px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:0 24px 24px;flex:1;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+.hang-track::-webkit-scrollbar{display:none}
+
+/* Each hanging item */
+.hang-item{
+  flex:0 0 clamp(300px,40vw,420px);scroll-snap-align:center;
+  display:flex;flex-direction:column;align-items:center;
+  opacity:.55;transform:scale(.94);filter:blur(0.6px);
+  transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1),filter .45s cubic-bezier(.22,1,.36,1);
+}
+.hang-item.active{opacity:1;transform:scale(1);filter:blur(0px)}
+
+/* Thread from rail to card */
+.hang-thread{
+  width:1px;height:60px;position:relative;
+  background:linear-gradient(180deg,rgba(28, 29, 111, 0.5),rgba(139,92,246,0.25));
+  box-shadow:0 0 6px rgba(99,102,241,0.2);
+  animation:thread-sway 4s ease-in-out infinite;
+}
+.hang-knot{
+  position:absolute;top:-4px;left:50%;transform:translateX(-50%);
+  width:8px;height:8px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 10px rgba(99,102,241,0.6);
+}
+@keyframes thread-sway{
+  0%,100%{transform:rotate(0deg);transform-origin:top center}
+  25%{transform:rotate(.6deg);transform-origin:top center}
+  75%{transform:rotate(-.6deg);transform-origin:top center}
+}
+
+/* Project card (inside carousel) */
+.pc{
+  position:relative;overflow:hidden;border-radius:16px;width:100%;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s cubic-bezier(.16,1,.3,1),border-color .4s cubic-bezier(.16,1,.3,1);
+  will-change:transform;
+}
 .pc:hover{
   border-color:var(--glass-border-h);
   box-shadow:0 32px 80px rgba(99,102,241,0.2),0 0 40px var(--glow-indigo),0 1px 0 rgba(255,255,255,0.1) inset;
 }
-.pc:hover .pc-scan{animation:scan-sweep .8s ease forwards}
+.pc:hover .pc-scan{animation:scan-sweep 1s ease forwards}
 .pc:hover .pc-title{color:var(--accent)}
 
-/* Spotlight */
 .pc-spot{
   position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0;
   background:radial-gradient(300px circle at var(--spot-x,50%) var(--spot-y,50%), rgba(99,102,241,0.12), transparent 60%);
   transition:opacity .3s;
 }
 .pc:hover .pc-spot{opacity:1}
-
-/* Scanline */
 .pc-scan{
   position:absolute;left:0;right:0;height:1px;top:-1px;z-index:2;
   background:linear-gradient(90deg,transparent,rgba(139,92,246,0.8),transparent);
@@ -1228,8 +1320,7 @@ section{padding:clamp(60px,10vw,120px) 0;position:relative;z-index:1}
 }
 @keyframes scan-sweep{0%{top:-1px;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
 
-/* Content */
-.pc-content{position:relative;z-index:10;padding:32px}
+.pc-content{position:relative;z-index:10;padding:clamp(20px,3vw,32px)}
 .pc-num{
   font-family:'JetBrains Mono',monospace;font-size:12px;
   color:var(--text-dim);letter-spacing:.15em;display:block;margin-bottom:14px;
@@ -1241,30 +1332,73 @@ section{padding:clamp(60px,10vw,120px) 0;position:relative;z-index:1}
   margin-bottom:16px;
 }
 .pc-title{
-  font-family:'Syne',sans-serif;font-weight:700;font-size:24px;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(18px,2.5vw,24px);
   color:var(--text);letter-spacing:-.02em;line-height:1.2;
   margin-bottom:12px;transition:color .3s;
 }
-.pc-desc{font-weight:300;font-size:16px;color:var(--text-muted);line-height:1.8;margin-bottom:20px}
+.pc-desc{font-weight:300;font-size:clamp(13.5px,1.4vw,16px);color:var(--text-muted);line-height:1.8;margin-bottom:16px}
 .pc-metric{
-  font-family:'JetBrains Mono',monospace;font-size:13px;
-  color:var(--green);margin-bottom:18px;
+  font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.1vw,13px);
+  color:var(--green);margin-bottom:0;
   padding-left:12px;border-left:2px solid rgba(16,185,129,0.4);
   display:flex;align-items:center;gap:6px;
   background:rgba(16,185,129,0.06);padding:8px 12px;border-radius:6px;
 }
-.pc-stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
-.pc-stack span{
-  font-family:'JetBrains Mono',monospace;font-size:12px;
-  color:var(--text-dim);padding:3px 8px;
+
+/* Branches from card to tech pills */
+.hang-branches{
+  display:flex;justify-content:center;gap:clamp(10px,2vw,20px);margin-top:0;
+  flex-wrap:wrap;padding:0 8px;
 }
-.pc-link{
-  font-family:'JetBrains Mono',monospace;font-size:13px;
-  color:var(--accent2);text-decoration:none;letter-spacing:.05em;
-  display:inline-flex;align-items:center;gap:6px;
-  transition:gap .2s,color .2s;
+.branch{
+  display:flex;flex-direction:column;align-items:center;
+  animation:branch-in .5s cubic-bezier(.22,1,.36,1) calc(var(--bi,0) * .08s) both;
 }
-.pc-link:hover{gap:11px;color:#c084fc}
+@keyframes branch-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.branch-wire{
+  width:1px;height:clamp(20px,3vw,36px);
+  background:linear-gradient(180deg,rgba(139,92,246,0.3),rgba(6,182,212,0.2));
+  box-shadow:0 0 4px rgba(139,92,246,0.15);
+}
+.branch-pill{
+  font-family:'JetBrains Mono',monospace;font-size:clamp(9px,1vw,11px);
+  color:var(--text-muted);padding:4px 10px;white-space:nowrap;
+  text-align:center;
+}
+.hang-item.active .branch-pill{
+  color:var(--text);border-color:rgba(99,102,241,0.3);
+  box-shadow:0 0 8px rgba(99,102,241,0.15);
+}
+
+/* Carousel arrows */
+.car-arrow{
+  position:sticky;top:50%;z-index:5;
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;line-height:1;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
+  color:var(--text);cursor:pointer;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  transition:background .2s,border-color .2s,opacity .2s,box-shadow .2s;
+  -webkit-tap-highlight-color:transparent;margin-top:120px;
+}
+.car-arrow:hover{background:rgba(99,102,241,0.15);border-color:rgba(99,102,241,0.4);box-shadow:0 0 16px rgba(99,102,241,0.2)}
+.car-arrow:disabled{opacity:.25;cursor:default;pointer-events:none}
+.car-prev{margin-right:8px}.car-next{margin-left:8px}
+
+/* Dot indicators */
+.car-dots{
+  display:flex;justify-content:center;gap:10px;margin-top:24px;
+}
+.car-dot{
+  width:8px;height:8px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(255,255,255,0.15);transition:all .3s;
+  -webkit-tap-highlight-color:transparent;padding:0;
+}
+.car-dot.on{
+  background:var(--accent);box-shadow:0 0 10px rgba(99,102,241,0.4);
+  transform:scale(1.3);
+}
 
 /* ─── EXPERIENCE ─── */
 .tl{position:relative;padding-left:40px}
@@ -1388,15 +1522,18 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-
   .pg{max-height:min(440px,55vh)}
   .pg-editor{font-size:12px}
   .pg-ln{font-size:11px}
-  .pc-content{padding:24px}
-  .pc-title{font-size:20px}
-  .pc-desc{font-size:14.5px}
   .sec-h{font-size:clamp(26px,5vw,40px)}
+  .hang-item{flex:0 0 clamp(280px,70vw,360px)}
+  .car-arrow{width:36px;height:36px;font-size:20px;margin-top:100px}
 }
 
 /* Large phones */
 @media(max-width:600px){
   .stats-row{grid-template-columns:repeat(3,1fr);gap:8px}
+  .hang-item{flex:0 0 85vw}
+  .hang-track{gap:20px;padding:0 16px 20px}
+  .car-arrow{display:none}
+  .hang-branches{gap:8px}
   .stat-card{padding:18px 10px}
   .stat-card b{font-size:28px}
   .stat-card small{font-size:9px}
@@ -1415,8 +1552,10 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-
   .hero-badge{font-size:11px;padding:6px 12px}
   .hero-bio{font-size:14.5px}
   .label{font-size:11px}
-  .pc-content{padding:20px}
-  .pc-metric{font-size:11px;padding:6px 10px}
+  .hang-item{flex:0 0 90vw}
+  .hang-track{gap:14px;padding:0 10px 16px}
+  .hang-branches{gap:6px}
+  .branch-wire{height:18px}
   .ct-h{font-size:clamp(26px,7vw,36px)}
   .ct-sub{font-size:15px}
   .pg{max-height:min(380px,50vh)}
@@ -1447,7 +1586,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-
 /* Touch device optimizations */
 @media(hover:none){
   .pc{transform:none!important}
-  .pc.visible{transform:none!important}
+  .hang-item{opacity:1;transform:scale(1);filter:none}
   .glass-2:hover{box-shadow:0 8px 32px rgba(0,0,0,0.4),0 1px 0 rgba(255,255,255,0.06) inset,0 -1px 0 rgba(0,0,0,0.3) inset}
   .pg-editor{font-size:16px}
 }
