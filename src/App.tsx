@@ -721,7 +721,7 @@ export default function App() {
                     onMouseLeave={handleCardLeave}
                   >
                     <div className="pc-spot" />
-                    <div className="pc-scan" />
+                    <div className="pc-scan" /> 
                     <div className="pc-content">
                       <span className="pc-num">
                         {String(i + 1).padStart(2, "0")} ——
