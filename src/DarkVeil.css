@@ -1,0 +1,21 @@
+/* DarkVeil — full-screen WebGL background */
+.darkveil-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.darkveil-canvas {
+  display: block;
+  /* Canvas pixel size is set by OGL; CSS stretches it to fill the wrap */
+  width: 100% !important;
+  height: 100% !important;
+  /* Screen blend: dark areas disappear, glowing areas tint the background */
+  opacity: 0.13;
+  mix-blend-mode: screen;
+}

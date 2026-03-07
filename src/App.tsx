@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import Shuffle from './Shuffle';
+import './Shuffle.css';
+import DarkVeil from './DarkVeil';
 
 /* ═══════════════════════════════════════════════════════════════
    PLAYGROUND CODE TABS
@@ -254,25 +257,7 @@ export default function App() {
     return () => obs.disconnect();
   }, []);
 
-  /* ── Parallax / subtle background motion ── */
-  useEffect(() => {
-    let raf = 0;
-    const onScroll = () => {
-      if (raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const y = window.scrollY || window.pageYOffset;
-        // small offset and scale for depth feeling
-        document.documentElement.style.setProperty("--bg-offset", `${y * 0.04}px`);
-        document.documentElement.style.setProperty("--bg-scale", `${1 + y * 0.00028}`);
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
+  // Parallax removed — DarkVeil handles animated background
 
   /* ── Section portal / depth observer ── */
   useEffect(() => {
@@ -466,8 +451,8 @@ export default function App() {
     <>
       <style>{STYLES}</style>
 
-      {/* Mesh gradient background */}
-      <div className="mesh-bg" aria-hidden="true" />
+      {/* WebGL animated background */}
+      <DarkVeil hueShift={220} warpAmount={0.25} speed={0.28} resolutionScale={0.5} />
       <div className="bg-portal" aria-hidden="true" />
       <div className="dot-grid" aria-hidden="true" />
 
@@ -544,10 +529,12 @@ export default function App() {
           {/* Left */}
           <div className="hero-left">
             <span className="hero-badge">✦ Open to Web development roles</span>
-            <h1 className="hero-name">
-              DINESH
-              <span>    </span><span className="spana">A</span>
-              
+            <h1 className="hero-name" aria-label="DINESH A">
+              <Shuffle tag="span" text="DINESH" duration={0.65} stagger={0.03} immediate />
+              {" "}
+              <span className="spana">
+                <Shuffle tag="span" text="A" duration={0.72} stagger={0.03} immediate />
+              </span>
             </h1>
             <p className="hero-role">
               {"// AI · ML · LLM · MLOps · Production Systems"}
@@ -667,11 +654,7 @@ export default function App() {
       <section id="about" className="sec-deep">
         <div className="wrap">
           <div className="label rv">// 01 — ABOUT</div>
-          <h2 className="sec-h rv d1">
-            Precision-driven
-            <br />
-            Full-Stack Developer.
-          </h2>
+          <Shuffle tag="h2" className="sec-h" text={"Precision-driven\nFull-Stack Developer."} duration={0.55} stagger={0.022} />
           <p className="about-p rv d1">
             I'm Dinesh A — an AI/ML Engineer and a Full-Stack Developer focused on building
             production-grade machine learning systems and Web applications that deliver real-world
@@ -719,7 +702,7 @@ export default function App() {
       <section id="skills">
         <div className="wrap">
           <div className="label rv">// 02 — SKILLS</div>
-          <h2 className="sec-h rv d1">Technical Expertise</h2>
+          <Shuffle tag="h2" className="sec-h" text={"Technical Expertise"} duration={0.5} stagger={0.025} />
           <div className="skills-grid">
             {SKILL_GROUPS.map(([title, tags], gi) => (
               <div
@@ -744,7 +727,7 @@ export default function App() {
       <section id="projects" className="sec-deep">
         <div className="wrap">
           <div className="label rv">// 03 — SELECTED WORK</div>
-          <h2 className="sec-h rv d1">What I've Built</h2>
+          <Shuffle tag="h2" className="sec-h" text={"What I've Built"} duration={0.5} stagger={0.025} />
 
           {/* Rod / rail */}
           <div className="hang-rail rv d2" />
@@ -847,7 +830,7 @@ export default function App() {
       <section id="experience">
         <div className="wrap">
           <div className="label rv">// 04 — EXPERIENCE</div>
-          <h2 className="sec-h rv d1">Career Timeline</h2>
+          <Shuffle tag="h2" className="sec-h" text={"Career Timeline"} duration={0.5} stagger={0.025} />
           <div className="tl">
             <div className="tl-line" />
             {EXP_ITEMS.map((exp, i) => (
@@ -998,18 +981,7 @@ body{
 ::-webkit-scrollbar-track{background:var(--void)}
 ::-webkit-scrollbar-thumb{background:rgba(244, 7, 7, 0.1);border-radius:4px}
 
-/* ─── MESH BG ─── */
-.mesh-bg{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 600px 600px at 15% 10%, rgba(99,102,241,0.15), transparent),
-    radial-gradient(ellipse 500px 500px at 85% 8%, rgba(139,92,246,0.12), transparent),
-    radial-gradient(ellipse 700px 700px at 50% 95%, rgba(6,182,212,0.08), transparent),
-    radial-gradient(ellipse at 50% 50%, var(--void), var(--void));
-  /* subtle parallax transform driven by scroll (JS sets --bg-offset/--bg-scale) */
-  transform:translateY(var(--bg-offset,0)) scale(calc(var(--bg-scale,1) * var(--bg-zoom)));
-  will-change:transform;transition:transform var(--anim-dur-fast) var(--anim-ease);
-}
+/* DarkVeil canvas replaces mesh-bg — see DarkVeil.css */
 .bg-portal{
   position:fixed;inset:0;z-index:0;pointer-events:none;opacity:var(--portal-opacity,0);
   transition:opacity var(--anim-dur-med) var(--anim-ease),transform var(--anim-dur-med) var(--anim-ease);
@@ -1152,7 +1124,9 @@ section{padding:clamp(60px,10vw,120px) 0;position:relative;z-index:1}
   font-size:clamp(40px,8vw,110px);
   line-height:.88;letter-spacing:-.05em;color:var(--text);
   text-shadow:0 0 80px rgba(99,102,241,0.3);
-  animation:hero-up .65s ease .25s both;
+  /* animation handled by Shuffle chars (GSAP) */
+  animation:none;
+  display:flex;align-items:baseline;gap:0.15em;flex-wrap:wrap;
   word-break:break-word;
 }
 .hero-role{

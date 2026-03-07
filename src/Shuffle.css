@@ -1,0 +1,21 @@
+/* ── Shuffle ── */
+.shf-parent {
+  display: block;
+  /* override any CSS opacity/transform reveal (rv class) so GSAP takes over */
+  opacity: 1 !important;
+  transform: none !important;
+}
+.shf-c {
+  display: inline-block;
+  will-change: transform, opacity;
+  /* chars start hidden; GSAP will reveal them */
+}
+.shf-sp {
+  display: inline-block;
+  white-space: pre;
+}
+
+/* Cancel the CSS entry animation on the hero name — GSAP handles it */
+.hero-name.shf-parent {
+  animation: none !important;
+}
