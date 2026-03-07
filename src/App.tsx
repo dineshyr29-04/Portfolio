@@ -254,6 +254,63 @@ export default function App() {
     return () => obs.disconnect();
   }, []);
 
+  /* ── Parallax / subtle background motion ── */
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const y = window.scrollY || window.pageYOffset;
+        // small offset and scale for depth feeling
+        document.documentElement.style.setProperty("--bg-offset", `${y * 0.04}px`);
+        document.documentElement.style.setProperty("--bg-scale", `${1 + y * 0.00028}`);
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  /* ── Section portal / depth observer ── */
+  useEffect(() => {
+    const secs = Array.from(document.querySelectorAll<HTMLElement>('section'));
+    const colors: Record<string, string> = {
+      hero: 'rgba(99,102,241,0.16)',
+      about: 'rgba(139,92,246,0.12)',
+      skills: 'rgba(6,182,212,0.12)',
+      projects: 'rgba(99,102,241,0.14)',
+      experience: 'rgba(139,92,246,0.12)',
+      contact: 'rgba(6,182,212,0.1)'
+    };
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((en) => {
+          if (!en.target) return;
+          const s = en.target as HTMLElement;
+          if (en.isIntersecting) {
+            const id = s.id || 'hero';
+            const c = colors[id] || 'rgba(99,102,241,0.12)';
+            document.documentElement.style.setProperty('--portal-color', c);
+            document.documentElement.style.setProperty('--portal-opacity', '0.55');
+            document.documentElement.style.setProperty('--bg-zoom', '1.06');
+          } else {
+            // when no section intersects (fast scroll), gently fade
+            document.documentElement.style.setProperty('--portal-opacity', '0');
+            document.documentElement.style.setProperty('--bg-zoom', '1');
+          }
+        });
+      },
+      { threshold: 0.48 }
+    );
+
+    secs.forEach((s) => obs.observe(s));
+    return () => obs.disconnect();
+  }, []);
+
 
 
   /* ── Experience reveal ── */
@@ -411,6 +468,7 @@ export default function App() {
 
       {/* Mesh gradient background */}
       <div className="mesh-bg" aria-hidden="true" />
+      <div className="bg-portal" aria-hidden="true" />
       <div className="dot-grid" aria-hidden="true" />
 
       {/* ══ NAV ══ */}
@@ -719,6 +777,12 @@ export default function App() {
                     data-i={i}
                     onMouseMove={handleCardMouse}
                     onMouseLeave={handleCardLeave}
+                    onClick={() => setCarIdx(i)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") setCarIdx(i);
+                    }}
                   >
                     <div className="pc-spot" />
                     <div className="pc-scan" /> 
@@ -881,18 +945,20 @@ const STYLES = `
 /* ─── RESET ─── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --void:#020408;
-  --deep:#050b14;
-  --glass-bg:rgba(255,255,255,0.04);
-  --glass-bg-h:rgba(255,255,255,0.07);
-  --glass-border:rgba(255,255,255,0.08);
-  --glass-border-h:rgba(255,255,255,0.18);
+  /* slightly lighter dark background for better depth while staying dark */
+  --void:#071222;
+  --deep:#071827;
+  --glass-bg:rgba(255,255,255,0.045);
+  --glass-bg-h:rgba(255,255,255,0.09);
+  --glass-border:rgba(255,255,255,0.09);
+  --glass-border-h:rgba(255,255,255,0.22);
   --blur-sm:blur(12px);
   --blur-md:blur(16px);
   --blur-lg:blur(48px);
-  --text:#f0f4ff;
-  --text-muted:rgba(255,255,255,0.55);
-  --text-dim:rgba(255,255,255,0.35);
+  /* stronger, crisper text colors for better visibility */
+  --text:#ffffff;
+  --text-muted:rgba(255,255,255,0.78);
+  --text-dim:rgba(255,255,255,0.6);
   --accent:#6366f1;
   --accent2:#8b5cf6;
   --accent3:#06b6d4;
@@ -900,6 +966,15 @@ const STYLES = `
   --glow-violet:rgba(139,92,246,0.2);
   --glow-cyan:rgba(6,182,212,0.15);
   --green:#10b981;
+  /* unified animation timing */
+  --anim-ease: cubic-bezier(.16,1,.3,1);
+  --anim-dur-fast: 220ms;
+  --anim-dur-med: 360ms;
+  --anim-dur-slow: 600ms;
+  /* portal/background control */
+  --bg-zoom: 1;
+  --portal-opacity: 0;
+  --portal-color: rgba(99,102,241,0.12);
 }
 .spana{color:var(--accent)}
 html{
@@ -931,6 +1006,15 @@ body{
     radial-gradient(ellipse 500px 500px at 85% 8%, rgba(139,92,246,0.12), transparent),
     radial-gradient(ellipse 700px 700px at 50% 95%, rgba(6,182,212,0.08), transparent),
     radial-gradient(ellipse at 50% 50%, var(--void), var(--void));
+  /* subtle parallax transform driven by scroll (JS sets --bg-offset/--bg-scale) */
+  transform:translateY(var(--bg-offset,0)) scale(calc(var(--bg-scale,1) * var(--bg-zoom)));
+  will-change:transform;transition:transform var(--anim-dur-fast) var(--anim-ease);
+}
+.bg-portal{
+  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:var(--portal-opacity,0);
+  transition:opacity var(--anim-dur-med) var(--anim-ease),transform var(--anim-dur-med) var(--anim-ease);
+  background:radial-gradient(600px 400px at 50% 35%, var(--portal-color), transparent 40%);
+  mix-blend-mode:screen;transform:translateZ(0) scale(1);
 }
 .dot-grid{
   position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4;
