@@ -452,7 +452,14 @@ export default function App() {
       <style>{STYLES}</style>
 
       {/* WebGL animated background */}
-      <DarkVeil hueShift={220} warpAmount={0.25} speed={0.28} resolutionScale={0.5} />
+      <DarkVeil
+        hueShift={220}
+        noiseIntensity={0}
+        scanlineIntensity={0}
+        speed={0.6}
+        scanlineFrequency={0}
+        warpAmount={0.22}
+      />
       <div className="bg-portal" aria-hidden="true" />
       <div className="dot-grid" aria-hidden="true" />
 
@@ -984,21 +991,21 @@ body{
 
 /* DarkVeil canvas replaces mesh-bg — see DarkVeil.css */
 .bg-portal{
-  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:var(--portal-opacity,0);
+  position:fixed;inset:0;z-index:1;pointer-events:none;opacity:var(--portal-opacity,0);
   transition:opacity var(--anim-dur-med) var(--anim-ease),transform var(--anim-dur-med) var(--anim-ease);
   background:radial-gradient(600px 400px at 50% 35%, var(--portal-color), transparent 40%);
   mix-blend-mode:screen;transform:translateZ(0) scale(1);
 }
 .dot-grid{
-  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4;
+  position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.35;
   background-image:radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px);
   background-size:32px 32px;
 }
 
 /* ─── LAYOUT ─── */
-.wrap{width:100%;margin:0 auto;padding:0 clamp(16px,4vw,48px);position:relative;z-index:2}
-section{padding:clamp(60px,10vw,120px) 0;position:relative;z-index:1;isolation:auto}
-.sec-deep{background:rgba(7, 24, 39, 0.01)}
+.wrap{width:100%;margin:0 auto;padding:0 clamp(16px,4vw,48px);position:relative;z-index:3}
+section{padding:clamp(60px,10vw,120px) 0;position:relative;z-index:2;isolation:auto}
+.sec-deep{background:rgba(7, 24, 39, 0);border-radius:0}
 
 /* ─── GLASS LEVELS ─── */
 .glass-1{
@@ -1539,7 +1546,7 @@ section{padding:clamp(60px,10vw,120px) 0;position:relative;z-index:1;isolation:a
 }
 
 /* ─── FOOTER ─── */
-footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.04);text-align:center;position:relative;z-index:1}
+footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.04);text-align:center;position:relative;z-index:2}
 footer p{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-dim);letter-spacing:.06em}
 
 /* ─── SCROLL REVEAL ─── */

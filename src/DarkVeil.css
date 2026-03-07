@@ -1,19 +1,23 @@
-﻿/* DarkVeil — full-screen CPPN neural-network WebGL background */
+﻿/* DarkVeil — fixed full-screen WebGL background (parallax: stays still while content scrolls) */
 .darkveil-wrap {
   position: fixed;
-  inset: 0;
-  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;              /* sits above body bg, below page content */
   pointer-events: none;
   overflow: hidden;
-  /* Dark navy base — shows instantly before WebGL initialises */
-  background: #071222;
+  background: #071222;     /* dark base shown before WebGL boots */
 }
 
 .darkveil-canvas {
-  display: block;
-  /* OGL sets pixel size; CSS stretches canvas to fill wrapper */
+  position: absolute;
+  inset: 0;
   width: 100% !important;
   height: 100% !important;
-  /* Glow from neural net shows through; dark areas are transparent via shader */
+  display: block;
+  pointer-events: none;
   opacity: 0.6;
 }
+

@@ -69,11 +69,11 @@ void main(){
     col.rgb=hueShiftRGB(col.rgb,uHueShift);
     float scanline_val=sin(gl_FragCoord.y*uScanFreq)*0.5+0.5;
     col.rgb*=1.-(scanline_val*scanline_val)*uScan;
-    col.rgb+=(rand(gl_FragCoord.xy+uTime)-0.5)*uNoise;
-    vec3 rgb=clamp(col.rgb,0.0,1.0);
-  float lum=0.2126*rgb.r+0.7152*rgb.g+0.0722*rgb.b;
-  float a=clamp((lum-0.25)*3.0,0.0,1.0);
-  gl_FragColor=vec4(rgb,a);
+    col.rgb += (rand(gl_FragCoord.xy + uTime) - 0.5) * uNoise;
+    // compute luminance and make darker areas more transparent
+    float lum = dot(clamp(col.rgb,0.0,1.0), vec3(0.2126, 0.7152, 0.0722));
+    float alpha = smoothstep(0.15, 0.6, lum) * 0.5;
+    gl_FragColor = vec4(clamp(col.rgb, 0.0, 1.0), alpha);
 }
 `;
 
@@ -88,18 +88,18 @@ type Props = {
 };
 
 export default function DarkVeil({
-  hueShift = 220,
+  hueShift = 0,
   noiseIntensity = 0,
   scanlineIntensity = 0,
-  speed = 0.28,
+  speed = 0.5,
   scanlineFrequency = 0,
-  warpAmount = 0.25,
-  resolutionScale = 0.5
+  warpAmount = 0,
+  resolutionScale = 1
 }: Props) {
-  const wrapRef = useRef<HTMLDivElement>(null);
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const canvas = ref.current as HTMLCanvasElement;
+    const parent = canvas.parentElement as HTMLElement;
 
     const renderer = new Renderer({
       dpr: Math.min(window.devicePixelRatio, 2),
@@ -128,10 +128,10 @@ export default function DarkVeil({
     const mesh = new Mesh(gl, { geometry, program });
 
     const resize = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
+      const w = parent.clientWidth,
+        h = parent.clientHeight;
       renderer.setSize(w * resolutionScale, h * resolutionScale);
-      program.uniforms.uResolution.value.set(w * resolutionScale, h * resolutionScale);
+      program.uniforms.uResolution.value.set(w, h);
     };
 
     window.addEventListener('resize', resize);
@@ -156,11 +156,10 @@ export default function DarkVeil({
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener('resize', resize);
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
   }, [hueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale]);
   return (
-    <div ref={wrapRef} className="darkveil-wrap" aria-hidden="true">
+    <div className="darkveil-wrap" aria-hidden>
       <canvas ref={ref} className="darkveil-canvas" />
     </div>
   );
