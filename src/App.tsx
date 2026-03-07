@@ -965,7 +965,7 @@ const STYLES = `
   /* portal/background control */
   --bg-zoom: 1;
   --portal-opacity: 0;
-  --portal-color: rgba(99,102,241,0.12);
+  --portal-color: rgba(68, 68, 71, 0.12);
 }
 .spana{color:var(--accent)}
 html{
@@ -1009,13 +1009,13 @@ section{padding:clamp(60px,10vw,120px) 0;position:relative;z-index:2;isolation:a
 
 /* ─── GLASS LEVELS ─── */
 .glass-1{
-  background:rgba(4,8,18,0.55);
-  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,0.09);
+  background:rgba(4,8,18,0.35);
+  backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
+  border:1px solid rgba(255,255,255,0.08);
 }
 .glass-2{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  background:rgba(61, 59, 59, 0.03);
+  backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
   border:1px solid rgba(255,255,255,0.13);
   border-radius:16px;
   box-shadow:0 8px 32px rgba(0,0,0,0.5),0 1px 0 rgba(255,255,255,0.08) inset,0 -1px 0 rgba(0,0,0,0.4) inset;
@@ -1024,13 +1024,13 @@ section{padding:clamp(60px,10vw,120px) 0;position:relative;z-index:2;isolation:a
   transform:translateZ(0);
 }
 .glass-2:hover{
-  background:rgba(255,255,255,0.11);
-  border-color:rgba(255,255,255,0.22);
+  background:rgba(255, 255, 255, 0);
+  border-color:rgba(255,255,255,0.18);
   box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px var(--glow-indigo),0 1px 0 rgba(255,255,255,0.12) inset;
 }
 .glass-3{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  background:rgba(255,255,255,0.03);
+  backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);
   border:1px solid rgba(255,255,255,0.11);
   border-radius:6px;
   transition:background .25s cubic-bezier(.16,1,.3,1),border-color .25s cubic-bezier(.16,1,.3,1),box-shadow .25s cubic-bezier(.16,1,.3,1),transform .25s cubic-bezier(.16,1,.3,1);
