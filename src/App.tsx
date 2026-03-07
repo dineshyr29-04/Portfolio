@@ -937,7 +937,7 @@ const STYLES = `
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   /* slightly lighter dark background for better depth while staying dark */
-  --void:#071222;
+  --void:rgba(255,255,255,0.11);
   --deep:#071827;
   --glass-bg:rgba(255,255,255,0.07);
   --glass-bg-h:rgba(255,255,255,0.11);
@@ -997,25 +997,25 @@ body{
   mix-blend-mode:screen;transform:translateZ(0) scale(1);
 }
 .dot-grid{
-  position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.35;
-  background-image:radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px);
+  position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.2;
+  background-image:radial-gradient(rgba(49, 44, 44, 0.04) 1px,transparent 1px);
   background-size:32px 32px;
 }
 
 /* ─── LAYOUT ─── */
 .wrap{width:100%;margin:0 auto;padding:0 clamp(16px,4vw,48px);position:relative;z-index:3}
 section{padding:clamp(60px,10vw,120px) 0;position:relative;z-index:2;isolation:auto}
-.sec-deep{background:rgba(7, 24, 39, 0);border-radius:0}
+.sec-deep{background:rgba(41, 49, 55, 0);border-radius:0}
 
 /* ─── GLASS LEVELS ─── */
 .glass-1{
-  background:rgba(4,8,18,0.82);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:rgba(4,8,18,0.55);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
   border:1px solid rgba(255,255,255,0.09);
 }
 .glass-2{
-  background:rgba(255,255,255,0.07);
-  backdrop-filter:var(--blur-md);-webkit-backdrop-filter:var(--blur-md);
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
   border:1px solid rgba(255,255,255,0.13);
   border-radius:16px;
   box-shadow:0 8px 32px rgba(0,0,0,0.5),0 1px 0 rgba(255,255,255,0.08) inset,0 -1px 0 rgba(0,0,0,0.4) inset;
@@ -1029,8 +1029,8 @@ section{padding:clamp(60px,10vw,120px) 0;position:relative;z-index:2;isolation:a
   box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px var(--glow-indigo),0 1px 0 rgba(255,255,255,0.12) inset;
 }
 .glass-3{
-  background:rgba(255,255,255,0.07);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
   border:1px solid rgba(255,255,255,0.11);
   border-radius:6px;
   transition:background .25s cubic-bezier(.16,1,.3,1),border-color .25s cubic-bezier(.16,1,.3,1),box-shadow .25s cubic-bezier(.16,1,.3,1),transform .25s cubic-bezier(.16,1,.3,1);
