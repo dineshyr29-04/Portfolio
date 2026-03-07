@@ -135,11 +135,11 @@ const PROJECTS = [
 
 const EXP_ITEMS = [
   {
-    period: "2022 — Present",
-    company: "Tech Company",
-    role: "AI/ML Engineer",
-    desc: "Architected and deployed production LLM pipelines processing 2M+ daily requests. Led fine-tuning initiatives for domain-specific applications and built internal MLOps tooling adopted across 4 teams.",
-    tags: ["LLM", "PyTorch", "MLOps", "AWS", "Python"],
+    period: "2025 — Present",
+    company: "Cardio Nerve",
+    role: "Full-Stack Developer",
+    desc: "An AI-driven cardiovascular intelligence platform that analyzes real-time heart rate and HRV data from PPG sensors to generate predictive cardiac risk scores. Designed a clinical dashboard for early detection, risk stratification, and preventive decision support.Architected and deployed production LLM pipelines processing 2M+ daily requests. Led fine-tuning initiatives for domain-specific applications and built internal MLOps tooling adopted across 4 teams.",
+    tags: ["Express.js", "PyTorch", "MLOps", "Python"],
   },
   {
     period: "2020 — 2022",
@@ -495,8 +495,8 @@ export default function App() {
               {"// AI · ML · LLM · MLOps · Production Systems"}
             </p>
             <p className="hero-bio">
-              I design and deploy production ML systems — from model
-              architecture to inference pipelines — with a focus on reliability,
+              I design and deploy production Full-Stack and Web systems — from model
+              architecture to inference pipelines and a clean UI — with a focus on reliability,
               efficiency, and real-world impact.
             </p>
             <div className="hero-ctas">
@@ -565,7 +565,7 @@ export default function App() {
             </div>
 
             <div className="pg-footer glass-1">
-              <span className="pg-hint">Ctrl+Enter to run</span>
+              <span className="pg-hint">Ctrl + Enter to run</span>
               <button
                 type="button"
                 className="pg-run"
@@ -612,11 +612,11 @@ export default function App() {
           <h2 className="sec-h rv d1">
             Precision-driven
             <br />
-            ML engineer.
+            Full-Stack Developer.
           </h2>
           <p className="about-p rv d1">
-            I'm Dinesh A — an AI/ML Engineer focused on building
-            production-grade machine learning systems that deliver real-world
+            I'm Dinesh A — an AI/ML Engineer and a Full-Stack Developer focused on building
+            production-grade machine learning systems and Web applications that deliver real-world
             impact. My work spans the full ML stack: from research and
             architecture design to deployment and monitoring at scale.
           </p>
@@ -641,9 +641,9 @@ export default function App() {
           </a>
           <div className="stats-row">
             {[
-              { n: "3+", l: "Years Exp" },
-              { n: "15+", l: "Projects" },
-              { n: "8+", l: "Models Deployed" },
+              { n: "2+", l: "Years Exp" },
+              { n: "5+", l: "Projects" },
+              { n: "3+", l: "Models Deployed" },
             ].map((s, i) => (
               <div
                 key={s.l}
@@ -853,7 +853,7 @@ export default function App() {
               <a href="https://github.com/dineshyr29-04" target="_blank" rel="noopener noreferrer" className="soc-btn glass-3" aria-label="GitHub">
                 ↗ GitHub
               </a>
-              <a href="#" className="soc-btn glass-3" aria-label="Resume">
+              <a href="" className="soc-btn glass-3" aria-label="Resume">
                 ↓ Resume
               </a>
             </div>
