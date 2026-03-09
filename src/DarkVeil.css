@@ -8,7 +8,7 @@
   z-index: 0;              /* sits above body bg, below page content */
   pointer-events: none;
   overflow: hidden;
-  background: #2a2d3400;     /* dark base shown before WebGL boots & visible through transparent areas */
+  background: #060c1a;       /* dark base shown before WebGL boots & visible through transparent areas */
 }
 
 .darkveil-canvas {
