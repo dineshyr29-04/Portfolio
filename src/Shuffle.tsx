@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useRef, useMemo } from 'react';
 import type { ElementType } from 'react';
 import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // Register once at module level — safe to call multiple times
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 type ShuffleProps = {
   text: string;
@@ -44,84 +45,74 @@ const Shuffle: React.FC<ShuffleProps> = ({
 }) => {
   const containerRef = useRef<HTMLElement | null>(null);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
-  const stRef = useRef<ScrollTrigger | null>(null);
-  const hoverFn = useRef<(() => void) | null>(null);
 
   // Chars rendered as React elements — React owns the DOM, GSAP just animates
   const tokens = useMemo(() => tokenise(text), [text]);
 
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
+  useGSAP(
+    () => {
+      const el = containerRef.current;
+      if (!el) return;
 
-    const spans = Array.from(el.querySelectorAll<HTMLElement>('.shf-c'));
-    if (!spans.length) return;
+      const spans = gsap.utils.toArray<HTMLElement>('.shf-c', el);
+      if (!spans.length) return;
 
-    // Set hidden starting state
-    gsap.set(spans, { y: 20, opacity: 0, force3D: true });
+      // Set hidden starting state
+      gsap.set(spans, { y: 20, opacity: 0, force3D: true });
 
-    const play = () => {
-      tlRef.current?.kill();
-      tlRef.current = gsap.timeline().to(spans, {
-        y: 0,
-        opacity: 1,
-        duration,
-        ease,
-        stagger: { each: stagger, from: 'start' },
-        force3D: true,
-        clearProps: 'transform',
-      });
-    };
-
-    if (immediate) {
-      // Hero: play after first paint
-      const id = window.setTimeout(play, 80);
-      return () => window.clearTimeout(id);
-    }
-
-    // Check if already in viewport at mount — fire immediately if so
-    const rect = el.getBoundingClientRect();
-    const alreadyVisible = rect.top < window.innerHeight * 0.9;
-
-    if (alreadyVisible) {
-      const id = window.setTimeout(play, 80);
-      // Still wire hover retrigger
-      if (triggerOnHover) {
-        hoverFn.current = play;
-        el.addEventListener('mouseenter', hoverFn.current);
-      }
-      return () => {
-        window.clearTimeout(id);
+      const play = () => {
         tlRef.current?.kill();
-        if (hoverFn.current) el.removeEventListener('mouseenter', hoverFn.current);
+        tlRef.current = gsap.timeline().to(spans, {
+          y: 0,
+          opacity: 1,
+          duration,
+          ease,
+          stagger: { each: stagger, from: 'start' },
+          force3D: true,
+          clearProps: 'transform',
+        });
       };
+
+      if (immediate) {
+        // Hero: play after first paint via GSAP's own scheduler
+        gsap.delayedCall(0.08, play);
+        if (triggerOnHover) {
+          el.addEventListener('mouseenter', play);
+          return () => el.removeEventListener('mouseenter', play);
+        }
+        return;
+      }
+
+      // Check if already in viewport at mount — fire immediately if so
+      const rect = el.getBoundingClientRect();
+      const alreadyVisible = rect.top < window.innerHeight * 0.9;
+
+      if (alreadyVisible) {
+        gsap.delayedCall(0.08, play);
+      } else {
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 90%',
+          once: triggerOnce,
+          onEnter: play,
+        });
+      }
+
+      if (triggerOnHover) {
+        el.addEventListener('mouseenter', play);
+        return () => el.removeEventListener('mouseenter', play);
+      }
+    },
+    {
+      scope: containerRef,
+      dependencies: [text, duration, stagger, ease, triggerOnce, triggerOnHover, immediate],
     }
+  );
 
-    // Element is off-screen — use ScrollTrigger
-    stRef.current = ScrollTrigger.create({
-      trigger: el,
-      start: 'top 90%',
-      once: triggerOnce,
-      onEnter: play,
-    });
-
-    if (triggerOnHover) {
-      hoverFn.current = play;
-      el.addEventListener('mouseenter', hoverFn.current);
-    }
-
-    return () => {
-      stRef.current?.kill();
-      tlRef.current?.kill();
-      if (hoverFn.current) el.removeEventListener('mouseenter', hoverFn.current);
-    };
-  // Re-run when these props change
-  }, [text, duration, stagger, ease, triggerOnce, triggerOnHover, immediate]);
-
-  const Tag = tag as any;
+  const Tag = tag as ElementType;
   return (
     <Tag
-      ref={(n: any) => { containerRef.current = n; }}
+      ref={containerRef as React.RefObject<HTMLElement>}
       className={`shf-parent ${className}`}
       style={style}
       aria-label={text}
