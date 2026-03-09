@@ -1,9 +1,9 @@
 /* ─── RESET ─── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  /* slightly lighter dark background for better depth while staying dark */
-  --void:rgba(255,255,255,0.11);
-  --deep:#071827;
+  /* true dark base — the WebGL veil lives on top of this */
+  --void:#060c1a;
+  --deep:#060c1a;
   --glass-bg:rgba(255,255,255,0.07);
   --glass-bg-h:rgba(255,255,255,0.11);
   --glass-border:rgba(255,255,255,0.13);
@@ -39,7 +39,7 @@ html{
   -webkit-text-size-adjust:100%;
 }
 body{
-  background:var(--void);color:var(--text);
+  background:#060c1a;color:var(--text);
   font-family:'Outfit',sans-serif;font-weight:400;
   line-height:1.7;overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
@@ -52,60 +52,68 @@ body{
 ::selection{background:var(--accent);color:#fff}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--void)}
-::-webkit-scrollbar-thumb{background:rgba(244, 7, 7, 0.1);border-radius:4px}
+::-webkit-scrollbar-thumb{background:rgba(99,102,241,0.35);border-radius:4px}
 
 /* DarkVeil canvas replaces mesh-bg — see DarkVeil.css */
 .bg-portal{
   position:fixed;inset:0;z-index:1;pointer-events:none;opacity:var(--portal-opacity,0);
   transition:opacity var(--anim-dur-med) var(--anim-ease),transform var(--anim-dur-med) var(--anim-ease);
-  background:radial-gradient(600px 400px at 50% 35%, var(--portal-color), transparent 40%);
+  background:radial-gradient(700px 500px at 50% 35%, var(--portal-color), transparent 50%);
   mix-blend-mode:screen;transform:translateZ(0) scale(1);
 }
 .dot-grid{
-  position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.2;
-  background-image:radial-gradient(rgba(49, 44, 44, 0.04) 1px,transparent 1px);
+  position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.12;
+  background-image:radial-gradient(rgba(99,102,241,0.15) 1px,transparent 1px);
   background-size:32px 32px;
 }
 
 /* ─── LAYOUT ─── */
 .wrap{width:100%;margin:0 auto;padding:0 clamp(16px,4vw,48px);position:relative;z-index:3}
 section{padding:clamp(60px,10vw,120px) 0;position:relative;z-index:2;isolation:auto}
-.sec-deep{background:rgba(41, 49, 55, 0);border-radius:0}
+.sec-deep{background:transparent;border-radius:0}
 
 /* ─── GLASS LEVELS ─── */
 .glass-1{
-  background:rgba(4,8,18,0.35);
-  backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
-  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(6,12,26,0.55);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,0.1);
 }
 .glass-2{
-  background:rgba(61, 59, 59, 0.03);
-  backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
-  border:1px solid rgba(255,255,255,0.13);
+  /* frosted glass floating above the veil */
+  background:rgba(10,16,32,0.45);
+  backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border:1px solid rgba(255,255,255,0.14);
   border-radius:16px;
-  box-shadow:0 8px 32px rgba(0,0,0,0.5),0 1px 0 rgba(255,255,255,0.08) inset,0 -1px 0 rgba(0,0,0,0.4) inset;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.55),
+    0 24px 64px rgba(0,0,0,0.35),
+    0 1px 0 rgba(255,255,255,0.1) inset,
+    0 -1px 0 rgba(0,0,0,0.5) inset;
   transition:background .35s cubic-bezier(.16,1,.3,1),border-color .35s cubic-bezier(.16,1,.3,1),box-shadow .35s cubic-bezier(.16,1,.3,1),transform .35s cubic-bezier(.16,1,.3,1);
   will-change:transform;
   transform:translateZ(0);
 }
 .glass-2:hover{
-  background:rgba(255, 255, 255, 0);
-  border-color:rgba(255,255,255,0.18);
-  box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px var(--glow-indigo),0 1px 0 rgba(255,255,255,0.12) inset;
+  background:rgba(14,20,40,0.5);
+  border-color:rgba(255,255,255,0.22);
+  box-shadow:
+    0 24px 72px rgba(0,0,0,0.65),
+    0 0 48px var(--glow-indigo),
+    0 1px 0 rgba(255,255,255,0.15) inset;
 }
 .glass-3{
-  background:rgba(255,255,255,0.03);
-  backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);
-  border:1px solid rgba(255,255,255,0.11);
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.12);
   border-radius:6px;
   transition:background .25s cubic-bezier(.16,1,.3,1),border-color .25s cubic-bezier(.16,1,.3,1),box-shadow .25s cubic-bezier(.16,1,.3,1),transform .25s cubic-bezier(.16,1,.3,1);
   transform:translateZ(0);
 }
 @media(hover:hover){
   .glass-3:hover{
-    background:rgba(99,102,241,0.12);
-    border-color:rgba(99,102,241,0.35);
-    box-shadow:0 0 12px rgba(99,102,241,0.2);
+    background:rgba(99,102,241,0.14);
+    border-color:rgba(99,102,241,0.38);
+    box-shadow:0 0 14px rgba(99,102,241,0.25);
     transform:translateY(-2px);
   }
 }
@@ -621,19 +629,27 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-
 
 /* ─── RESPONSIVE ─── */
 
+/* Wide screens — cap content width nicely */
+@media(min-width:1441px){
+  .wrap{padding:0 clamp(48px,5vw,80px)}
+  .hero-name{font-size:clamp(80px,7vw,110px)}
+}
+
 /* Large tablets / small laptops */
 @media(max-width:1280px){
   .hero-grid{gap:40px}
+  .hero-name{font-size:clamp(48px,7vw,88px)}
 }
 
 /* Tablets landscape */
 @media(max-width:1024px){
-  .hero-grid{grid-template-columns:1fr;gap:36px}
+  .hero-grid{grid-template-columns:1fr;gap:36px;max-width:680px;margin:0 auto}
   .pg{animation:hero-up .7s ease .5s both;max-height:min(480px,60vh)}
   .hero-left{align-items:center;text-align:center}
   .hero-bio{max-width:600px}
   .hero-badge{margin:0 auto}
   .hero-ctas{justify-content:center}
+  section{padding:clamp(48px,8vw,96px) 0}
 }
 
 /* Tablets portrait */
@@ -641,7 +657,8 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-
   .nav-links{display:none}
   .nav-right{display:none}
   .mobile-btn{display:flex}
-  .hero-name{font-size:clamp(36px,10vw,56px)}
+  #nav{padding:12px 0}
+  .hero-name{font-size:clamp(36px,10vw,60px)}
   .hero-role{font-size:13px}
   .about-p{font-size:15.5px}
   .stat-card b{font-size:34px}
@@ -654,8 +671,12 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-
   .pg-editor{font-size:12px}
   .pg-ln{font-size:11px}
   .sec-h{font-size:clamp(26px,5vw,40px)}
-  .hang-item{flex:0 0 clamp(280px,70vw,360px)}
+  .hang-item{flex:0 0 clamp(280px,70vw,380px)}
   .car-arrow{width:36px;height:36px;font-size:20px;margin-top:100px}
+  .ct-panel{padding:clamp(24px,4vw,40px) clamp(16px,4vw,36px)}
+  .ct-sub{font-size:16px}
+  .skills-grid{grid-template-columns:1fr}
+  section{padding:clamp(40px,7vw,80px) 0}
 }
 
 /* Large phones */
@@ -669,23 +690,24 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-
   .stat-card b{font-size:28px}
   .stat-card small{font-size:9px}
   .hero-ctas{flex-direction:column;width:100%}
-  .hero-ctas .btn-glass{justify-content:center}
-  .ct-email{font-size:14px;padding:12px 20px}
+  .hero-ctas .btn-glass{justify-content:center;width:100%}
+  .ct-email{font-size:14px;padding:12px 20px;width:100%;justify-content:center}
   .ct-socials{flex-direction:column;align-items:stretch}
   .ct-socials .soc-btn{justify-content:center}
   .pg-tabs{gap:2px}
   .pg-tab{font-size:10px;padding:3px 8px}
+  .hang-thread{height:40px}
 }
 
 /* Phones */
 @media(max-width:480px){
-  .hero-name{font-size:clamp(34px,12vw,48px)}
+  .hero-name{font-size:clamp(34px,12vw,50px)}
   .hero-badge{font-size:11px;padding:6px 12px}
   .hero-bio{font-size:14.5px}
   .label{font-size:11px}
   .hang-item{flex:0 0 90vw}
   .hang-track{gap:14px;padding:0 10px 16px}
-  .hang-branches{gap:6px}
+  .hang-branches{gap:6px;padding:0 4px}
   .branch-wire{height:18px}
   .ct-h{font-size:clamp(26px,7vw,36px)}
   .ct-sub{font-size:15px}
@@ -697,16 +719,23 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-
   .ei-role{font-size:10px}
   .tl{padding-left:26px}
   .ei-dot{left:-26px;width:8px;height:8px}
+  #nav{padding:10px 0}
+  footer p{font-size:11px}
+  .sec-h{font-size:clamp(22px,7vw,34px);margin-bottom:20px}
+  section{padding:clamp(36px,6vw,64px) 0}
 }
 
 /* Small phones */
 @media(max-width:360px){
-  .hero-name{font-size:clamp(30px,11vw,40px)}
+  .hero-name{font-size:clamp(28px,11vw,40px)}
   .stats-row{grid-template-columns:1fr 1fr 1fr;gap:6px}
-  .stat-card b{font-size:24px}
+  .stat-card{padding:14px 8px}
+  .stat-card b{font-size:22px}
   .stat-card small{font-size:8px}
-  .sec-h{font-size:clamp(22px,6vw,32px)}
+  .sec-h{font-size:clamp(20px,6vw,28px)}
   .pg{max-height:min(340px,45vh)}
+  .wrap{padding:0 12px}
+  .ei-card{padding:16px 18px}
 }
 
 /* Smooth touch scrolling */
@@ -718,8 +747,18 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-
 @media(hover:none){
   .pc{transform:none!important}
   .hang-item{opacity:1;transform:scale(1);filter:none}
-  .glass-2:hover{box-shadow:0 8px 32px rgba(0,0,0,0.4),0 1px 0 rgba(255,255,255,0.06) inset,0 -1px 0 rgba(0,0,0,0.3) inset}
+  .glass-2:hover{
+    box-shadow:0 8px 32px rgba(0,0,0,0.5),0 1px 0 rgba(255,255,255,0.08) inset,0 -1px 0 rgba(0,0,0,0.4) inset;
+    background:rgba(10,16,32,0.45);
+  }
   .pg-editor{font-size:16px}
+  .btn-glass{min-height:48px}
 }
-/* ─── CONTACT LABEL CENTRE (was inline style) ─── */
-.ct-panel .label{justify-content:center}
+
+/* Landscape phone — fix hero height */
+@media(max-width:768px) and (orientation:landscape) and (max-height:500px){
+  #hero{min-height:auto;padding-top:64px;padding-bottom:32px;align-items:flex-start}
+  .scroll-hint{display:none}
+  .pg{max-height:min(320px,80vh)}
+}
+

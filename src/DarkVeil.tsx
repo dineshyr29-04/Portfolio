@@ -70,10 +70,11 @@ void main(){
     float scanline_val=sin(gl_FragCoord.y*uScanFreq)*0.5+0.5;
     col.rgb*=1.-(scanline_val*scanline_val)*uScan;
     col.rgb += (rand(gl_FragCoord.xy + uTime) - 0.5) * uNoise;
-    // compute luminance and make darker areas more transparent
-    float lum = dot(clamp(col.rgb,0.0,1.0), vec3(0.2126, 0.7152, 0.0722));
-    float alpha = smoothstep(0.15, 0.6, lum) * 0.5;
-    gl_FragColor = vec4(clamp(col.rgb, 0.0, 1.0), alpha);
+    // boost overall brightness, keep full pattern visible
+    col.rgb = pow(clamp(col.rgb, 0.0, 1.0), vec3(0.78)); // gamma lift
+    float lum = dot(col.rgb, vec3(0.2126, 0.7152, 0.0722));
+    float alpha = smoothstep(0.02, 0.38, lum) * 0.92;
+    gl_FragColor = vec4(col.rgb, alpha);
 }
 `;
 
