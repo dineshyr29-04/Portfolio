@@ -1,75 +1,87 @@
-# React + TypeScript + Vite
+<!--- README for Portfolio project -->
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Portfolio
 
-Currently, two official plugins are available:
+A clean, fast React + TypeScript portfolio built with Vite.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Beautiful UI, minimal setup, and focused for quick local development and deployment.
 
-## React Compiler
+---
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Features
 
-Note: This will impact Vite dev & build performances.
+- Modern stack: React + TypeScript + Vite
+- Fast HMR for rapid development
+- Lightweight, component-driven structure (see `src/`)
+- Ready for deployment (build with `vite build`)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Quick Start
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Prerequisites: Node.js (16+) and a package manager (npm, pnpm, or yarn).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. Install dependencies
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+# or
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Run the development server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+3. Open http://localhost:5173 in your browser.
+
+Build for production
+
+```bash
+npm run build
+npm run preview
+```
+
+---
+
+## Project Layout
+
+- `src/` — application source (components, styles, assets)
+- `public/` — static files served as-is
+- `index.html` — app entry HTML
+- `package.json` — scripts and dependencies
+
+Explore the app starting at `src/App.tsx`.
+
+---
+
+## Scripts
+
+- `npm run dev` — start Vite dev server
+- `npm run build` — production build
+- `npm run preview` — locally preview production build
+
+---
+
+## Tips
+
+- Use the browser devtools and React DevTools for component inspection.
+- Commit frequently and keep each change focused.
+
+---
+
+## Contributing
+
+If you'd like to improve this portfolio, open an issue or send a pull request. Small, focused changes are appreciated.
+
+---
+
+## License & Contact
+
+This project is open — feel free to reuse and adapt. If you want feedback or help, open an issue or contact the repository owner.
+
+---
+
+Made with care — enjoy!

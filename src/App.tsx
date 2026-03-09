@@ -8,28 +8,11 @@ import DarkVeil from './DarkVeil';
    ═══════════════════════════════════════════════════════════════ */
 const CODE_TABS: Record<string, { code: string; output: string[] }> = {
   Python: {
-    code: `import torch
-import torch.nn as nn
-
-class TransformerBlock(nn.Module):
-    def __init__(self, d=512, h=8):
-        super().__init__()
-        self.attn = nn.MultiheadAttention(d, h)
-        self.norm = nn.LayerNorm(d)
-        self.ff = nn.Sequential(
-            nn.Linear(d, d*4), nn.GELU(),
-            nn.Linear(d*4, d)
-        )
-
-    def forward(self, x):
-        x = self.norm(x + self.attn(x,x,x)[0])
-        return self.norm(x + self.ff(x))
-
-model = TransformerBlock(512, 8)
-params = sum(p.numel() for p in model.parameters())
-print(f"Parameters: {params:,}")
-print(f"Architecture: Transformer (d=512, h=8)")
-print(f"Status: Ready for training ✓")`,
+    code: `import technology as tech
+    import innovation as inn
+    print("NAME: Dinesh A"
+    print("Role: AI/ML Enginneer and Full-Stack Developer")
+    print("Focus: Building production level Full Stack and Web devs and learning about systems of ML and architechures))`,
     output: [
       "Parameters: 4,722,176",
       "Architecture: Transformer (d=512, h=8)",
