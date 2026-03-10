@@ -68,7 +68,7 @@ body{
 }
 
 /* ─── LAYOUT ─── */
-.wrap{width:100%;margin:0 auto;padding:0 clamp(16px,4vw,48px);position:relative;z-index:3}
+.wrap{width:100vw;min-width:100vw;margin:0;padding:0;position:relative;z-index:3}
 /* sections sit as dark glass panels — veil shows through the uniform tint */
 section{
   padding:clamp(60px,10vw,120px) 0;
@@ -218,9 +218,8 @@ section{
   text-shadow:0 0 80px rgba(99,102,241,0.3);
   /* animation handled by Shuffle chars (GSAP) */
   animation:none;
-  display:flex;align-items:baseline;gap:0.15em;flex-wrap:wrap;
-  word-break:break-word;
-  
+  display:flex;align-items:center;gap:0.15em;flex-wrap:nowrap;
+  white-space:nowrap;overflow-wrap:normal;word-break:normal;hyphens:none;
 }
 .hero-role{
   font-family:'JetBrains Mono',monospace;font-size:15px;
@@ -235,6 +234,15 @@ section{
 .hero-ctas{
   display:flex;gap:12px;flex-wrap:wrap;
   animation:hero-up .6s ease .7s both;
+}
+
+/* Responsive: stack hero into single column on small screens */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:clamp(20px,6vw,36px)}
+  .hero-left{align-items:center;text-align:center}
+  .hero-name{justify-content:center}
+  .hero-bio{max-width:90%;margin-left:auto;margin-right:auto}
+  .hero-ctas{justify-content:center}
 }
 .btn-glass{
   display:inline-flex;align-items:center;gap:8px;
