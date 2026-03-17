@@ -3,8 +3,8 @@ import Shuffle from './Shuffle';
 import './Shuffle.css';
 import DarkVeil from './DarkVeil';
 import './App.css';
-import FloatingImage from './components/FloatingImage';
-import floatImg from './assets/DA (1).png';
+
+
 
 /* ═══════════════════════════════════════════════════════════════
    PLAYGROUND CODE TABS
@@ -447,13 +447,7 @@ export default function App() {
       <div className="bg-portal" aria-hidden="true" />
       <div className="dot-grid" aria-hidden="true" />
 
-      <FloatingImage
-        src={floatImg}
-        size={140}
-        startSelector="#hero"
-        targetSelectors={["#about", "#projects", "#contact"]}
-      />
-
+      
       {/* ══ NAV ══ */}
       <nav id="nav" role="navigation">
         <div className="wrap nav-row">
