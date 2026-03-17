@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   src: string;
@@ -27,12 +27,14 @@ export default function FloatingImage({
     if (reduced) return;
     const img = imgRef.current;
     if (!img) return;
+    const imgEl = img;
 
     const startEl = document.querySelector(startSelector) as HTMLElement | null;
     const targets = targetSelectors
       .map((s) => document.querySelector(s) as HTMLElement | null)
       .filter(Boolean) as HTMLElement[];
     if (!startEl || targets.length === 0) return;
+    const startElEl = startEl;
 
     const svgNS = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(svgNS, "svg");
@@ -65,7 +67,7 @@ export default function FloatingImage({
         targets.find((t) => t.getBoundingClientRect().top + window.scrollY - 10 > scrollY) ??
         targets[targets.length - 1];
 
-      const startRect = startEl.getBoundingClientRect();
+      const startRect = startElEl.getBoundingClientRect();
       const startX = startRect.left + startRect.width * 0.6 + window.scrollX;
       const startY = startRect.top + startRect.height * 0.6 + window.scrollY;
 
@@ -83,8 +85,8 @@ export default function FloatingImage({
 
       const point = path.getPointAtLength(total * progress);
 
-      img.style.transform = `translate(${point.x - window.scrollX}px, ${point.y - window.scrollY}px) translate(-50%,-50%) scale(${1 - 0.12 * progress})`;
-      img.style.opacity = `${0.9 - 0.4 * progress}`;
+      imgEl.style.transform = `translate(${point.x - window.scrollX}px, ${point.y - window.scrollY}px) translate(-50%,-50%) scale(${1 - 0.12 * progress})`;
+      imgEl.style.opacity = `${0.9 - 0.4 * progress}`;
 
       raf = requestAnimationFrame(update);
     }

@@ -683,6 +683,8 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-
   .nav-right{display:none}
   .mobile-btn{display:flex}
   #nav{padding:12px 0}
+  /* Add horizontal padding for mobile for a cleaner, professional layout */
+  .wrap{padding:0 16px}
   .hero-name{font-size:clamp(36px,10vw,60px)}
   .hero-role{font-size:13px}
   .about-p{font-size:15.5px}
