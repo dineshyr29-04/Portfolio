@@ -38,6 +38,11 @@ html{
   scroll-padding-top:72px;
   -webkit-text-size-adjust:100%;
 }
+/* Prevent unexpected horizontal overflow on small devices */
+html, body, #root { overflow-x: hidden; }
+
+/* Ensure media elements scale within their containers */
+img, svg, canvas, video { max-width: 100%; height: auto; display: block; }
 body{
   background:#050913;color:var(--text);
   font-family:'Outfit',sans-serif;font-weight:400;
