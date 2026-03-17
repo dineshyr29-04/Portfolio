@@ -68,7 +68,7 @@ body{
 }
 
 /* ─── LAYOUT ─── */
-.wrap{width:100vw;min-width:100vw;margin:0;padding:0;position:relative;z-index:3}
+.wrap{width:100%;max-width:100%;margin:0 auto;padding:0;position:relative;z-index:3}
 /* sections sit as dark glass panels — veil shows through the uniform tint */
 section{
   padding:clamp(60px,10vw,120px) 0;
