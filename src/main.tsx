@@ -12,11 +12,18 @@ createRoot(document.getElementById('root')!).render(
 
 // Initialize Lenis for smoother, native-feeling scrolling on all devices
 const lenis = new (Lenis as any)({
-  duration: 1.2,
-  easing: (t: number) => Math.min(1, 1 - Math.pow(1 - t, 3)),
+  duration: 1.4,
+  easing: (t: number) => 1 - Math.pow(1 - t, 3),
   smoothTouch: true,
-  lerp: 0.08,
+  lerp: 0.06,
+  touchMultiplier: 1,
 })
+
+// Expose Lenis globally so app code can use `window.lenis.scrollTo(...)` for anchor clicks
+;(window as any).lenis = lenis
+
+// Disable native smooth scrolling to avoid conflicting behavior
+document.documentElement.style.scrollBehavior = 'auto'
 
 function raf(time: number) {
   lenis.raf(time)

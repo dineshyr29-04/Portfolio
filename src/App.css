@@ -34,7 +34,8 @@
 }
 .spana{color:var(--accent)}
 html{
-  scroll-behavior:smooth;font-size:16px;
+  /* disable native smooth scrolling so Lenis controls scroll for consistent smoothing */
+  scroll-behavior:auto;font-size:16px;
   scroll-padding-top:72px;
   -webkit-text-size-adjust:100%;
 }

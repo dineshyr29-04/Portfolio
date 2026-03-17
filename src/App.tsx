@@ -383,7 +383,13 @@ export default function App() {
 
   const scrollTo = useCallback((e: React.MouseEvent, id: string) => {
     e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const el = document.getElementById(id);
+    const win: any = window as any;
+    if (win.lenis && el) {
+      win.lenis.scrollTo(el, { offset: -72 });
+    } else {
+      el?.scrollIntoView({ behavior: "smooth" });
+    }
     setMenuOpen(false);
   }, []);
 
@@ -456,7 +462,12 @@ export default function App() {
             className="logo"
             onClick={(e) => {
               e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
+              const win: any = window as any;
+              if (win.lenis) {
+                win.lenis.scrollTo(0);
+              } else {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
             }}
           >
             D<em>.</em>A
