@@ -782,3 +782,17 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-
   .pg{max-height:min(320px,80vh)}
 }
 
+/* Floating image (scroll-driven motion path) */
+.floating-img{
+  width:120px;height:120px;border-radius:14px;object-fit:cover;
+  box-shadow:0 12px 36px rgba(0,0,0,0.6),0 0 28px rgba(99,102,241,0.12);
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));
+  -webkit-tap-highlight-color:transparent;
+}
+@media (max-width: 768px){
+  .floating-img{ width:88px; height:88px; top:22% }
+}
+@media (prefers-reduced-motion: reduce){
+  .floating-img{ transition:none !important }
+}
+
