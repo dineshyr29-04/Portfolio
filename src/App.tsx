@@ -443,40 +443,20 @@ export default function App() {
     const track = trackRef.current;
     if (!track) return;
 
-    let rafId: number;
-    let isHovering = false;
-    let scrollPos = 0;
-    const scrollSpeed = 0.6; // pixels per frame
-    const maxScroll = track.scrollWidth - track.clientWidth;
-
-    const animate = () => {
-      if (!isHovering) {
-        scrollPos += scrollSpeed;
-        if (scrollPos >= maxScroll) {
-          scrollPos = 0; // Reset for infinite loop
-        }
-        track.scrollLeft = scrollPos;
-      }
-      rafId = requestAnimationFrame(animate);
-    };
-
     const handleMouseEnter = () => {
-      isHovering = true;
+      track.style.animationPlayState = "paused";
     };
 
     const handleMouseLeave = () => {
-      isHovering = false;
+      track.style.animationPlayState = "running";
     };
 
     track.addEventListener("mouseenter", handleMouseEnter);
     track.addEventListener("mouseleave", handleMouseLeave);
-    
-    rafId = requestAnimationFrame(animate);
 
     return () => {
       track.removeEventListener("mouseenter", handleMouseEnter);
       track.removeEventListener("mouseleave", handleMouseLeave);
-      cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -789,7 +769,8 @@ export default function App() {
             </button>
 
             <div className="hang-track" ref={trackRef}>
-              {PROJECTS.map((p, i) => (
+              {/* Render projects twice for seamless infinite loop */}
+              {[...PROJECTS, ...PROJECTS].map((p, i) => (
                 <div
                   key={p.title}
                   className={`hang-item${carIdx === i ? " active" : ""}`}

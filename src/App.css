@@ -430,26 +430,34 @@ section{
   display:flex;gap:32px;overflow-x:auto;scroll-snap-type:x mandatory;
   padding:0 24px 24px;flex:1;scrollbar-width:none;
   -webkit-overflow-scrolling:touch;
-  scroll-behavior:smooth;
-  transition:scroll-behavior .3s ease;
-}
-.hang-track:hover{
-  scroll-behavior:auto;
+  animation:carousel-drift 45s linear infinite;
+  animation-play-state:running;
+  will-change:transform;
 }
 .hang-track::-webkit-scrollbar{display:none}
+
+@keyframes carousel-drift{
+  0%{
+    transform:translateX(0);
+  }
+  100%{
+    transform:translateX(-50%);
+  }
+}
 
 /* Each hanging item */
 .hang-item{
   flex:0 0 clamp(300px,40vw,420px);scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;
-  opacity:.55;transform:scale(.94);filter:blur(0.6px);
-  transition:opacity .4s cubic-bezier(.22,1,.36,1),transform .4s cubic-bezier(.22,1,.36,1),filter .3s cubic-bezier(.22,1,.36,1);
+  opacity:.6;transform:scale(.92);filter:blur(0.5px);
+  transition:opacity .35s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1),filter .3s cubic-bezier(.22,1,.36,1);
 }
 .hang-item.active{
   opacity:1;transform:scale(1);filter:blur(0px);
 }
 .hang-item:hover{
-  opacity:1;transform:scale(1.02);filter:blur(0px);
-  transition:all .3s cubic-bezier(.22,1,.36,1);
+  opacity:1;transform:scale(1.05);filter:blur(0px);
+  z-index:10;
+  transition:all .25s cubic-bezier(.22,1,.36,1);
 }
 
 /* Thread from rail to card */
@@ -478,21 +486,21 @@ section{
 /* Project card (inside carousel) */
 .pc{
   position:relative;overflow:hidden;border-radius:16px;width:100%;
-  transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1),border-color .35s cubic-bezier(.16,1,.3,1),filter .35s cubic-bezier(.16,1,.3,1);
-  will-change:transform,box-shadow,filter;
+  transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .4s cubic-bezier(.16,1,.3,1),border-color .3s cubic-bezier(.16,1,.3,1),filter .3s cubic-bezier(.16,1,.3,1);
+  will-change:transform,box-shadow,filter,opacity;
   filter:drop-shadow(0 8px 32px rgba(0,0,0,0.3));
   cursor:pointer;
 }
 .pc:hover{
   border-color:var(--glass-border-h);
-  box-shadow:0 40px 100px rgba(99,102,241,0.25),0 0 50px var(--glow-indigo),0 0 80px rgba(139,92,246,0.3),0 1px 0 rgba(255,255,255,0.1) inset;
-  transform:translateY(-12px) scale(1.03);
-  filter:drop-shadow(0 24px 60px rgba(99,102,241,0.5));
+  box-shadow:0 48px 120px rgba(99,102,241,0.3),0 0 60px var(--glow-indigo),0 0 100px rgba(139,92,246,0.35),0 1px 0 rgba(255,255,255,0.1) inset;
+  transform:translateY(-16px) scale(1.04) perspective(1000px) rotateX(2deg);
+  filter:drop-shadow(0 28px 72px rgba(99,102,241,0.6));
 }
-.pc:hover .pc-scan{animation:scan-sweep 1.2s ease forwards}
+.pc:hover .pc-scan{animation:scan-sweep 1s ease forwards}
 .pc:hover .pc-title{
   color:var(--accent);
-  text-shadow:0 0 20px rgba(99,102,241,0.6),0 0 40px rgba(99,102,241,0.3);
+  text-shadow:0 0 24px rgba(99,102,241,0.8),0 0 48px rgba(99,102,241,0.4);
 }
 
 .pc-spot{
