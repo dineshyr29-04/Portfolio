@@ -454,13 +454,8 @@ export default function App() {
     <>
       {isLoading && <PortfolioSkeleton />}
       
-      <div style={{ 
-        opacity: isLoading ? 0 : 1, 
-        visibility: isLoading ? 'hidden' : 'visible',
-        transition: 'opacity 0.5s ease-in-out',
-        height: isLoading ? '100vh' : 'auto',
-        overflow: isLoading ? 'hidden' : 'visible'
-      }}>
+      {!isLoading && (
+        <>
         {/* WebGL animated background */}
       <DarkVeil
         hueShift={220}
@@ -940,7 +935,8 @@ export default function App() {
           </p>
         </div>
       </footer>
-      </div>
+      </>
+      )}
     </>
   );
 }
