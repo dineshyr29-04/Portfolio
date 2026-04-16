@@ -528,12 +528,6 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Mobile overlay */}
-      <div
-        className={`mobile-overlay${menuOpen ? " open" : ""}`}
-        onClick={() => setMenuOpen(false)}
-      />
-
       {/* Mobile drawer */}
       <div className={`mobile-drawer${menuOpen ? " open" : ""}`}>
         {NAV_ITEMS.map(([id, label]) => (
@@ -759,21 +753,14 @@ export default function App() {
 
           {/* Carousel wrapper */}
           <div className="hang-carousel">
-            <button
-              className="car-arrow car-prev"
-              onClick={() => scrollCarousel(-1)}
-              disabled={carIdx === 0}
-              aria-label="Previous project"
-            >
-              ‹
-            </button>
-
-            <div className="hang-track" ref={trackRef}>
-              {/* Render projects twice for seamless infinite loop */}
-              {[...PROJECTS, ...PROJECTS].map((p, i) => (
+            <div className="hang-track full-carousel" ref={trackRef}>
+              {/* Render projects three times for seamless infinite loop with no blank space */}
+              {[...PROJECTS, ...PROJECTS, ...PROJECTS].map((p, i) => (
                 <div
-                  key={p.title}
-                  className={`hang-item${carIdx === i ? " active" : ""}`}
+                  key={p.title + '-' + (i % PROJECTS.length) + '-' + Math.floor(i / PROJECTS.length)}
+                  className={`hang-item`}
+                  onMouseMove={handleCardMouse}
+                  onMouseLeave={handleCardLeave}
                 >
                   {/* Thread from rail to card */}
                   <div className="hang-thread">
@@ -784,20 +771,13 @@ export default function App() {
                   <div
                     className="pc glass-2"
                     data-i={i}
-                    onMouseMove={handleCardMouse}
-                    onMouseLeave={handleCardLeave}
-                    onClick={() => setCarIdx(i)}
-                    role="button"
                     tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") setCarIdx(i);
-                    }}
                   >
                     <div className="pc-spot" />
                     <div className="pc-scan" /> 
                     <div className="pc-content">
                       <span className="pc-num">
-                        {String(i + 1).padStart(2, "0")} ——
+                        {String((i % PROJECTS.length) + 1).padStart(2, "0")}  14 14
                       </span>
                       <span
                         className="pc-type glass-3"
@@ -828,14 +808,7 @@ export default function App() {
               ))}
             </div>
 
-            <button
-              className="car-arrow car-next"
-              onClick={() => scrollCarousel(1)}
-              disabled={carIdx === PROJECTS.length - 1}
-              aria-label="Next project"
-            >
-              ›
-            </button>
+
           </div>
 
           {/* Dot indicators */}
