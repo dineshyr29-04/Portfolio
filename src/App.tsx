@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Shuffle from './Shuffle';
 import './Shuffle.css';
 import DarkVeil from './DarkVeil';
-import { PortfolioSkeleton } from './components/Skeleton';
 import './App.css';
 
 
@@ -197,7 +196,6 @@ function simulateCode(code: string, lang: string): string[] {
    APP
    ═══════════════════════════════════════════════════════════════ */
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"Python" | "Bash">("Python");
@@ -213,15 +211,6 @@ export default function App() {
   const timerRef = useRef<number>(0);
   const autoRan = useRef(false);
   const trackRef = useRef<HTMLDivElement>(null);
-
-  /* ── Loader simulate ── */
-  useEffect(() => {
-    // Artificial delay to show the skeleton loader
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, []);
 
   /* ── Active section via scroll ── */
   useEffect(() => {
@@ -452,11 +441,7 @@ export default function App() {
   /* ════════════════════════ RENDER ════════════════════════ */
   return (
     <>
-      {isLoading && <PortfolioSkeleton />}
-      
-      {!isLoading && (
-        <>
-        {/* WebGL animated background */}
+      {/* WebGL animated background */}
       <DarkVeil
         hueShift={220}
         noiseIntensity={0}
@@ -543,7 +528,7 @@ export default function App() {
 
       {/* ══ HERO ══ */}
       <section id="hero">
-        <div className="wrap hero-grid">
+        <div className="wrap hero-grid rv">
           {/* Left */}
           <div className="hero-left">
             <span className="hero-badge">✦ Open to Web development roles</span>
@@ -719,7 +704,7 @@ export default function App() {
       {/* ══ SKILLS ══ */}
       <section id="skills">
         <div className="wrap">
-          <div className="label rv">// 02 — SKILLS</div>
+          <div className="label rv d1">// 02 — SKILLS</div>
           <Shuffle tag="h2" className="sec-h" text={"Technical Expertise"} duration={0.5} stagger={0.025} />
           <div className="skills-grid">
             {SKILL_GROUPS.map(([title, tags], gi) => (
@@ -847,7 +832,7 @@ export default function App() {
       {/* ══ EXPERIENCE ══ */}
       <section id="experience">
         <div className="wrap">
-          <div className="label rv">// 04 — EXPERIENCE</div>
+          <div className="label rv d1">// 04 — EXPERIENCE</div>
           <Shuffle tag="h2" className="sec-h" text={"Career Timeline"} duration={0.5} stagger={0.025} />
           <div className="tl">
             <div className="tl-line" />
@@ -879,7 +864,7 @@ export default function App() {
       <section id="contact" className="sec-deep">
         <div className="wrap ct-wrap">
           <div className="ct-glow" />
-          <div className="ct-panel glass-2 rv">
+          <div className="ct-panel glass-2 rv d1">
             <div className="label">
               // 05 — CONTACT
             </div>
@@ -889,7 +874,7 @@ export default function App() {
               <em>something real.</em>
             </h2>
             <p className="ct-sub">
-              Open to senior ML engineering roles, research collaborations, and
+              Open to junior frontend engineering roles, research collaborations, and
               high-impact projects. I respond within 24 hours.
             </p>
             <a href="mailto:dineshyr2904@gmail.com" className="ct-email">
@@ -935,8 +920,6 @@ export default function App() {
           </p>
         </div>
       </footer>
-      </>
-      )}
     </>
   );
 }
