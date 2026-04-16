@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+
 import Shuffle from './Shuffle';
 import './Shuffle.css';
 import DarkVeil from './DarkVeil';
 import './App.css';
+import projectPhoto from './assets/DA (1).png';
 
 
 
@@ -191,7 +193,7 @@ export default function App() {
   );
   const [outputLines, setOutputLines] = useState<string[]>([]);
   const [outputDone, setOutputDone] = useState(false);
-  const [carIdx, setCarIdx] = useState(0);
+  // Removed unused: carIdx, setCarIdx
 
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const lnumsRef = useRef<HTMLDivElement>(null);
@@ -380,50 +382,11 @@ export default function App() {
     setMenuOpen(false);
   }, []);
 
-  /* ── Project card 3D tilt + spotlight ── */
-  const handleCardMouse = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      const card = e.currentTarget;
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
-      const rotateX = ((y - cy) / cy) * -8;
-      const rotateY = ((x - cx) / cx) * 8;
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(12px)`;
-      card.style.setProperty("--spot-x", `${x}px`);
-      card.style.setProperty("--spot-y", `${y}px`);
-    },
-    []
-  );
 
-  const handleCardLeave = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      e.currentTarget.style.transform = "";
-    },
-    []
-  );
+  // Removed unused: handleCardMouse, handleCardLeave, scrollCarousel
 
-  /* ── Carousel navigation ── */
-  const scrollCarousel = useCallback((dir: -1 | 1) => {
-    setCarIdx((prev) => {
-      const next = prev + dir;
-      if (next < 0 || next >= PROJECTS.length) return prev;
-      return next;
-    });
-  }, []);
 
-  useEffect(() => {
-    if (!trackRef.current) return;
-    const card = trackRef.current.children[carIdx] as HTMLElement | undefined;
-    if (card) {
-      trackRef.current.scrollTo({
-        left: card.offsetLeft - trackRef.current.offsetWidth / 2 + card.offsetWidth / 2,
-        behavior: "smooth",
-      });
-    }
-  }, [carIdx]);
+  // Removed useEffect for carIdx scroll sync (no longer needed)
 
   /* ── Auto-scroll carousel with infinite loop ── */
   useEffect(() => {
@@ -479,7 +442,12 @@ export default function App() {
               }
             }}
           >
-            D<em>.</em>A
+            <img
+              src={projectPhoto}
+              alt="Project Logo"
+              className="logo-img"
+              style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover" }}
+            />
           </a>
 
           <ul className="nav-links">
