@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Shuffle from './Shuffle';
 import './Shuffle.css';
 import DarkVeil from './DarkVeil';
+import { PortfolioSkeleton } from './components/Skeleton';
 import './App.css';
 
 
@@ -196,6 +197,7 @@ function simulateCode(code: string, lang: string): string[] {
    APP
    ═══════════════════════════════════════════════════════════════ */
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"Python" | "Bash">("Python");
@@ -211,6 +213,15 @@ export default function App() {
   const timerRef = useRef<number>(0);
   const autoRan = useRef(false);
   const trackRef = useRef<HTMLDivElement>(null);
+
+  /* ── Loader simulate ── */
+  useEffect(() => {
+    // Artificial delay to show the skeleton loader
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   /* ── Active section via scroll ── */
   useEffect(() => {
@@ -441,7 +452,16 @@ export default function App() {
   /* ════════════════════════ RENDER ════════════════════════ */
   return (
     <>
-      {/* WebGL animated background */}
+      {isLoading && <PortfolioSkeleton />}
+      
+      <div style={{ 
+        opacity: isLoading ? 0 : 1, 
+        visibility: isLoading ? 'hidden' : 'visible',
+        transition: 'opacity 0.5s ease-in-out',
+        height: isLoading ? '100vh' : 'auto',
+        overflow: isLoading ? 'hidden' : 'visible'
+      }}>
+        {/* WebGL animated background */}
       <DarkVeil
         hueShift={220}
         noiseIntensity={0}
