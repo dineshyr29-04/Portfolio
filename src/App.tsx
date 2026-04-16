@@ -130,20 +130,7 @@ const EXP_ITEMS = [
     desc: "An AI-driven cardiovascular intelligence platform that analyzes real-time heart rate and HRV data from PPG sensors to generate predictive cardiac risk scores. Designed a clinical dashboard for early detection, risk stratification, and preventive decision support.Architected and deployed production LLM pipelines processing 2M+ daily requests. Led fine-tuning initiatives for domain-specific applications and built internal MLOps tooling adopted across 4 teams.",
     tags: ["Express.js", "PyTorch", "MLOps", "Python"],
   },
-  {
-    period: "2020 — 2022",
-    company: "ML Startup",
-    role: "ML Engineer",
-    desc: "Built recommendation and ranking systems serving real-time inference. Reduced model serving latency 60% through quantization and batching optimizations. Deployed CV models to edge devices.",
-    tags: ["Inference", "TensorFlow", "FastAPI", "Docker"],
-  },
-  {
-    period: "2019 — 2020",
-    company: "Analytics Firm",
-    role: "Junior Data Scientist",
-    desc: "Developed predictive models for customer churn and demand forecasting. Automated data pipelines reducing manual reporting by 80%. Worked directly with product and business stakeholders.",
-    tags: ["Scikit-learn", "SQL", "Python", "Airflow"],
-  },
+  
 ];
 
 /* ═══════════════════════════════════════════════════════════════
@@ -751,79 +738,36 @@ export default function App() {
           {/* Rod / rail */}
           <div className="hang-rail rv d2" />
 
-          {/* Carousel wrapper */}
-          <div className="hang-carousel">
-            <div className="hang-track full-carousel" ref={trackRef}>
-              {/* Render projects enough times for seamless infinite loop with no blank space */}
-              {Array(6).fill(0).flatMap((_, j) =>
-                PROJECTS.map((p, i) => (
-                  <div
-                    key={p.title + '-' + i + '-' + j}
-                    className={`hang-item`}
-                    onMouseMove={handleCardMouse}
-                    onMouseLeave={handleCardLeave}
-                  >
-                    {/* Thread from rail to card */}
-                    <div className="hang-thread">
-                      <div className="hang-knot" />
-                    </div>
 
-                    {/* The card */}
-                    <div
-                      className="pc glass-2"
-                      data-i={i}
-                      tabIndex={0}
-                    >
-                      <div className="pc-spot" />
-                      <div className="pc-scan" /> 
-                      <div className="pc-content">
-                        <span className="pc-num">
-                          {String(i + 1).padStart(2, "0")}  14 14
-                        </span>
-                        <span
-                          className="pc-type glass-3"
-                          style={{ "--tc": p.color } as React.CSSProperties}
-                        >
-                          {p.type}
-                        </span>
-                        <h3 className="pc-title">{p.title}</h3>
-                        <p className="pc-desc">{p.desc}</p>
-                        <div className="pc-metric">{p.metric}</div>
-                      </div>
-                    </div>
-
-                    {/* Threads down to each tech pill */}
-                    <div className="hang-branches">
-                      {p.stack.map((s, si) => (
-                        <div
-                          key={s}
-                          className="branch"
-                          style={{ "--bi": si } as React.CSSProperties}
-                        >
-                          <div className="branch-wire" />
-                          <span className="branch-pill glass-3">{s}</span>
-                        </div>
-                      ))}
-                    </div>
+          {/* Static responsive grid for projects */}
+          <div className="projects-grid">
+            {PROJECTS.map((p, i) => (
+              <div
+                key={p.title}
+                className="project-card glass-2"
+                style={{ '--delay': `${i * 120}ms`, borderTop: `4px solid ${p.color}` } as React.CSSProperties}
+              >
+                <div className="project-card-icon" style={{ background: p.color }}>
+                  <span role="img" aria-label="project icon" style={{ fontSize: 36 }}>
+                    {p.type.startsWith('AI') ? '🤖' : p.type.includes('Vision') ? '🖼️' : p.type.includes('3D') ? '🧊' : '💡'}
+                  </span>
+                </div>
+                <div className="project-card-content">
+                  <h3 className="project-card-title">{p.title}</h3>
+                  <div className="project-card-type">{p.type}</div>
+                  <div className="project-card-desc">{p.desc}</div>
+                  <div className="project-card-metric">{p.metric}</div>
+                  <div className="project-card-stack">
+                    {p.stack.map((s) => (
+                      <span key={s} className="project-card-chip glass-3">{s}</span>
+                    ))}
                   </div>
-                ))
-              )}
-            </div>
-
-
-          </div>
-
-          {/* Dot indicators */}
-          <div className="car-dots rv d3">
-            {PROJECTS.map((_, i) => (
-              <button
-                key={i}
-                className={`car-dot${carIdx === i ? " on" : ""}`}
-                onClick={() => setCarIdx(i)}
-                aria-label={`Go to project ${i + 1}`}
-              />
+                </div>
+              </div>
             ))}
           </div>
+
+
         </div>
       </section>
 
