@@ -438,6 +438,48 @@ export default function App() {
     }
   }, [carIdx]);
 
+  /* ── Auto-scroll carousel with infinite loop ── */
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    let rafId: number;
+    let isHovering = false;
+    let scrollPos = 0;
+    const scrollSpeed = 0.6; // pixels per frame
+    const maxScroll = track.scrollWidth - track.clientWidth;
+
+    const animate = () => {
+      if (!isHovering) {
+        scrollPos += scrollSpeed;
+        if (scrollPos >= maxScroll) {
+          scrollPos = 0; // Reset for infinite loop
+        }
+        track.scrollLeft = scrollPos;
+      }
+      rafId = requestAnimationFrame(animate);
+    };
+
+    const handleMouseEnter = () => {
+      isHovering = true;
+    };
+
+    const handleMouseLeave = () => {
+      isHovering = false;
+    };
+
+    track.addEventListener("mouseenter", handleMouseEnter);
+    track.addEventListener("mouseleave", handleMouseLeave);
+    
+    rafId = requestAnimationFrame(animate);
+
+    return () => {
+      track.removeEventListener("mouseenter", handleMouseEnter);
+      track.removeEventListener("mouseleave", handleMouseLeave);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   /* ════════════════════════ RENDER ════════════════════════ */
   return (
     <>
@@ -915,8 +957,8 @@ export default function App() {
       <footer>
         <div className="wrap">
           <p>
-            Dinesh A &nbsp;·&nbsp; AI/ML Engineer &nbsp;·&nbsp; Built with
-            precision &nbsp;·&nbsp; 2025
+            Dinesh A &nbsp;·&nbsp;Full Stack Developer &nbsp;·&nbsp; AI/ML Engineer &nbsp;·&nbsp; Built with
+            precision &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Designed by Dinesh A
           </p>
         </div>
       </footer>
