@@ -105,9 +105,9 @@ const PROJECTS = [
     stack: ["FastAPI", "Triton", "Kubernetes", "Redis", "Prometheus"],
   },
   {
-    type: "RAG · NLP",
+    type: "3D Model Website",
     color: "var(--accent2)",
-    title: "RAG Knowledge System",
+    title: "OpenLoop",
     desc: "Production RAG pipeline with hybrid semantic + BM25 retrieval, cross-encoder re-ranking, and citation tracking. Powers an internal enterprise Q&A assistant.",
     metric: "89% answer accuracy on domain queries",
     stack: ["LangChain", "Qdrant", "FastAPI", "PostgreSQL", "GPT-4"],
@@ -754,58 +754,60 @@ export default function App() {
           {/* Carousel wrapper */}
           <div className="hang-carousel">
             <div className="hang-track full-carousel" ref={trackRef}>
-              {/* Render projects three times for seamless infinite loop with no blank space */}
-              {[...PROJECTS, ...PROJECTS, ...PROJECTS].map((p, i) => (
-                <div
-                  key={p.title + '-' + (i % PROJECTS.length) + '-' + Math.floor(i / PROJECTS.length)}
-                  className={`hang-item`}
-                  onMouseMove={handleCardMouse}
-                  onMouseLeave={handleCardLeave}
-                >
-                  {/* Thread from rail to card */}
-                  <div className="hang-thread">
-                    <div className="hang-knot" />
-                  </div>
-
-                  {/* The card */}
+              {/* Render projects enough times for seamless infinite loop with no blank space */}
+              {Array(6).fill(0).flatMap((_, j) =>
+                PROJECTS.map((p, i) => (
                   <div
-                    className="pc glass-2"
-                    data-i={i}
-                    tabIndex={0}
+                    key={p.title + '-' + i + '-' + j}
+                    className={`hang-item`}
+                    onMouseMove={handleCardMouse}
+                    onMouseLeave={handleCardLeave}
                   >
-                    <div className="pc-spot" />
-                    <div className="pc-scan" /> 
-                    <div className="pc-content">
-                      <span className="pc-num">
-                        {String((i % PROJECTS.length) + 1).padStart(2, "0")}  14 14
-                      </span>
-                      <span
-                        className="pc-type glass-3"
-                        style={{ "--tc": p.color } as React.CSSProperties}
-                      >
-                        {p.type}
-                      </span>
-                      <h3 className="pc-title">{p.title}</h3>
-                      <p className="pc-desc">{p.desc}</p>
-                      <div className="pc-metric">{p.metric}</div>
+                    {/* Thread from rail to card */}
+                    <div className="hang-thread">
+                      <div className="hang-knot" />
+                    </div>
+
+                    {/* The card */}
+                    <div
+                      className="pc glass-2"
+                      data-i={i}
+                      tabIndex={0}
+                    >
+                      <div className="pc-spot" />
+                      <div className="pc-scan" /> 
+                      <div className="pc-content">
+                        <span className="pc-num">
+                          {String(i + 1).padStart(2, "0")}  14 14
+                        </span>
+                        <span
+                          className="pc-type glass-3"
+                          style={{ "--tc": p.color } as React.CSSProperties}
+                        >
+                          {p.type}
+                        </span>
+                        <h3 className="pc-title">{p.title}</h3>
+                        <p className="pc-desc">{p.desc}</p>
+                        <div className="pc-metric">{p.metric}</div>
+                      </div>
+                    </div>
+
+                    {/* Threads down to each tech pill */}
+                    <div className="hang-branches">
+                      {p.stack.map((s, si) => (
+                        <div
+                          key={s}
+                          className="branch"
+                          style={{ "--bi": si } as React.CSSProperties}
+                        >
+                          <div className="branch-wire" />
+                          <span className="branch-pill glass-3">{s}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
-
-                  {/* Threads down to each tech pill */}
-                  <div className="hang-branches">
-                    {p.stack.map((s, si) => (
-                      <div
-                        key={s}
-                        className="branch"
-                        style={{ "--bi": si } as React.CSSProperties}
-                      >
-                        <div className="branch-wire" />
-                        <span className="branch-pill glass-3">{s}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
 
 

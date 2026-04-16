@@ -438,28 +438,30 @@ section{
   z-index:10;
 }
 /* Make the carousel move even faster and seamless */
-.hang-track, .full-carousel{
-  display:flex;
-  gap:32px;
-  overflow-x:hidden;
-  scroll-snap-type:none;
-  padding:0 0 24px 0;
-  flex:1;
-  scrollbar-width:none;
-  -webkit-overflow-scrolling:touch;
-  animation:carousel-drift 10s linear infinite;
-  animation-play-state:running;
-  will-change:transform;
-  min-height:calc(100vh - 120px);
+/* Make the carousel truly infinite and seamless */
+.hang-track, .full-carousel {
+  display: flex;
+  gap: 32px;
+  overflow-x: hidden;
+  scroll-snap-type: none;
+  padding: 0 0 24px 0;
+  flex: 1;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  animation: carousel-drift var(--carousel-speed, 10s) linear infinite;
+  animation-play-state: running;
+  will-change: transform;
+  min-height: calc(100vh - 120px);
+  width: max-content;
 }
 .hang-track::-webkit-scrollbar{display:none}
 
-@keyframes carousel-drift{
-  0%{
-    transform:translateX(0);
+@keyframes carousel-drift {
+  0% {
+    transform: translateX(0);
   }
-  100%{
-    transform:translateX(-50%);
+  100% {
+    transform: translateX(-33.3333%);
   }
 }
 
