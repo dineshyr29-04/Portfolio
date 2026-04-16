@@ -73,7 +73,7 @@ const SKILL_GROUPS: [string, string[]][] = [
     ["K-means Clustering"],
   ],
   ["Languages", ["Python", "SQL", "Bash", "C++", "TypeScript", "JavaScript"]],
-  ["Backend & Cloud", ["Node.js", "Express.js", "MongoDB", "MySQL"]],
+  ["Backend & Cloud", ["Node.js", "Express.js", "MongoDB", "MySQL","PostgreSQL"]],
   [
     "Research Areas",
     [
@@ -84,7 +84,7 @@ const SKILL_GROUPS: [string, string[]][] = [
       
     ],
   ],
-  ["Tools & Workflow", ["Git", "Linux", "Jupyter", "VS Code"]],
+  ["Tools & Workflow", ["Git", "Linux", "Jupyter", "VS Code","Netlify","Vercel"]],
 ];
 
 const PROJECTS = [
