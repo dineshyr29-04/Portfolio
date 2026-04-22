@@ -93,6 +93,7 @@ const PROJECTS = [
   {
     type: "AI Triage System",
     color: "var(--accent2)",
+    photoFile: "project-cardio-nerve.png",
     title: "Cardio Nerve",
     desc: "End-to-end fine-tuning system for domain-specific LLMs using LoRA/QLoRA. Handles data curation, distributed training, evaluation, and model registry with full experiment tracking.",
     metric: "34% accuracy gain · 80% memory reduction",
@@ -101,6 +102,7 @@ const PROJECTS = [
   {
     type: "AI assisted farming assist",
     color: "var(--accent)",
+    photoFile: "project-agro-nova.png",
     title: "Agro Nova",
     desc: "High-throughput REST API serving multiple ML models simultaneously with dynamic batching, model versioning, and Kubernetes auto-scaling. Built for production reliability.",
     metric: "10k+ req/sec · p99 latency <80ms",
@@ -109,6 +111,7 @@ const PROJECTS = [
   {
     type: "3D Model Website",
     color: "var(--accent2)",
+    photoFile: "project-openloop.png",
     title: "OpenLoop",
     desc: "Production RAG pipeline with hybrid semantic + BM25 retrieval, cross-encoder re-ranking, and citation tracking. Powers an internal enterprise Q&A assistant.",
     metric: "89% answer accuracy on domain queries",
@@ -117,6 +120,7 @@ const PROJECTS = [
   {
     type: "Computer Vision",
     color: "var(--accent3)",
+    photoFile: "project-thinknode.png",
     title: "Automated Defect Detection",
     desc: "Real-time CV pipeline for manufacturing defect detection deployed on edge GPUs. Replaced manual QA inspection process entirely with continuous model drift monitoring.",
     metric: "97.3% precision · fully replaced manual QA",
@@ -716,9 +720,12 @@ export default function App() {
                 style={{ '--delay': `${i * 120}ms`, borderTop: `4px solid ${p.color}` } as React.CSSProperties}
               >
                 <div className="project-card-icon" style={{ background: p.color }}>
-                  <span role="img" aria-label="project icon" style={{ fontSize: 36 }}>
-                    {p.type.startsWith('AI') ? '🤖' : p.type.includes('Vision') ? '🖼️' : p.type.includes('3D') ? '🧊' : '💡'}
-                  </span>
+                  <img
+                    src={`/src/assets/${p.photoFile}`}
+                    alt={`${p.title} preview`}
+                    className="project-card-photo"
+                    loading="lazy"
+                  />
                 </div>
                 <div className="project-card-content">
                   <h3 className="project-card-title">{p.title}</h3>
