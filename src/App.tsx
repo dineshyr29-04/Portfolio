@@ -98,6 +98,8 @@ const PROJECTS = [
     desc: "End-to-end fine-tuning system for domain-specific LLMs using LoRA/QLoRA. Handles data curation, distributed training, evaluation, and model registry with full experiment tracking.",
     metric: "34% accuracy gain · 80% memory reduction",
     stack: ["Python", "Arduino coding", "Next.js"],
+    repoUrl: "https://github.com/dineshyr29-04?tab=repositories&q=cardio+nerve&type=&language=&sort=",
+    liveUrl: "",
   },
   {
     type: "AI assisted farming assist",
@@ -107,6 +109,8 @@ const PROJECTS = [
     desc: "High-throughput REST API serving multiple ML models simultaneously with dynamic batching, model versioning, and Kubernetes auto-scaling. Built for production reliability.",
     metric: "10k+ req/sec · p99 latency <80ms",
     stack: ["FastAPI", "Triton", "Kubernetes", "Redis", "Prometheus"],
+    repoUrl: "https://github.com/dineshyr29-04?tab=repositories&q=agro+nova&type=&language=&sort=",
+    liveUrl: "",
   },
   {
     type: "3D Model Website",
@@ -116,6 +120,8 @@ const PROJECTS = [
     desc: "Production RAG pipeline with hybrid semantic + BM25 retrieval, cross-encoder re-ranking, and citation tracking. Powers an internal enterprise Q&A assistant.",
     metric: "89% answer accuracy on domain queries",
     stack: ["LangChain", "Qdrant", "FastAPI", "PostgreSQL", "GPT-4"],
+    repoUrl: "https://github.com/dineshyr29-04?tab=repositories&q=openloop&type=&language=&sort=",
+    liveUrl: "",
   },
   {
     type: "Computer Vision",
@@ -125,6 +131,8 @@ const PROJECTS = [
     desc: "Real-time CV pipeline for manufacturing defect detection deployed on edge GPUs. Replaced manual QA inspection process entirely with continuous model drift monitoring.",
     metric: "97.3% precision · fully replaced manual QA",
     stack: ["PyTorch", "ONNX", "OpenCV", "Docker", "Edge GPU"],
+    repoUrl: "https://github.com/dineshyr29-04?tab=repositories&q=defect+detection&type=&language=&sort=",
+    liveUrl: "",
   },
 ];
 
@@ -736,6 +744,28 @@ export default function App() {
                     {p.stack.map((s) => (
                       <span key={s} className="project-card-chip glass-3">{s}</span>
                     ))}
+                  </div>
+                  <div className="project-card-actions">
+                    <a
+                      href={p.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-card-link"
+                      aria-label={`${p.title} repository`}
+                    >
+                      View Repository
+                    </a>
+                    {p.liveUrl ? (
+                      <a
+                        href={p.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-card-link project-card-link-secondary"
+                        aria-label={`${p.title} live project`}
+                      >
+                        Live Demo
+                      </a>
+                    ) : null}
                   </div>
                 </div>
               </div>
