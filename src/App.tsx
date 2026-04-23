@@ -714,7 +714,7 @@ export default function App() {
           {/* Static responsive grid for projects */}
           <div className="projects-grid">
             {PROJECTS.map((p, i) => (
-              <div
+              <div 
                 key={p.title}
                 className="project-card glass-2"
                 style={{ '--delay': `${i * 120}ms`, borderTop: `4px solid ${p.color}` } as React.CSSProperties}
