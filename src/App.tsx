@@ -108,7 +108,7 @@ const PROJECTS = [
     title: "Agro Nova",
     desc: "High-throughput REST API serving multiple ML models simultaneously with dynamic batching, model versioning, and Kubernetes auto-scaling. Built for production reliability.",
     metric: "10k+ req/sec · p99 latency <80ms",
-    stack: ["FastAPI", "Triton", "Kubernetes", "Redis", "Prometheus"],
+    stack: ["FastAPI", "Next JS", "", "Redis", "Prometheus"],
     repoUrl: "https://github.com/dineshyr29-04?tab=repositories&q=agro+nova&type=&language=&sort=",
     liveUrl: "",
   },
@@ -120,8 +120,8 @@ const PROJECTS = [
     desc: "Production RAG pipeline with hybrid semantic + BM25 retrieval, cross-encoder re-ranking, and citation tracking. Powers an internal enterprise Q&A assistant.",
     metric: "89% answer accuracy on domain queries",
     stack: ["LangChain", "Qdrant", "FastAPI", "PostgreSQL", "GPT-4"],
-    repoUrl: "https://github.com/dineshyr29-04?tab=repositories&q=openloop&type=&language=&sort=",
-    liveUrl: "",
+    repoUrl: "https://github.com/dineshyr29-04/Openloop",
+    liveUrl: "https://open-loop.dev",
   },
   {
     type: "Computer Vision",
@@ -132,7 +132,7 @@ const PROJECTS = [
     metric: "97.3% precision · fully replaced manual QA",
     stack: ["PyTorch", "ONNX", "OpenCV", "Docker", "Edge GPU"],
     repoUrl: "https://github.com/dineshyr29-04?tab=repositories&q=defect+detection&type=&language=&sort=",
-    liveUrl: "",
+    liveUrl: "https://thinknode-customers.vercel.app/",
   },
 ];
 
