@@ -82,7 +82,7 @@ const PROJECTS = [
   {
     type: "SaaS Frontend / Cloud Interface",
     color: "var(--accent3)",
-    photoFile: "project-thinknode-premium.png",
+    photoFile: "project-thinknode.png",
     title: "Thinknode Customer Portal",
     desc: "A customer-facing web application for the ThinkNode ecosystem. Features a comprehensive dashboard for interacting with backend data processing and AI-driven workflows.",
     metric: "10k+ Active Users · 99.9% Uptime",
@@ -93,7 +93,7 @@ const PROJECTS = [
   {
     type: "Workflow Orchestration",
     color: "var(--accent2)",
-    photoFile: "project-openloop-premium.png",
+    photoFile: "project-openloop.png",
     title: "Openloop Automation",
     desc: "A scalable automation system designed for managing complex AI pipelines and event-driven tasks. Orchestrates repetitive processes through efficient continuous loops.",
     metric: "89% Accuracy · 5x Efficiency Gain",
@@ -104,7 +104,7 @@ const PROJECTS = [
   {
     type: "AgTech / IoT Dashboard",
     color: "var(--green)",
-    photoFile: "project-agronova-premium.png",
+    photoFile: "project-agronova.png",
     title: "AgroNova Platform",
     desc: "An advanced agriculture technology platform improving farming efficiency through digital insights. Integrates IoT data for real-time crop monitoring and predictive analytics.",
     metric: "15% Yield Increase · Real-time Monitoring",
@@ -115,7 +115,7 @@ const PROJECTS = [
   {
     type: "MedTech / Data Analytics",
     color: "var(--accent)",
-    photoFile: "project-cardionerve-premium.png",
+    photoFile: "project-cardionerve.png",
     title: "Cardionerve Health",
     desc: "A healthcare analytics system focused on cardiovascular and neurological data analysis. Processes complex medical data to assist in diagnosis and monitoring.",
     metric: "97.5% Precision · Clinical Grade",
@@ -126,7 +126,7 @@ const PROJECTS = [
   {
     type: "Web Development",
     color: "var(--accent2)",
-    photoFile: "project-portfolio-premium.png",
+    photoFile: "project-portfolio.png",
     title: "Personal Portfolio",
     desc: "A high-performance developer portfolio showcasing advanced frontend engineering. Features responsive layouts, custom animations, and a cinematic UI design.",
     metric: "100/100 Performance · SEO Optimized",
@@ -137,7 +137,7 @@ const PROJECTS = [
   {
     type: "Pharma Security / Supply Chain",
     color: "var(--accent3)",
-    photoFile: "project-drugsecure-premium.png",
+    photoFile: "project-drugsecure.png",
     title: "Drug-Secure System",
     desc: "A pharmaceutical verification platform ensuring medicine authenticity. Tracks products across the supply chain using digital identifiers to prevent counterfeiting.",
     metric: "Zero Counterfeits · 100% Traceability",
