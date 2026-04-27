@@ -740,7 +740,7 @@ export default function App() {
               >
                 <div className="project-card-icon" style={{ background: p.color }}>
                   <img
-                    src={`/src/assets/${p.photoFile}`}
+                    src={`/public/${p.photoFile}`}
                     alt={`${p.title} preview`}
                     className="project-card-photo"
                     loading="lazy"
