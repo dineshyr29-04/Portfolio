@@ -104,7 +104,7 @@ const PROJECTS = [
   {
     type: "AgTech / IoT Dashboard",
     color: "var(--green)",
-    photoFile: "project-agronova.png",
+    photoFile: "project-agro-nova.png",
     title: "AgroNova Platform",
     desc: "An advanced agriculture technology platform improving farming efficiency through digital insights. Integrates IoT data for real-time crop monitoring and predictive analytics.",
     metric: "15% Yield Increase · Real-time Monitoring",
@@ -115,7 +115,7 @@ const PROJECTS = [
   {
     type: "MedTech / Data Analytics",
     color: "var(--accent)",
-    photoFile: "project-cardionerve.png",
+    photoFile: "project-cardio-nerve.png",
     title: "Cardionerve Health",
     desc: "A healthcare analytics system focused on cardiovascular and neurological data analysis. Processes complex medical data to assist in diagnosis and monitoring.",
     metric: "97.5% Precision · Clinical Grade",
