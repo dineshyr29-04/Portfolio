@@ -137,7 +137,7 @@ const PROJECTS = [
   {
     type: "Pharma Security / Supply Chain",
     color: "var(--accent3)",
-    photoFile: "project-drugsecure.png",
+    photoFile: "project-drug-secure.png",
     title: "Drug-Secure System",
     desc: "A pharmaceutical verification platform ensuring medicine authenticity. Tracks products across the supply chain using digital identifiers to prevent counterfeiting.",
     metric: "Zero Counterfeits · 100% Traceability",
