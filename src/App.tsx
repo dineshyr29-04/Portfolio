@@ -6,7 +6,7 @@ import DarkVeil from './DarkVeil';
 import './App.css';
 import projectPhoto from './assets/DA (1).png';
 import Hero from './components/Hero';
-import StorySection from "./components/StorySection";
+
 
 
 /* ═══════════════════════════════════════════════════════════════
@@ -211,6 +211,7 @@ function simulateCode(code: string, lang: string): string[] {
 export default function App() {
   const [activeSection, setActiveSection] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [activeTab, setActiveTab] = useState<"Python" | "Bash">("Python");
   const [lineCount, setLineCount] = useState(
     CODE_TABS.Python.code.split("\n").length
@@ -234,6 +235,7 @@ export default function App() {
         if (window.scrollY >= s.offsetTop - 200) cur = s.id;
       });
       setActiveSection(cur);
+      setScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", h, { passive: true });
     return () => window.removeEventListener("scroll", h);
@@ -451,7 +453,7 @@ export default function App() {
 
       
       {/* ══ NAV ══ */}
-      <nav id="nav" role="navigation">
+      <nav id="nav" className={scrolled ? "scrolled" : ""} role="navigation">
         <div className="wrap nav-row">
           <a
             href="#hero"
@@ -483,6 +485,9 @@ export default function App() {
                   onClick={(e) => scrollTo(e, id)}
                 >
                   {label}
+                  {activeSection === id && (
+                    <span className="nav-active-dot" aria-hidden="true" />
+                  )}
                 </a>
               </li>
             ))}
@@ -524,9 +529,7 @@ export default function App() {
       {/* ══ HERO ══ */}
       <section id="hero">
         <div className="wrap hero-grid rv">
-          <StorySection index={0} title="Intro" className="hero-wrap">
-            <Hero />
-          </StorySection>
+          <Hero />
 
           {/* Right — Playground */}
           <div className="pg glass-2">
@@ -617,146 +620,140 @@ export default function App() {
       {/* ══ ABOUT ══ */}
       <section id="about" className="sec-deep">
         <div className="wrap">
-          <StorySection index={1} title="About">
-            <div className="label rv">// 01 — ABOUT</div>
-            <Shuffle tag="h2" className="sec-h" text={"Precision-driven\nFull-Stack Developer."} duration={0.55} stagger={0.022} />
-            <p className="about-p rv d1">
-              I'm Dinesh A — an AI/ML Engineer and a Full-Stack Developer focused on building
-              production-grade machine learning systems and Web applications that deliver real-world
-              impact. My work spans the full ML stack: from research and
-              architecture design to deployment and monitoring at scale.
-            </p>
-            <p className="about-p rv d2">
-              I specialize in large language models, prompt Engineering,
-              and MLOps pipelines. I believe great ML engineering is about systems
-              thinking, clean abstractions, and measurable outcomes — not just
-              notebook accuracy scores.
-            </p>
-            <p className="about-p rv d2">
-              When I'm not shipping models, I'm contributing to open-source,
-              studying research papers, and exploring the intersection of systems
-              engineering and deep learning.
-            </p>
-            <a
-              href="https://www.linkedin.com/in/dinesh-a-122983374/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="li-chip glass-3 rv d3"
-            >
-              ↗ linkedin.com/in/dinesh-a-122983374
-            </a>
-            <div className="stats-row">
-              {[
-                { n: "2+", l: "Years Exp" },
-                { n: "5+", l: "Projects" },
-                { n: "3+", l: "Models Deployed" },
-              ].map((s, i) => (
-                <div
-                  key={s.l}
-                  className={`stat-card glass-2 rv${i ? ` d${i}` : ""}`}
-                >
-                  <b>{s.n}</b>
-                  <small>{s.l}</small>
-                </div>
-              ))}
-            </div>
-          </StorySection>
+          <div className="label rv">// 01 — ABOUT</div>
+          <Shuffle tag="h2" className="sec-h" text={"Precision-driven\nFull-Stack Developer."} duration={0.55} stagger={0.022} />
+          <p className="about-p rv d1">
+            I'm Dinesh A — an AI/ML Engineer and a Full-Stack Developer focused on building
+            production-grade machine learning systems and Web applications that deliver real-world
+            impact. My work spans the full ML stack: from research and
+            architecture design to deployment and monitoring at scale.
+          </p>
+          <p className="about-p rv d2">
+            I specialize in large language models, prompt Engineering,
+            and MLOps pipelines. I believe great ML engineering is about systems
+            thinking, clean abstractions, and measurable outcomes — not just
+            notebook accuracy scores.
+          </p>
+          <p className="about-p rv d2">
+            When I'm not shipping models, I'm contributing to open-source,
+            studying research papers, and exploring the intersection of systems
+            engineering and deep learning.
+          </p>
+          <a
+            href="https://www.linkedin.com/in/dinesh-a-122983374/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="li-chip glass-3 rv d3"
+          >
+            ↗ linkedin.com/in/dinesh-a-122983374
+          </a>
+          <div className="stats-row">
+            {[
+              { n: "2+", l: "Years Exp" },
+              { n: "5+", l: "Projects" },
+              { n: "3+", l: "Models Deployed" },
+            ].map((s, i) => (
+              <div
+                key={s.l}
+                className={`stat-card glass-2 rv${i ? ` d${i}` : ""}`}
+              >
+                <b>{s.n}</b>
+                <small>{s.l}</small>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ══ SKILLS ══ */}
-      <section id="experience">
+      <section id="skills">
         <div className="wrap">
-          <StorySection index={4} title="Experience">
-            <div className="label rv d1">// 04 — EXPERIENCE</div>
-            <Shuffle tag="h2" className="sec-h" text={"Career Timeline"} duration={0.5} stagger={0.025} />
-            <div className="tl">
-              <div className="tl-line" />
-              {EXP_ITEMS.map((exp, i) => (
-                <div key={i} className="ei" data-delay={i * 150}>
-                  <div className="ei-dot" />
-                  <div className="ei-card glass-2">
-                    <div className="ei-head">
-                      <div className="ei-period">{exp.period}</div>
-                      <div className="ei-company">{exp.company}</div>
-                    </div>
-                    <div className="ei-role">{exp.role}</div>
-                    <div className="ei-desc">{exp.desc}</div>
-                    <div className="ei-tags">
-                      {exp.tags.map((t) => (
-                        <span key={t} className="ei-tag glass-3">{t}</span>
-                      ))}
-                    </div>
-                  </div>
+          <div className="label rv d1">// 02 — SKILLS</div>
+          <Shuffle tag="h2" className="sec-h" text={"Technical Expertise"} duration={0.5} stagger={0.025} />
+          <div className="skills-grid">
+            {SKILL_GROUPS.map(([title, tags], gi) => (
+              <div
+                key={title}
+                className={`skill-group glass-2 rv${gi % 2 ? " d1" : ""}`}
+              >
+                <div className="sg-title">{title}</div>
+                <div className="sg-tags">
+                  {tags.map((t) => (
+                    <span key={t} className="stag glass-3">
+                      {t}
+                    </span>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </StorySection>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
+
+      {/* ══ PROJECTS ══ */}
       <section id="projects" className="sec-deep">
         <div className="wrap">
-          <StorySection index={3} title="Selected Work">
-            <div className="label rv">// 03 — SELECTED WORK</div>
-            <Shuffle tag="h2" className="sec-h" text={"What I've Built"} duration={0.5} stagger={0.025} />
+          <div className="label rv">// 03 — SELECTED WORK</div>
+          <Shuffle tag="h2" className="sec-h" text={"What I've Built"} duration={0.5} stagger={0.025} />
 
-            {/* Rod / rail */}
-            <div className="hang-rail rv d2" />
+          {/* Rod / rail */}
+          <div className="hang-rail rv d2" />
 
 
-            {/* Static responsive grid for projects */}
-            <div className="projects-grid">
-              {PROJECTS.map((p, i) => (
-                <div 
-                  key={p.title}
-                  className="project-card glass-2"
-                  style={{ '--delay': `${i * 120}ms`, borderTop: `4px solid ${p.color}` } as React.CSSProperties}
-                >
-                  <div className="project-card-icon" style={{ background: p.color }}>
-                    <img
-                      src={`/${p.photoFile}`}
-                      alt={`${p.title} preview`}
-                      className="project-card-photo"
-                      loading="lazy"
-                    />
+          {/* Static responsive grid for projects */}
+          <div className="projects-grid">
+            {PROJECTS.map((p, i) => (
+              <div 
+                key={p.title}
+                className="project-card glass-2"
+                style={{ '--delay': `${i * 120}ms`, borderTop: `4px solid ${p.color}` } as React.CSSProperties}
+              >
+                <div className="project-card-icon" style={{ background: p.color }}>
+                  <img
+                    src={`/${p.photoFile}`}
+                    alt={`${p.title} preview`}
+                    className="project-card-photo"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="project-card-content">
+                  <h3 className="project-card-title">{p.title}</h3>
+                  <div className="project-card-type">{p.type}</div>
+                  <div className="project-card-desc">{p.desc}</div>
+                  <div className="project-card-metric">{p.metric}</div>
+                  <div className="project-card-stack">
+                    {p.stack.map((s) => (
+                      <span key={s} className="project-card-chip glass-3">{s}</span>
+                    ))}
                   </div>
-                  <div className="project-card-content">
-                    <h3 className="project-card-title">{p.title}</h3>
-                    <div className="project-card-type">{p.type}</div>
-                    <div className="project-card-desc">{p.desc}</div>
-                    <div className="project-card-metric">{p.metric}</div>
-                    <div className="project-card-stack">
-                      {p.stack.map((s) => (
-                        <span key={s} className="project-card-chip glass-3">{s}</span>
-                      ))}
-                    </div>
-                    <div className="project-card-actions">
+                  <div className="project-card-actions">
+                    <a
+                      href={p.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-card-link"
+                      aria-label={`${p.title} repository`}
+                    >
+                      View Repository
+                    </a>
+                    {p.liveUrl ? (
                       <a
-                        href={p.repoUrl}
+                        href={p.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="project-card-link"
-                        aria-label={`${p.title} repository`}
+                        className="project-card-link project-card-link-secondary"
+                        aria-label={`${p.title} live project`}
                       >
-                        View Repository
+                        Live Demo
                       </a>
-                      {p.liveUrl ? (
-                        <a
-                          href={p.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="project-card-link project-card-link-secondary"
-                          aria-label={`${p.title} live project`}
-                        >
-                          Live Demo
-                        </a>
-                      ) : null}
-                    </div>
+                    ) : null}
                   </div>
                 </div>
-              ))}
-            </div>
-          </StorySection>
+              </div>
+            ))}
+          </div>
+
+
         </div>
       </section>
 
@@ -795,7 +792,6 @@ export default function App() {
       <section id="contact" className="sec-deep">
         <div className="wrap ct-wrap">
           <div className="ct-glow" />
-        <StorySection index={5} title="Contact">
           <div className="ct-panel glass-2 rv d1">
             <div className="label">
               // 05 — CONTACT
@@ -840,7 +836,6 @@ export default function App() {
               </a>
             </div>
           </div>
-        </StorySection>
         </div>
       </section>
 
