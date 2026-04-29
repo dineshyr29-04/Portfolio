@@ -5,6 +5,7 @@ import './Shuffle.css';
 import DarkVeil from './DarkVeil';
 import './App.css';
 import projectPhoto from './assets/DA (1).png';
+import Hero from './components/Hero';
 
 
 
@@ -523,43 +524,7 @@ export default function App() {
       {/* ══ HERO ══ */}
       <section id="hero">
         <div className="wrap hero-grid rv">
-          {/* Left */}
-          <div className="hero-left">
-            <span className="hero-badge">✦ Open to Web development roles</span>
-            <h1 className="hero-name" aria-label="DINESH A">
-              <Shuffle tag="span" text="DINESH" duration={0.65} stagger={0.03} immediate />
-              {" "}
-              <span className="spana">
-                <Shuffle tag="span" text="A" duration={0.72} stagger={0.03} immediate />
-              </span>
-            </h1>
-            <p className="hero-role">
-              {"// AI · ML · LLM · MLOps · Production Systems"}
-            </p>
-            <p className="hero-bio">
-              I design and deploy production Full-Stack and Web systems — from model
-              architecture to inference pipelines and a clean UI — with a focus on reliability,
-              efficiency, and real-world impact.
-            </p>
-            <div className="hero-ctas">
-              <a
-                href="https://github.com/dineshyr29-04"
-                target="_blank"
-                className="btn-glass btn-glow"
-                
-              >
-                View My Work →
-              </a>
-              <a
-                href="https://www.linkedin.com/in/dinesh-a-122983374/"
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="btn-glass"
-              >
-                LinkedIn ↗
-              </a>
-            </div>
-          </div>
+          <Hero />
 
           {/* Right — Playground */}
           <div className="pg glass-2">
