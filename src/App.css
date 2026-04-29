@@ -855,7 +855,7 @@ section {
 }
 .pg-editor {
   flex: 1;
-  background: transparent;
+  background:var(--glow-violet);
   border: none;
   outline: none;
   resize: none;
