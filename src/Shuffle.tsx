@@ -105,7 +105,15 @@ const Shuffle: React.FC<ShuffleProps> = ({
     },
     {
       scope: containerRef,
-      dependencies: [text, duration, stagger, ease, triggerOnce, triggerOnHover, immediate],
+      dependencies: [
+        text,
+        duration,
+        stagger,
+        ease,
+        triggerOnce,
+        triggerOnHover,
+        immediate,
+      ],
     }
   );
 
@@ -121,9 +129,13 @@ const Shuffle: React.FC<ShuffleProps> = ({
         ch === '\n' ? (
           <br key={idx} />
         ) : ch === ' ' ? (
-          <span key={idx} className="shf-sp" aria-hidden="true">&nbsp;</span>
+          <span key={idx} className="shf-sp" aria-hidden="true">
+            &nbsp;
+          </span>
         ) : (
-          <span key={idx} className="shf-c" aria-hidden="true">{ch}</span>
+          <span key={idx} className="shf-c" aria-hidden="true">
+            {ch}
+          </span>
         )
       )}
     </Tag>

@@ -1,14 +1,14 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
-import Lenis from '@studio-freight/lenis'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import App from './App.tsx';
+import Lenis from '@studio-freight/lenis';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
-  </StrictMode>,
-)
+  </StrictMode>
+);
 
 // Initialize Lenis for smoother, native-feeling scrolling on all devices
 const lenis = new (Lenis as any)({
@@ -17,17 +17,17 @@ const lenis = new (Lenis as any)({
   smoothTouch: true,
   lerp: 0.06,
   touchMultiplier: 1,
-})
+});
 
 // Expose Lenis globally so app code can use `window.lenis.scrollTo(...)` for anchor clicks
-;(window as any).lenis = lenis
+(window as any).lenis = lenis;
 
 // Disable native smooth scrolling to avoid conflicting behavior
-document.documentElement.style.scrollBehavior = 'auto'
+document.documentElement.style.scrollBehavior = 'auto';
 
 function raf(time: number) {
-  lenis.raf(time)
-  requestAnimationFrame(raf)
+  lenis.raf(time);
+  requestAnimationFrame(raf);
 }
 
-requestAnimationFrame(raf)
+requestAnimationFrame(raf);

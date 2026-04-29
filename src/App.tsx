@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 import Shuffle from './Shuffle';
 import './Shuffle.css';
@@ -6,8 +6,6 @@ import DarkVeil from './DarkVeil';
 import './App.css';
 import projectPhoto from './assets/DA (1).png';
 import Hero from './components/Hero';
-
-
 
 /* ═══════════════════════════════════════════════════════════════
    PLAYGROUND CODE TABS
@@ -20,9 +18,9 @@ const CODE_TABS: Record<string, { code: string; output: string[] }> = {
     print("Role: AI/ML Enginneer and Full-Stack Developer")
     print("Focus: Building production level Full Stack and Web devs and learning about systems of ML and architechures))`,
     output: [
-      "Parameters: 4,722,176",
-      "Architecture: Transformer (d=512, h=8)",
-      "Status: Ready for training ✓",
+      'Parameters: 4,722,176',
+      'Architecture: Transformer (d=512, h=8)',
+      'Status: Ready for training ✓',
     ],
   },
   Bash: {
@@ -46,15 +44,15 @@ curl -X POST localhost:8080/predict \\
 
 echo "✓ Deployment complete"`,
     output: [
-      "▶ Building Docker image...",
-      "  → ml-api:v2.1 built (340MB)",
-      "▶ Running health check...",
+      '▶ Building Docker image...',
+      '  → ml-api:v2.1 built (340MB)',
+      '▶ Running health check...',
       '  { "status": "healthy", "gpu": true }',
-      "▶ Deploying to Kubernetes...",
-      "  deployment/ml-api rolled out",
-      "▶ Verifying inference endpoint...",
+      '▶ Deploying to Kubernetes...',
+      '  deployment/ml-api rolled out',
+      '▶ Verifying inference endpoint...',
       '  { "prediction": [0.87], "latency": "12ms" }',
-      "✓ Deployment complete",
+      '✓ Deployment complete',
     ],
   },
 };
@@ -63,100 +61,120 @@ echo "✓ Deployment complete"`,
    DATA
    ═══════════════════════════════════════════════════════════════ */
 const NAV_ITEMS: [string, string][] = [
-  ["about", "About"],
-  ["skills", "Skills"],
-  ["projects", "Work"],
-  ["experience", "Experience"],
-  ["contact", "Contact"],
+  ['about', 'About'],
+  ['skills', 'Skills'],
+  ['projects', 'Work'],
+  ['experience', 'Experience'],
+  ['contact', 'Contact'],
 ];
 
 const SKILL_GROUPS: [string, string[]][] = [
-  ["Languages", ["Python", "SQL", "Bash", "C++", "TypeScript", "JavaScript"]],
-  ["Backend & Cloud", ["Node.js", "Express.js", "MongoDB", "MySQL", "PostgreSQL", "Redis"]],
-  ["Frontend & UI", ["React", "Next.js", "Vite", "Tailwind CSS", "GSAP", "Three.js"]],
-  ["AI & Data Science", ["LLMs", "Prompt Engineering", "MLOps", "PyTorch", "OpenCV", "K-means"]],
-  ["Domains", ["Healthcare (MedTech)", "Agriculture (AgTech)", "Security Systems", "Automation"]],
-  ["Tools", ["Git", "Docker", "Linux", "Jupyter", "Vercel", "Netlify"]],
+  ['Languages', ['Python', 'SQL', 'Bash', 'C++', 'TypeScript', 'JavaScript']],
+  [
+    'Backend & Cloud',
+    ['Node.js', 'Express.js', 'MongoDB', 'MySQL', 'PostgreSQL', 'Redis'],
+  ],
+  [
+    'Frontend & UI',
+    ['React', 'Next.js', 'Vite', 'Tailwind CSS', 'GSAP', 'Three.js'],
+  ],
+  [
+    'AI & Data Science',
+    ['LLMs', 'Prompt Engineering', 'MLOps', 'PyTorch', 'OpenCV', 'K-means'],
+  ],
+  [
+    'Domains',
+    [
+      'Healthcare (MedTech)',
+      'Agriculture (AgTech)',
+      'Security Systems',
+      'Automation',
+    ],
+  ],
+  ['Tools', ['Git', 'Docker', 'Linux', 'Jupyter', 'Vercel', 'Netlify']],
 ];
 
 const PROJECTS = [
   {
-    type: "SaaS Frontend / Cloud Interface",
-    color: "var(--accent3)",
-    photoFile: "project-thinknode.png",
-    title: "Thinknode Customer Portal",
-    desc: "A customer-facing web application for the ThinkNode ecosystem. Features a comprehensive dashboard for interacting with backend data processing and AI-driven workflows.",
-    metric: "10k+ Active Users · 99.9% Uptime",
-    stack: ["JavaScript", "HTML", "CSS", "Node.js"],
-    repoUrl: "https://github.com/dineshyr29-04?tab=repositories&q=thinknode&type=&language=&sort=",
-    liveUrl: "https://thinknode-customers.vercel.app/",
+    type: 'SaaS Frontend / Cloud Interface',
+    color: 'var(--accent3)',
+    photoFile: 'project-thinknode.png',
+    title: 'Thinknode Customer Portal',
+    desc: 'A customer-facing web application for the ThinkNode ecosystem. Features a comprehensive dashboard for interacting with backend data processing and AI-driven workflows.',
+    metric: '10k+ Active Users · 99.9% Uptime',
+    stack: ['JavaScript', 'HTML', 'CSS', 'Node.js'],
+    repoUrl:
+      'https://github.com/dineshyr29-04?tab=repositories&q=thinknode&type=&language=&sort=',
+    liveUrl: 'https://thinknode-customers.vercel.app/',
   },
   {
-    type: "Workflow Orchestration",
-    color: "var(--accent2)",
-    photoFile: "project-openloop.png",
-    title: "Openloop Automation",
-    desc: "A scalable automation system designed for managing complex AI pipelines and event-driven tasks. Orchestrates repetitive processes through efficient continuous loops.",
-    metric: "89% Accuracy · 5x Efficiency Gain",
-    stack: ["JavaScript", "TypeScript", "Python", "YAML"],
-    repoUrl: "https://github.com/dineshyr29-04/Openloop",
-    liveUrl: "https://open-loop.dev",
+    type: 'Workflow Orchestration',
+    color: 'var(--accent2)',
+    photoFile: 'project-openloop.png',
+    title: 'Openloop Automation',
+    desc: 'A scalable automation system designed for managing complex AI pipelines and event-driven tasks. Orchestrates repetitive processes through efficient continuous loops.',
+    metric: '89% Accuracy · 5x Efficiency Gain',
+    stack: ['JavaScript', 'TypeScript', 'Python', 'YAML'],
+    repoUrl: 'https://github.com/dineshyr29-04/Openloop',
+    liveUrl: 'https://open-loop.dev',
   },
   {
-    type: "AgTech / IoT Dashboard",
-    color: "var(--green)",
-    photoFile: "project-agro-nova.png",
-    title: "AgroNova Platform",
-    desc: "An advanced agriculture technology platform improving farming efficiency through digital insights. Integrates IoT data for real-time crop monitoring and predictive analytics.",
-    metric: "15% Yield Increase · Real-time Monitoring",
-    stack: ["JavaScript", "Python", "MongoDB", "SQL"],
-    repoUrl: "https://github.com/dineshyr29-04?tab=repositories&q=agro+nova&type=&language=&sort=",
-    liveUrl: "",
+    type: 'AgTech / IoT Dashboard',
+    color: 'var(--green)',
+    photoFile: 'project-agro-nova.png',
+    title: 'AgroNova Platform',
+    desc: 'An advanced agriculture technology platform improving farming efficiency through digital insights. Integrates IoT data for real-time crop monitoring and predictive analytics.',
+    metric: '15% Yield Increase · Real-time Monitoring',
+    stack: ['JavaScript', 'Python', 'MongoDB', 'SQL'],
+    repoUrl:
+      'https://github.com/dineshyr29-04?tab=repositories&q=agro+nova&type=&language=&sort=',
+    liveUrl: '',
   },
   {
-    type: "MedTech / Data Analytics",
-    color: "var(--accent)",
-    photoFile: "project-cardio-nerve.png",
-    title: "Cardionerve Health",
-    desc: "A healthcare analytics system focused on cardiovascular and neurological data analysis. Processes complex medical data to assist in diagnosis and monitoring.",
-    metric: "97.5% Precision · Clinical Grade",
-    stack: ["Python", "JavaScript", "Jupyter", "DataViz"],
-    repoUrl: "https://github.com/dineshyr29-04?tab=repositories&q=cardio+nerve&type=&language=&sort=",
-    liveUrl: "",
+    type: 'MedTech / Data Analytics',
+    color: 'var(--accent)',
+    photoFile: 'project-cardio-nerve.png',
+    title: 'Cardionerve Health',
+    desc: 'A healthcare analytics system focused on cardiovascular and neurological data analysis. Processes complex medical data to assist in diagnosis and monitoring.',
+    metric: '97.5% Precision · Clinical Grade',
+    stack: ['Python', 'JavaScript', 'Jupyter', 'DataViz'],
+    repoUrl:
+      'https://github.com/dineshyr29-04?tab=repositories&q=cardio+nerve&type=&language=&sort=',
+    liveUrl: '',
   },
   {
-    type: "Web Development",
-    color: "var(--accent2)",
-    photoFile: "project-portfolio.png",
-    title: "Personal Portfolio",
-    desc: "A high-performance developer portfolio showcasing advanced frontend engineering. Features responsive layouts, custom animations, and a cinematic UI design.",
-    metric: "100/100 Performance · SEO Optimized",
-    stack: ["React", "TypeScript", "HTML", "CSS"],
-    repoUrl: "https://github.com/dineshyr29-04/Portfolio",
-    liveUrl: "https://dinesh-portfolio.vercel.app",
+    type: 'Web Development',
+    color: 'var(--accent2)',
+    photoFile: 'project-portfolio.png',
+    title: 'Personal Portfolio',
+    desc: 'A high-performance developer portfolio showcasing advanced frontend engineering. Features responsive layouts, custom animations, and a cinematic UI design.',
+    metric: '100/100 Performance · SEO Optimized',
+    stack: ['React', 'TypeScript', 'HTML', 'CSS'],
+    repoUrl: 'https://github.com/dineshyr29-04/Portfolio',
+    liveUrl: 'https://dinesh-portfolio.vercel.app',
   },
   {
-    type: "Pharma Security / Supply Chain",
-    color: "var(--accent3)",
-    photoFile: "project-drug-secure.png",
-    title: "Drug-Secure System",
-    desc: "A pharmaceutical verification platform ensuring medicine authenticity. Tracks products across the supply chain using digital identifiers to prevent counterfeiting.",
-    metric: "Zero Counterfeits · 100% Traceability",
-    stack: ["JavaScript", "TypeScript", "Python", "SQL"],
-    repoUrl: "https://github.com/dineshyr29-04?tab=repositories&q=drug-secure&type=&language=&sort=",
-    liveUrl: "",
+    type: 'Pharma Security / Supply Chain',
+    color: 'var(--accent3)',
+    photoFile: 'project-drug-secure.png',
+    title: 'Drug-Secure System',
+    desc: 'A pharmaceutical verification platform ensuring medicine authenticity. Tracks products across the supply chain using digital identifiers to prevent counterfeiting.',
+    metric: 'Zero Counterfeits · 100% Traceability',
+    stack: ['JavaScript', 'TypeScript', 'Python', 'SQL'],
+    repoUrl:
+      'https://github.com/dineshyr29-04?tab=repositories&q=drug-secure&type=&language=&sort=',
+    liveUrl: '',
   },
 ];
 
 const EXP_ITEMS = [
   {
-    period: "2025 — Present",
-    company: "Cardio Nerve",
-    role: "Full-Stack Developer",
-    desc: "An AI-driven cardiovascular intelligence platform that analyzes real-time heart rate and HRV data from PPG sensors to generate predictive cardiac risk scores. Designed a clinical dashboard for early detection, risk stratification, and preventive decision support.Architected and deployed production LLM pipelines processing 2M+ daily requests. Led fine-tuning initiatives for domain-specific applications and built internal MLOps tooling adopted across 4 teams.",
-    tags: ["Express.js", "PyTorch", "MLOps", "Python"],
+    period: '2025 — Present',
+    company: 'Cardio Nerve',
+    role: 'Full-Stack Developer',
+    desc: 'An AI-driven cardiovascular intelligence platform that analyzes real-time heart rate and HRV data from PPG sensors to generate predictive cardiac risk scores. Designed a clinical dashboard for early detection, risk stratification, and preventive decision support.Architected and deployed production LLM pipelines processing 2M+ daily requests. Led fine-tuning initiatives for domain-specific applications and built internal MLOps tooling adopted across 4 teams.',
+    tags: ['Express.js', 'PyTorch', 'MLOps', 'Python'],
   },
-  
 ];
 
 /* ═══════════════════════════════════════════════════════════════
@@ -164,7 +182,7 @@ const EXP_ITEMS = [
    ═══════════════════════════════════════════════════════════════ */
 function simulateCode(code: string, lang: string): string[] {
   const output: string[] = [];
-  if (lang === "Python") {
+  if (lang === 'Python') {
     const re = /\bprint\s*\(\s*(.+?)\s*\)\s*$/gm;
     let m: RegExpExecArray | null;
     while ((m = re.exec(code)) !== null) {
@@ -185,10 +203,10 @@ function simulateCode(code: string, lang: string): string[] {
         output.push(String(arg));
       }
     }
-  } else if (lang === "Bash") {
-    for (const line of code.split("\n")) {
+  } else if (lang === 'Bash') {
+    for (const line of code.split('\n')) {
       const t = line.trim();
-      if (!t || t.startsWith("#")) continue;
+      if (!t || t.startsWith('#')) continue;
       const em = t.match(/^echo\s+(.+)$/);
       if (em) {
         let v = em[1].trim();
@@ -202,19 +220,19 @@ function simulateCode(code: string, lang: string): string[] {
       }
     }
   }
-  return output.length > 0 ? output : ["► Program executed (no output)"];
+  return output.length > 0 ? output : ['► Program executed (no output)'];
 }
 
 /* ═══════════════════════════════════════════════════════════════
    APP
    ═══════════════════════════════════════════════════════════════ */
 export default function App() {
-  const [activeSection, setActiveSection] = useState("");
+  const [activeSection, setActiveSection] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeTab, setActiveTab] = useState<"Python" | "Bash">("Python");
+  const [activeTab, setActiveTab] = useState<'Python' | 'Bash'>('Python');
   const [lineCount, setLineCount] = useState(
-    CODE_TABS.Python.code.split("\n").length
+    CODE_TABS.Python.code.split('\n').length
   );
   const [outputLines, setOutputLines] = useState<string[]>([]);
   const [outputDone, setOutputDone] = useState(false);
@@ -229,32 +247,32 @@ export default function App() {
   /* ── Active section via scroll ── */
   useEffect(() => {
     const h = () => {
-      const secs = document.querySelectorAll<HTMLElement>("section[id]");
-      let cur = "";
-      secs.forEach((s) => {
+      const secs = document.querySelectorAll<HTMLElement>('section[id]');
+      let cur = '';
+      secs.forEach(s => {
         if (window.scrollY >= s.offsetTop - 200) cur = s.id;
       });
       setActiveSection(cur);
       setScrolled(window.scrollY > 50);
     };
-    window.addEventListener("scroll", h, { passive: true });
-    return () => window.removeEventListener("scroll", h);
+    window.addEventListener('scroll', h, { passive: true });
+    return () => window.removeEventListener('scroll', h);
   }, []);
 
   /* ── Scroll reveal ── */
   useEffect(() => {
-    const els = document.querySelectorAll(".rv");
+    const els = document.querySelectorAll('.rv');
     const obs = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
+      entries =>
+        entries.forEach(e => {
           if (e.isIntersecting) {
-            e.target.classList.add("visible");
+            e.target.classList.add('visible');
             obs.unobserve(e.target);
           }
         }),
-      { threshold: 0.04, rootMargin: "0px 0px 40px 0px" }
+      { threshold: 0.04, rootMargin: '0px 0px 40px 0px' }
     );
-    els.forEach((el) => obs.observe(el));
+    els.forEach(el => obs.observe(el));
     return () => obs.disconnect();
   }, []);
 
@@ -269,19 +287,22 @@ export default function App() {
       skills: 'rgba(6,182,212,0.12)',
       projects: 'rgba(99,102,241,0.14)',
       experience: 'rgba(139,92,246,0.12)',
-      contact: 'rgba(6,182,212,0.1)'
+      contact: 'rgba(6,182,212,0.1)',
     };
 
     const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((en) => {
+      entries => {
+        entries.forEach(en => {
           if (!en.target) return;
           const s = en.target as HTMLElement;
           if (en.isIntersecting) {
             const id = s.id || 'hero';
             const c = colors[id] || 'rgba(99,102,241,0.12)';
             document.documentElement.style.setProperty('--portal-color', c);
-            document.documentElement.style.setProperty('--portal-opacity', '0.55');
+            document.documentElement.style.setProperty(
+              '--portal-opacity',
+              '0.55'
+            );
             document.documentElement.style.setProperty('--bg-zoom', '1.06');
           } else {
             // when no section intersects (fast scroll), gently fade
@@ -293,28 +314,25 @@ export default function App() {
       { threshold: 0.48 }
     );
 
-    secs.forEach((s) => obs.observe(s));
+    secs.forEach(s => obs.observe(s));
     return () => obs.disconnect();
   }, []);
 
-
-
   /* ── Experience reveal ── */
   useEffect(() => {
-    const items = document.querySelectorAll<HTMLElement>(".ei");
+    const items = document.querySelectorAll<HTMLElement>('.ei');
     const obs = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
+      entries =>
+        entries.forEach(e => {
           if (e.isIntersecting) {
-            const d =
-              parseInt((e.target as HTMLElement).dataset.delay || "0");
-            setTimeout(() => e.target.classList.add("visible"), d);
+            const d = parseInt((e.target as HTMLElement).dataset.delay || '0');
+            setTimeout(() => e.target.classList.add('visible'), d);
             obs.unobserve(e.target);
           }
         }),
       { threshold: 0.12 }
     );
-    items.forEach((el) => obs.observe(el));
+    items.forEach(el => obs.observe(el));
     return () => obs.disconnect();
   }, []);
 
@@ -332,7 +350,7 @@ export default function App() {
   /* ── Editor helpers ── */
   const syncLines = useCallback(() => {
     if (editorRef.current)
-      setLineCount(editorRef.current.value.split("\n").length);
+      setLineCount(editorRef.current.value.split('\n').length);
   }, []);
 
   const syncScroll = useCallback(() => {
@@ -343,12 +361,12 @@ export default function App() {
     clearTimeout(timerRef.current);
     setOutputLines([]);
     setOutputDone(false);
-    const code = editorRef.current?.value || "";
-    const defaultCode = CODE_TABS[activeTab]?.code || "";
+    const code = editorRef.current?.value || '';
+    const defaultCode = CODE_TABS[activeTab]?.code || '';
     // Use polished predefined output for unmodified code
     const lines =
       code.trim() === defaultCode.trim()
-        ? CODE_TABS[activeTab]?.output || ["► No output"]
+        ? CODE_TABS[activeTab]?.output || ['► No output']
         : simulateCode(code, activeTab);
     let i = 0;
     const tick = () => {
@@ -356,7 +374,7 @@ export default function App() {
         setOutputDone(true);
         return;
       }
-      setOutputLines((prev) => [...prev, lines[i]]);
+      setOutputLines(prev => [...prev, lines[i]]);
       i++;
       timerRef.current = window.setTimeout(tick, 120);
     };
@@ -364,16 +382,16 @@ export default function App() {
   }, [activeTab]);
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === "Tab") {
+      if (e.key === 'Tab') {
         e.preventDefault();
         const el = editorRef.current!;
         const s = el.selectionStart;
         const end = el.selectionEnd;
-        el.value = el.value.slice(0, s) + "  " + el.value.slice(end);
+        el.value = el.value.slice(0, s) + '  ' + el.value.slice(end);
         el.selectionStart = el.selectionEnd = s + 2;
         syncLines();
       }
-      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
         e.preventDefault();
         runCode();
       }
@@ -381,20 +399,15 @@ export default function App() {
     [syncLines, runCode]
   );
 
-
-
-  const switchTab = useCallback(
-    (tab: "Python" | "Bash") => {
-      setActiveTab(tab);
-      setOutputLines([]);
-      setOutputDone(false);
-      if (editorRef.current) {
-        editorRef.current.value = CODE_TABS[tab].code;
-      }
-      setLineCount(CODE_TABS[tab].code.split("\n").length);
-    },
-    []
-  );
+  const switchTab = useCallback((tab: 'Python' | 'Bash') => {
+    setActiveTab(tab);
+    setOutputLines([]);
+    setOutputDone(false);
+    if (editorRef.current) {
+      editorRef.current.value = CODE_TABS[tab].code;
+    }
+    setLineCount(CODE_TABS[tab].code.split('\n').length);
+  }, []);
 
   const scrollTo = useCallback((e: React.MouseEvent, id: string) => {
     e.preventDefault();
@@ -403,14 +416,12 @@ export default function App() {
     if (win.lenis && el) {
       win.lenis.scrollTo(el, { offset: -72 });
     } else {
-      el?.scrollIntoView({ behavior: "smooth" });
+      el?.scrollIntoView({ behavior: 'smooth' });
     }
     setMenuOpen(false);
   }, []);
 
-
   // Removed unused: handleCardMouse, handleCardLeave, scrollCarousel
-
 
   // Removed useEffect for carIdx scroll sync (no longer needed)
 
@@ -420,19 +431,19 @@ export default function App() {
     if (!track) return;
 
     const handleMouseEnter = () => {
-      track.style.animationPlayState = "paused";
+      track.style.animationPlayState = 'paused';
     };
 
     const handleMouseLeave = () => {
-      track.style.animationPlayState = "running";
+      track.style.animationPlayState = 'running';
     };
 
-    track.addEventListener("mouseenter", handleMouseEnter);
-    track.addEventListener("mouseleave", handleMouseLeave);
+    track.addEventListener('mouseenter', handleMouseEnter);
+    track.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      track.removeEventListener("mouseenter", handleMouseEnter);
-      track.removeEventListener("mouseleave", handleMouseLeave);
+      track.removeEventListener('mouseenter', handleMouseEnter);
+      track.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
@@ -451,20 +462,19 @@ export default function App() {
       <div className="bg-portal" aria-hidden="true" />
       <div className="dot-grid" aria-hidden="true" />
 
-      
       {/* ══ NAV ══ */}
-      <nav id="nav" className={scrolled ? "scrolled" : ""} role="navigation">
+      <nav id="nav" className={scrolled ? 'scrolled' : ''} role="navigation">
         <div className="wrap nav-row">
           <a
             href="#hero"
             className="logo"
-            onClick={(e) => {
+            onClick={e => {
               e.preventDefault();
               const win: any = window as any;
               if (win.lenis) {
                 win.lenis.scrollTo(0);
               } else {
-                window.scrollTo({ top: 0, behavior: "smooth" });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
               }
             }}
           >
@@ -472,7 +482,12 @@ export default function App() {
               src={projectPhoto}
               alt="Project Logo"
               className="logo-img"
-              style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover" }}
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: '50%',
+                objectFit: 'cover',
+              }}
             />
           </a>
 
@@ -481,8 +496,8 @@ export default function App() {
               <li key={id}>
                 <a
                   href={`#${id}`}
-                  className={activeSection === id ? "active" : ""}
-                  onClick={(e) => scrollTo(e, id)}
+                  className={activeSection === id ? 'active' : ''}
+                  onClick={e => scrollTo(e, id)}
                 >
                   {label}
                   {activeSection === id && (
@@ -503,23 +518,23 @@ export default function App() {
           <button
             className="mobile-btn"
             aria-label="Toggle menu"
-            onClick={() => setMenuOpen((o) => !o)}
+            onClick={() => setMenuOpen(o => !o)}
           >
-            <span className={`mb${menuOpen ? " open" : ""}`} />
-            <span className={`mb${menuOpen ? " open" : ""}`} />
-            <span className={`mb${menuOpen ? " open" : ""}`} />
+            <span className={`mb${menuOpen ? ' open' : ''}`} />
+            <span className={`mb${menuOpen ? ' open' : ''}`} />
+            <span className={`mb${menuOpen ? ' open' : ''}`} />
           </button>
         </div>
       </nav>
 
       {/* Mobile drawer */}
-      <div className={`mobile-drawer${menuOpen ? " open" : ""}`}>
+      <div className={`mobile-drawer${menuOpen ? ' open' : ''}`}>
         {NAV_ITEMS.map(([id, label]) => (
           <a
             key={id}
             href={`#${id}`}
-            className={activeSection === id ? "active" : ""}
-            onClick={(e) => scrollTo(e, id)}
+            className={activeSection === id ? 'active' : ''}
+            onClick={e => scrollTo(e, id)}
           >
             {label}
           </a>
@@ -541,11 +556,11 @@ export default function App() {
               </div>
               <span className="pg-file">model.py</span>
               <div className="pg-tabs">
-                {(["Python", "Bash"] as const).map((t) => (
+                {(['Python', 'Bash'] as const).map(t => (
                   <button
                     key={t}
                     type="button"
-                    className={`pg-tab${activeTab === t ? " active" : ""}`}
+                    className={`pg-tab${activeTab === t ? ' active' : ''}`}
                     onClick={() => switchTab(t)}
                   >
                     {t}
@@ -593,7 +608,7 @@ export default function App() {
                 {outputLines.map((l, i) => (
                   <span key={i}>
                     {l}
-                    {"\n"}
+                    {'\n'}
                   </span>
                 ))}
                 {outputDone && <span className="blink-cursor">█</span>}
@@ -621,18 +636,25 @@ export default function App() {
       <section id="about" className="sec-deep">
         <div className="wrap">
           <div className="label rv">// 01 — ABOUT</div>
-          <Shuffle tag="h2" className="sec-h" text={"Precision-driven\nFull-Stack Developer."} duration={0.55} stagger={0.022} />
+          <Shuffle
+            tag="h2"
+            className="sec-h"
+            text={'Precision-driven\nFull-Stack Developer.'}
+            duration={0.55}
+            stagger={0.022}
+          />
           <p className="about-p rv d1">
-            I'm Dinesh A — an AI/ML Engineer and a Full-Stack Developer focused on building
-            production-grade machine learning systems and Web applications that deliver real-world
-            impact. My work spans the full ML stack: from research and
-            architecture design to deployment and monitoring at scale.
+            I'm Dinesh A — an AI/ML Engineer and a Full-Stack Developer focused
+            on building production-grade machine learning systems and Web
+            applications that deliver real-world impact. My work spans the full
+            ML stack: from research and architecture design to deployment and
+            monitoring at scale.
           </p>
           <p className="about-p rv d2">
-            I specialize in large language models, prompt Engineering,
-            and MLOps pipelines. I believe great ML engineering is about systems
-            thinking, clean abstractions, and measurable outcomes — not just
-            notebook accuracy scores.
+            I specialize in large language models, prompt Engineering, and MLOps
+            pipelines. I believe great ML engineering is about systems thinking,
+            clean abstractions, and measurable outcomes — not just notebook
+            accuracy scores.
           </p>
           <p className="about-p rv d2">
             When I'm not shipping models, I'm contributing to open-source,
@@ -649,13 +671,13 @@ export default function App() {
           </a>
           <div className="stats-row">
             {[
-              { n: "2+", l: "Years Exp" },
-              { n: "5+", l: "Projects" },
-              { n: "3+", l: "Models Deployed" },
+              { n: '2+', l: 'Years Exp' },
+              { n: '5+', l: 'Projects' },
+              { n: '3+', l: 'Models Deployed' },
             ].map((s, i) => (
               <div
                 key={s.l}
-                className={`stat-card glass-2 rv${i ? ` d${i}` : ""}`}
+                className={`stat-card glass-2 rv${i ? ` d${i}` : ''}`}
               >
                 <b>{s.n}</b>
                 <small>{s.l}</small>
@@ -669,16 +691,22 @@ export default function App() {
       <section id="skills">
         <div className="wrap">
           <div className="label rv d1">// 02 — SKILLS</div>
-          <Shuffle tag="h2" className="sec-h" text={"Technical Expertise"} duration={0.5} stagger={0.025} />
+          <Shuffle
+            tag="h2"
+            className="sec-h"
+            text={'Technical Expertise'}
+            duration={0.5}
+            stagger={0.025}
+          />
           <div className="skills-grid">
             {SKILL_GROUPS.map(([title, tags], gi) => (
               <div
                 key={title}
-                className={`skill-group glass-2 rv${gi % 2 ? " d1" : ""}`}
+                className={`skill-group glass-2 rv${gi % 2 ? ' d1' : ''}`}
               >
                 <div className="sg-title">{title}</div>
                 <div className="sg-tags">
-                  {tags.map((t) => (
+                  {tags.map(t => (
                     <span key={t} className="stag glass-3">
                       {t}
                     </span>
@@ -694,21 +722,34 @@ export default function App() {
       <section id="projects" className="sec-deep">
         <div className="wrap">
           <div className="label rv">// 03 — SELECTED WORK</div>
-          <Shuffle tag="h2" className="sec-h" text={"What I've Built"} duration={0.5} stagger={0.025} />
+          <Shuffle
+            tag="h2"
+            className="sec-h"
+            text={"What I've Built"}
+            duration={0.5}
+            stagger={0.025}
+          />
 
           {/* Rod / rail */}
           <div className="hang-rail rv d2" />
 
-
           {/* Static responsive grid for projects */}
           <div className="projects-grid">
             {PROJECTS.map((p, i) => (
-              <div 
+              <div
                 key={p.title}
                 className="project-card glass-2"
-                style={{ '--delay': `${i * 120}ms`, borderTop: `4px solid ${p.color}` } as React.CSSProperties}
+                style={
+                  {
+                    '--delay': `${i * 120}ms`,
+                    borderTop: `4px solid ${p.color}`,
+                  } as React.CSSProperties
+                }
               >
-                <div className="project-card-icon" style={{ background: p.color }}>
+                <div
+                  className="project-card-icon"
+                  style={{ background: p.color }}
+                >
                   <img
                     src={`/${p.photoFile}`}
                     alt={`${p.title} preview`}
@@ -722,8 +763,10 @@ export default function App() {
                   <div className="project-card-desc">{p.desc}</div>
                   <div className="project-card-metric">{p.metric}</div>
                   <div className="project-card-stack">
-                    {p.stack.map((s) => (
-                      <span key={s} className="project-card-chip glass-3">{s}</span>
+                    {p.stack.map(s => (
+                      <span key={s} className="project-card-chip glass-3">
+                        {s}
+                      </span>
                     ))}
                   </div>
                   <div className="project-card-actions">
@@ -752,8 +795,6 @@ export default function App() {
               </div>
             ))}
           </div>
-
-
         </div>
       </section>
 
@@ -761,7 +802,13 @@ export default function App() {
       <section id="experience">
         <div className="wrap">
           <div className="label rv d1">// 04 — EXPERIENCE</div>
-          <Shuffle tag="h2" className="sec-h" text={"Career Timeline"} duration={0.5} stagger={0.025} />
+          <Shuffle
+            tag="h2"
+            className="sec-h"
+            text={'Career Timeline'}
+            duration={0.5}
+            stagger={0.025}
+          />
           <div className="tl">
             <div className="tl-line" />
             {EXP_ITEMS.map((exp, i) => (
@@ -775,7 +822,7 @@ export default function App() {
                   </div>
                   <p className="ei-desc">{exp.desc}</p>
                   <div className="ei-tags">
-                    {exp.tags.map((t) => (
+                    {exp.tags.map(t => (
                       <span key={t} className="glass-3">
                         {t}
                       </span>
@@ -793,17 +840,16 @@ export default function App() {
         <div className="wrap ct-wrap">
           <div className="ct-glow" />
           <div className="ct-panel glass-2 rv d1">
-            <div className="label">
-              // 05 — CONTACT
-            </div>
+            <div className="label">// 05 — CONTACT</div>
             <h2 className="ct-h">
               Let's build
               <br />
               <em>something real.</em>
             </h2>
             <p className="ct-sub">
-              Open to junior frontend engineering roles, research collaborations, and
-              high-impact projects. I respond within 24 hours.
+              Open to junior frontend engineering roles, research
+              collaborations, and high-impact projects. I respond within 24
+              hours.
             </p>
             <a href="mailto:dineshyr2904@gmail.com" className="ct-email">
               <svg
@@ -828,7 +874,13 @@ export default function App() {
               >
                 ↗ LinkedIn
               </a>
-              <a href="https://github.com/dineshyr29-04" target="_blank" rel="noopener noreferrer" className="soc-btn glass-3" aria-label="GitHub">
+              <a
+                href="https://github.com/dineshyr29-04"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="soc-btn glass-3"
+                aria-label="GitHub"
+              >
                 ↗ GitHub
               </a>
               <a href="" className="soc-btn glass-3" aria-label="Resume">
@@ -843,12 +895,12 @@ export default function App() {
       <footer>
         <div className="wrap">
           <p>
-            Dinesh A &nbsp;·&nbsp;Full Stack Developer &nbsp;·&nbsp; AI/ML Engineer &nbsp;·&nbsp; Built with
-            precision &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; Designed by Dinesh A
+            Dinesh A &nbsp;·&nbsp;Full Stack Developer &nbsp;·&nbsp; AI/ML
+            Engineer &nbsp;·&nbsp; Built with precision &nbsp;·&nbsp; 2025
+            &nbsp;·&nbsp; Designed by Dinesh A
           </p>
         </div>
       </footer>
     </>
   );
 }
-

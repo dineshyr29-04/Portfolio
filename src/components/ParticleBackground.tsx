@@ -11,7 +11,13 @@ export default function ParticleBackground() {
     let w = (canvas.width = canvas.clientWidth * devicePixelRatio);
     let h = (canvas.height = canvas.clientHeight * devicePixelRatio);
 
-    const particles: { x: number; y: number; vx: number; vy: number; r: number }[] = [];
+    const particles: {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      r: number;
+    }[] = [];
     const count = Math.floor((canvas.clientWidth * canvas.clientHeight) / 7000);
 
     for (let i = 0; i < Math.max(30, count); i++) {
@@ -29,8 +35,8 @@ export default function ParticleBackground() {
     let mouseY = h / 2;
 
     const onMove = (e: MouseEvent) => {
-      mouseX = (e.clientX * devicePixelRatio) || mouseX;
-      mouseY = (e.clientY * devicePixelRatio) || mouseY;
+      mouseX = e.clientX * devicePixelRatio || mouseX;
+      mouseY = e.clientY * devicePixelRatio || mouseY;
     };
 
     window.addEventListener('mousemove', onMove);

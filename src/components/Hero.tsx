@@ -20,9 +20,21 @@ export default function Hero() {
         <div className="hero-left-main">
           <span className="hero-badge">✦ Open to Web development roles</span>
           <h1 className="hero-name" aria-label="DINESH A">
-            <Shuffle tag="span" text="DINESH" duration={0.65} stagger={0.03} immediate />{' '}
+            <Shuffle
+              tag="span"
+              text="DINESH"
+              duration={0.65}
+              stagger={0.03}
+              immediate
+            />{' '}
             <span className="spana">
-              <Shuffle tag="span" text="A" duration={0.72} stagger={0.03} immediate />
+              <Shuffle
+                tag="span"
+                text="A"
+                duration={0.72}
+                stagger={0.03}
+                immediate
+              />
             </span>
           </h1>
 
@@ -37,10 +49,19 @@ export default function Hero() {
             />
           </div>
 
-          <p className="hero-bio">I design and deploy production Full-Stack and Web systems — from model architecture to inference pipelines and a clean UI.</p>
+          <p className="hero-bio">
+            I design and deploy production Full-Stack and Web systems — from
+            model architecture to inference pipelines and a clean UI.
+          </p>
 
           <div className="hero-ctas">
-            <button className="btn-cta" onClick={handleViewWork} aria-label="View my work">View My Work</button>
+            <button
+              className="btn-cta"
+              onClick={handleViewWork}
+              aria-label="View my work"
+            >
+              View My Work
+            </button>
             <SocialLinks />
           </div>
         </div>

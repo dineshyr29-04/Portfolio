@@ -15,7 +15,7 @@ export default function TypewriterText({ phrases, period = 2500 }: Props) {
 
     if (typing) {
       t = window.setInterval(() => {
-        setSub((s) => {
+        setSub(s => {
           const next = current.slice(0, s.length + 1);
           if (next === s) return s;
           if (!mounted) return next;
@@ -31,10 +31,10 @@ export default function TypewriterText({ phrases, period = 2500 }: Props) {
       t = window.setTimeout(() => {
         // pause then start deleting
         const del = window.setInterval(() => {
-          setSub((s) => {
+          setSub(s => {
             if (s.length === 0) {
               clearInterval(del);
-              setIdx((i) => i + 1);
+              setIdx(i => i + 1);
               setTyping(true);
               return '';
             }
@@ -51,9 +51,15 @@ export default function TypewriterText({ phrases, period = 2500 }: Props) {
   }, [idx, typing, phrases, period]);
 
   return (
-    <motion.span initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+    <motion.span
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <span className="typewrap">{sub}</span>
-      <span className="type-cursor" aria-hidden>█</span>
+      <span className="type-cursor" aria-hidden>
+        █
+      </span>
     </motion.span>
   );
 }
