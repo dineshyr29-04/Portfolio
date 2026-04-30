@@ -1026,6 +1026,7 @@ section {
 .skill-group {
   padding: clamp(20px, 3vw, 28px);
   border-radius: 16px;
+  background-color: var(--glass-bg);
 }
 .sg-title {
   font-family: 'JetBrains Mono', monospace;
