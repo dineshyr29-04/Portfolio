@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-
+import { Analytics } from "@vercel/analytics/react"
 import Shuffle from './Shuffle';
 import './Shuffle.css';
 import DarkVeil from './DarkVeil';
@@ -450,6 +450,7 @@ export default function App() {
   /* ════════════════════════ RENDER ════════════════════════ */
   return (
     <>
+      <Analytics />
       {/* WebGL animated background */}
       <DarkVeil
         hueShift={220}
