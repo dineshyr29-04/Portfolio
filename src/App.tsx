@@ -96,11 +96,22 @@ const SKILL_GROUPS: [string, string[]][] = [
 
 const PROJECTS = [
   {
+    type: 'Hackathon Platform / Event OS',
+    color: 'var(--accent)',
+    photoFile: 'project-sankalp.png',
+    title: 'Project Sankalp',
+    desc: 'A premium, high-impact hackathon management platform. Features an engineered UI for team collaboration, real-time tracking, and automated judging workflows.',
+    metric: '500+ Participants · 48h Live Stream',
+    stack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
+    repoUrl: 'https://github.com/dineshyr29-04/Sankalp',
+    liveUrl: 'https://project-sankalp.dev',
+  },
+  {
     type: 'SaaS Frontend / Cloud Interface',
     color: 'var(--accent3)',
     photoFile: 'project-thinknode.png',
     title: 'Thinknode Customer Portal',
-    desc: 'A customer-facing web application for the ThinkNode ecosystem. Features a comprehensive dashboard for interacting with backend data processing and AI-driven workflows.',
+    desc: 'An enterprise-grade customer dashboard for the ThinkNode cloud ecosystem. Orchestrates complex AI workflows and data visualization with sub-second latency.',
     metric: '10k+ Active Users · 99.9% Uptime',
     stack: ['JavaScript', 'HTML', 'CSS', 'Node.js'],
     repoUrl:
@@ -112,7 +123,7 @@ const PROJECTS = [
     color: 'var(--accent2)',
     photoFile: 'project-openloop.png',
     title: 'Openloop Automation',
-    desc: 'A scalable automation system designed for managing complex AI pipelines and event-driven tasks. Orchestrates repetitive processes through efficient continuous loops.',
+    desc: 'A scalable automation engine designed for AI pipeline orchestration. Leverages event-driven architecture to manage long-running repetitive tasks.',
     metric: '89% Accuracy · 5x Efficiency Gain',
     stack: ['JavaScript', 'TypeScript', 'Python', 'YAML'],
     repoUrl: 'https://github.com/dineshyr29-04/Openloop',
@@ -123,7 +134,7 @@ const PROJECTS = [
     color: 'var(--green)',
     photoFile: 'project-agro-nova.png',
     title: 'AgroNova Platform',
-    desc: 'An advanced agriculture technology platform improving farming efficiency through digital insights. Integrates IoT data for real-time crop monitoring and predictive analytics.',
+    desc: 'Smart agriculture platform integrating IoT sensor data for predictive crop analytics. Empowers farmers with real-time soil and climate insights.',
     metric: '15% Yield Increase · Real-time Monitoring',
     stack: ['JavaScript', 'Python', 'MongoDB', 'SQL'],
     repoUrl:
@@ -135,7 +146,7 @@ const PROJECTS = [
     color: 'var(--accent)',
     photoFile: 'project-cardio-nerve.png',
     title: 'Cardionerve Health',
-    desc: 'A healthcare analytics system focused on cardiovascular and neurological data analysis. Processes complex medical data to assist in diagnosis and monitoring.',
+    desc: 'Clinical-grade analytics system for cardiovascular and neurological diagnosis. Processes high-frequency medical data with advanced filtering.',
     metric: '97.5% Precision · Clinical Grade',
     stack: ['Python', 'JavaScript', 'Jupyter', 'DataViz'],
     repoUrl:
@@ -146,24 +157,12 @@ const PROJECTS = [
     type: 'Web Development',
     color: 'var(--accent2)',
     photoFile: 'project-portfolio.png',
-    title: 'Personal Portfolio',
-    desc: 'A high-performance developer portfolio showcasing advanced frontend engineering. Features responsive layouts, custom animations, and a cinematic UI design.',
+    title: 'Developer Portfolio',
+    desc: 'A high-performance cinematic portfolio showcasing advanced frontend engineering and creative UI patterns. Built for speed and visual impact.',
     metric: '100/100 Performance · SEO Optimized',
     stack: ['React', 'TypeScript', 'HTML', 'CSS'],
     repoUrl: 'https://github.com/dineshyr29-04/Portfolio',
     liveUrl: 'https://dinesh-portfolio.vercel.app',
-  },
-  {
-    type: 'Pharma Security / Supply Chain',
-    color: 'var(--accent3)',
-    photoFile: 'project-drug-secure.png',
-    title: 'Drug-Secure System',
-    desc: 'A pharmaceutical verification platform ensuring medicine authenticity. Tracks products across the supply chain using digital identifiers to prevent counterfeiting.',
-    metric: 'Zero Counterfeits · 100% Traceability',
-    stack: ['JavaScript', 'TypeScript', 'Python', 'SQL'],
-    repoUrl:
-      'https://github.com/dineshyr29-04?tab=repositories&q=drug-secure&type=&language=&sort=',
-    liveUrl: '',
   },
 ];
 
