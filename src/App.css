@@ -14,20 +14,21 @@
   max-width: 100%;
   display: flex;
   flex-direction: column;
-  background: none;
-  border-radius: 0;
-  box-shadow: none;
-  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(13, 17, 33, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px -15px rgba(2, 4, 12, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   position: relative;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  padding-bottom: 32px;
+  padding-bottom: 0;
 }
 
 .project-card:hover {
-  transform: translateX(12px);
-  border-left-color: var(--accent);
-  background: linear-gradient(90deg, rgba(99, 102, 241, 0.03), transparent);
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  background: rgba(13, 17, 33, 0.95);
+  box-shadow: 0 20px 40px -20px rgba(99, 102, 241, 0.3);
 }
 
 .project-card-icon {
@@ -358,18 +359,16 @@ section {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 .glass-2 {
-  /* minimal container - no borders/shadows/rounded */
-  background: none;
-  backdrop-filter: none;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  transition: all 0.3s ease;
+  background: #0d1121;
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s var(--anim-ease);
 }
 .glass-2:hover {
-  background: rgba(255, 255, 255, 0.01);
-  border-color: transparent;
-  box-shadow: none;
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
 }
 .glass-3 {
   /* minimal chip glass */
