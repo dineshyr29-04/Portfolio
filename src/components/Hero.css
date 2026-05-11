@@ -1,9 +1,12 @@
 .hero-component {
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
-}
-.hero-particles {
+    background: linear-gradient(120deg, #181c2e 60%, #232946 100%);
+    border-radius: 12px;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 32px rgba(30, 41, 59, 0.12);
+    padding-top: 32px;
+    padding-bottom: 32px;
   position: absolute;
   inset: 0;
   width: 100%;
