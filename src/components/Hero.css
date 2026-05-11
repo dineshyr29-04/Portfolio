@@ -35,11 +35,21 @@
   backdrop-filter: blur(8px);
 }
 .hero-name {
-  font-size: 48px;
-  line-height: 1;
-  font-weight: 800;
+  font-size: 3.2rem;
+  line-height: 1.1;
+  font-weight: 900;
   color: #fff;
-  margin: 6px 0 8px;
+  margin: 10px 0 8px;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 16px rgba(99,102,241,0.08);
+}
+
+.hero-profession {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #a5b4fc;
+  margin-bottom: 18px;
+  letter-spacing: 0.01em;
 }
 .hero-role-typed {
   color: #a5b4fc;
@@ -50,6 +60,15 @@
   color: #cbd5e1;
   max-width: 58ch;
   margin-bottom: 18px;
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.hero-bio-long {
+  max-width: 70ch;
+  font-size: 1.13rem;
+  margin-bottom: 28px;
+  line-height: 1.8;
 }
 .hero-ctas {
   display: flex;
@@ -155,12 +174,19 @@
   .hero-inner {
     flex-direction: column;
     align-items: flex-start;
-    padding: 24px;
+    padding: 20px;
   }
   .hero-avatar-wrap {
     align-self: flex-end;
   }
   .hero-name {
-    font-size: 36px;
+    font-size: 2.1rem;
+  }
+  .hero-profession {
+    font-size: 1.1rem;
+  }
+  .hero-bio-long {
+    font-size: 1rem;
+    margin-bottom: 18px;
   }
 }
