@@ -20,13 +20,13 @@ export default function Hero() {
   return (
     <section className="hero-component" aria-label="Hero section">
       <div className="hero-background-pattern" aria-hidden="true" />
-      
+
       <div className="hero-inner">
         <div className="hero-left-main">
           <h1 className="hero-name">Dinesh A</h1>
-          <h2 className="hero-profession">Full-Stack Developer & AI/ML Engineer</h2>
-
-          
+          <h2 className="hero-profession">
+            Full-Stack Developer & AI/ML Engineer
+          </h2>
 
           {/* Stats */}
           <div className="hero-stats">
@@ -41,7 +41,9 @@ export default function Hero() {
           {/* Skills Pills */}
           <div className="hero-skills">
             {SKILLS.map((skill, idx) => (
-              <span key={idx} className="skill-pill">{skill}</span>
+              <span key={idx} className="skill-pill">
+                {skill}
+              </span>
             ))}
           </div>
 
@@ -60,8 +62,6 @@ export default function Hero() {
             <SocialLinks />
           </div>
         </div>
-
-        
       </div>
     </section>
   );

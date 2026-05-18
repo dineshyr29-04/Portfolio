@@ -10,7 +10,6 @@
   padding: 0 16px;
 }
 
-
 .project-card {
   min-width: 0;
   width: 100%;
@@ -23,18 +22,20 @@
   border: 1.5px solid rgba(255, 255, 255, 0.09);
   position: relative;
   overflow: hidden;
-  transition: box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s, background 0.3s;
+  transition:
+    box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.3s,
+    background 0.3s;
   padding-bottom: 0;
 }
 
-
-.project-card:hover, .project-card:focus-within {
+.project-card:hover,
+.project-card:focus-within {
   transform: translateY(-8px) scale(1.02);
   border-color: var(--accent);
   background: rgba(24, 28, 48, 0.98);
   box-shadow: 0 24px 48px -18px rgba(99, 102, 241, 0.32);
 }
-
 
 .project-card-icon {
   width: 100%;
@@ -51,11 +52,10 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-
-.project-card:hover .project-card-icon, .project-card:focus-within .project-card-icon {
+.project-card:hover .project-card-icon,
+.project-card:focus-within .project-card-icon {
   filter: grayscale(0) brightness(1.04);
 }
-
 
 .project-card-photo {
   width: 100%;
@@ -65,7 +65,6 @@
   border-radius: 0;
 }
 
-
 .project-card-content {
   padding: 28px 28px 22px;
   display: flex;
@@ -73,7 +72,6 @@
   align-items: flex-start;
   gap: 8px;
 }
-
 
 .project-card-title {
   font-family: 'Syne', sans-serif;
@@ -84,7 +82,6 @@
   letter-spacing: 0.01em;
 }
 
-
 .project-card-type {
   font-family: 'JetBrains Mono', monospace;
   font-size: 1.05rem;
@@ -93,7 +90,6 @@
   letter-spacing: 0.01em;
 }
 
-
 .project-card-desc {
   font-size: 1.08rem;
   color: #e5e7eb;
@@ -101,7 +97,6 @@
   line-height: 1.7;
   max-width: 60ch;
 }
-
 
 .project-card-metric {
   font-family: 'JetBrains Mono', monospace;
@@ -162,21 +157,33 @@
 }
 
 /* Improved button/link focus and hover feedback */
-.btn-cta, .project-card a, .project-card button {
-  transition: box-shadow 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+.btn-cta,
+.project-card a,
+.project-card button {
+  transition:
+    box-shadow 0.2s,
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
 }
-.btn-cta:focus, .project-card a:focus, .project-card button:focus {
+.btn-cta:focus,
+.project-card a:focus,
+.project-card button:focus {
   outline: 2.5px solid var(--accent2);
   outline-offset: 2px;
 }
-.btn-cta:hover, .project-card a:hover, .project-card button:hover {
+.btn-cta:hover,
+.project-card a:hover,
+.project-card button:hover {
   filter: brightness(1.08);
   box-shadow: 0 6px 18px rgba(99, 102, 241, 0.18);
 }
 
 /* Respect prefers-reduced-motion for animations */
 @media (prefers-reduced-motion: reduce) {
-  .project-card, .btn-cta, .project-card-icon {
+  .project-card,
+  .btn-cta,
+  .project-card-icon {
     transition: none !important;
   }
 }
