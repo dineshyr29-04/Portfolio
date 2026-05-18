@@ -174,6 +174,20 @@ const EXP_ITEMS = [
     desc: 'An AI-driven cardiovascular intelligence platform that analyzes real-time heart rate and HRV data from PPG sensors to generate predictive cardiac risk scores. Designed a clinical dashboard for early detection, risk stratification, and preventive decision support. Architected and deployed production LLM pipelines processing 2M+ daily requests. Led fine-tuning initiatives for domain-specific applications and built internal MLOps tooling adopted across 4 teams.',
     tags: ['Express.js', 'PyTorch', 'MLOps', 'Python'],
   },
+  {
+    period: '2024 — Present',
+    company: 'College Tech Club',
+    role: 'President',
+    desc: 'Presided over the technical club, spearheading numerous events, hackathons, and hands-on workshops. Fostered a vibrant developer community by organizing technical seminars, mentoring students in modern web technologies, and coordinating large-scale tech fests.',
+    tags: ['Leadership', 'Event Management', 'Community Building', 'Workshops'],
+  },
+  {
+    period: '2023 — Present',
+    company: 'Competitive Hackathons',
+    role: 'Competitor & Finalist',
+    desc: 'Actively competed in 9 major hackathons, rapidly prototyping complex full-stack and AI/ML solutions under tight 24-48 hour deadlines. Reached the grand finals in 2 prestigious hackathons, demonstrating exceptional problem-solving, teamwork, and technical execution.',
+    tags: ['Hackathons', 'Rapid Prototyping', 'Full-Stack', 'AI/ML'],
+  },
 ];
 
 const EXTRA_ITEMS = [
