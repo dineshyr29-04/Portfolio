@@ -13,12 +13,11 @@ import Hero from './components/Hero';
 const CODE_TABS: Record<string, { code: string; output: string[] }> = {
   Python: {
     code: `import technology as tech
-    import innovation as inn
-    print("NAME: Dinesh A"
-    print("Role: AI/ML Enginneer and Full-Stack Developer")
-    print("Focus: Building production level Full Stack and Web devs and learning about systems of ML and architechures))`,
+import innovation as inn
+print("NAME: Dinesh A")
+print("Role: AI/ML Engineer and Full-Stack Developer")
+print("Focus: Building production level Full Stack and Web devs and learning about systems of ML and architectures")`,
     output: [
-      'Parameters: 4,722,176',
       'Architecture: Transformer (d=512, h=8)',
       'Status: Ready for training ✓',
     ],
@@ -65,6 +64,7 @@ const NAV_ITEMS: [string, string][] = [
   ['skills', 'Skills'],
   ['projects', 'Work'],
   ['experience', 'Experience'],
+  ['extracurricular', 'Beyond Code'],
   ['contact', 'Contact'],
 ];
 
@@ -171,8 +171,35 @@ const EXP_ITEMS = [
     period: '2025 — Present',
     company: 'Cardio Nerve',
     role: 'Full-Stack Developer',
-    desc: 'An AI-driven cardiovascular intelligence platform that analyzes real-time heart rate and HRV data from PPG sensors to generate predictive cardiac risk scores. Designed a clinical dashboard for early detection, risk stratification, and preventive decision support.Architected and deployed production LLM pipelines processing 2M+ daily requests. Led fine-tuning initiatives for domain-specific applications and built internal MLOps tooling adopted across 4 teams.',
+    desc: 'An AI-driven cardiovascular intelligence platform that analyzes real-time heart rate and HRV data from PPG sensors to generate predictive cardiac risk scores. Designed a clinical dashboard for early detection, risk stratification, and preventive decision support. Architected and deployed production LLM pipelines processing 2M+ daily requests. Led fine-tuning initiatives for domain-specific applications and built internal MLOps tooling adopted across 4 teams.',
     tags: ['Express.js', 'PyTorch', 'MLOps', 'Python'],
+  },
+];
+
+const EXTRA_ITEMS = [
+  {
+    icon: '🏆',
+    title: 'Hackathon Organizer',
+    desc: 'Organized and managed large-scale hackathons with 500+ participants. Built the entire event platform from scratch.',
+    highlight: 'Project Sankalp',
+  },
+  {
+    icon: '📖',
+    title: 'Research & Papers',
+    desc: 'Actively studying transformer architectures, attention mechanisms, and publishing findings on ML system design.',
+    highlight: 'Deep Learning Focus',
+  },
+  {
+    icon: '🌐',
+    title: 'Open Source',
+    desc: 'Contributing to open-source ML tools and building developer utilities used by the community.',
+    highlight: 'GitHub Active',
+  },
+  {
+    icon: '🎤',
+    title: 'Tech Talks & Mentoring',
+    desc: 'Presenting on AI/ML topics at college events and mentoring junior developers in web and ML engineering.',
+    highlight: 'Community Builder',
   },
 ];
 
@@ -835,12 +862,39 @@ export default function App() {
         </div>
       </section>
 
+      {/* ══ EXTRACURRICULAR ══ */}
+      <section id="extracurricular" className="sec-deep">
+        <div className="wrap">
+          <div className="label rv">// 05 — BEYOND CODE</div>
+          <Shuffle
+            tag="h2"
+            className="sec-h"
+            text={'Extracurricular'}
+            duration={0.5}
+            stagger={0.025}
+          />
+          <div className="extra-grid">
+            {EXTRA_ITEMS.map((item, i) => (
+              <div
+                key={item.title}
+                className={`extra-card glass-2 rv${i % 2 ? ' d1' : ''}`}
+              >
+                <div className="extra-icon">{item.icon}</div>
+                <h3 className="extra-title">{item.title}</h3>
+                <p className="extra-desc">{item.desc}</p>
+                <span className="extra-highlight">{item.highlight}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ══ CONTACT ══ */}
       <section id="contact" className="sec-deep">
         <div className="wrap ct-wrap">
           <div className="ct-glow" />
           <div className="ct-panel glass-2 rv d1">
-            <div className="label">// 05 — CONTACT</div>
+            <div className="label">// 06 — CONTACT</div>
             <h2 className="ct-h">
               Let's build
               <br />

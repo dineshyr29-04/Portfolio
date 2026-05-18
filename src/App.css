@@ -1743,3 +1743,142 @@ footer p {
     transition: none !important;
   }
 }
+
+/* ═══════════════════════════════════════════
+   EXTRACURRICULAR SECTION
+   ═══════════════════════════════════════════ */
+.extra-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.extra-card {
+  padding: 32px 28px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.extra-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.extra-card:hover::before {
+  opacity: 1;
+}
+
+.extra-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(99, 102, 241, 0.25);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(99, 102, 241, 0.08);
+}
+
+.extra-icon {
+  font-size: 2.2rem;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+}
+
+.extra-card:hover .extra-icon {
+  background: rgba(99, 102, 241, 0.14);
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: scale(1.05);
+}
+
+.extra-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.extra-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+  font-weight: 300;
+}
+
+.extra-highlight {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--accent);
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  padding: 5px 12px;
+  border-radius: 9999px;
+  width: fit-content;
+  letter-spacing: 0.03em;
+  transition: all 0.3s ease;
+}
+
+.extra-card:hover .extra-highlight {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+@media (max-width: 768px) {
+  .extra-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .extra-card {
+    padding: 24px 20px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   ENHANCED PROJECT CARDS
+   ═══════════════════════════════════════════ */
+.project-card {
+  transition:
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.3s ease;
+}
+
+.project-card:hover,
+.project-card:focus-within {
+  transform: translateY(-10px) scale(1.015);
+  box-shadow:
+    0 32px 64px -16px rgba(0, 0, 0, 0.5),
+    0 0 48px rgba(99, 102, 241, 0.1);
+}
+
+.project-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card-actions {
+  margin-top: auto;
+  padding-top: 16px;
+}

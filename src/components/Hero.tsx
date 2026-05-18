@@ -1,68 +1,82 @@
+import { useEffect, useState } from 'react';
 import './Hero.css';
-import SocialLinks from './SocialLinks';
 
-const STATS = [
-  { label: 'Projects', value: '10+' },
-  { label: 'Experience', value: '1  +yrs' },
-  { label: 'Focus', value: 'Full-Stack' },
-];
-
-const SKILLS = [
-  'React',
-  'TypeScript',
-  'Node.js',
-  'Python',
-  'AI/ML',
-  'PostgreSQL',
-];
+const ROLES = ['AI', 'ML', 'LLM', 'MLOps', 'Production Systems'];
 
 export default function Hero() {
+  const [roleIdx, setRoleIdx] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIdx(i => (i + 1) % ROLES.length);
+    }, 2200);
+    return () => clearInterval(interval);
+  }, []);
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    const win = window as any;
+    if (win.lenis && el) {
+      win.lenis.scrollTo(el, { offset: -72 });
+    } else {
+      el?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section className="hero-component" aria-label="Hero section">
-      <div className="hero-background-pattern" aria-hidden="true" />
-
-      <div className="hero-inner">
-        <div className="hero-left-main">
-          <h1 className="hero-name">Dinesh A</h1>
-          <h2 className="hero-profession">
-            Full-Stack Developer & AI/ML Engineer
-          </h2>
-
-          {/* Stats */}
-          <div className="hero-stats">
-            {STATS.map((stat, idx) => (
-              <div key={idx} className="stat-item">
-                <span className="stat-value">{stat.value}</span>
-                <span className="stat-label">{stat.label}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Skills Pills */}
-          <div className="hero-skills">
-            {SKILLS.map((skill, idx) => (
-              <span key={idx} className="skill-pill">
-                {skill}
-              </span>
-            ))}
-          </div>
-
-          {/* CTA Buttons */}
-          <div className="hero-ctas">
-            <a className="btn-cta btn-primary" href="#projects">
-              View My Work
-            </a>
-            <a className="btn-cta btn-secondary" href="#contact">
-              Get In Touch
-            </a>
-          </div>
-
-          {/* Social Links */}
-          <div className="hero-socials">
-            <SocialLinks />
-          </div>
-        </div>
+    <div className="hero-left" aria-label="Hero introduction">
+      {/* Status Badge */}
+      <div className="hero-badge" aria-label="Status">
+        <span className="hero-badge-dot" />
+        Open to Web development roles
       </div>
-    </section>
+
+      {/* Large Name */}
+      <h1 className="hero-name">
+        <span className="hero-name-first">DINESH</span>
+        <span className="hero-name-last">A</span>
+      </h1>
+
+      {/* Animated Role Tags */}
+      <div className="hero-role" aria-label="Specializations">
+        <span className="hero-role-prefix">// </span>
+        {ROLES.map((role, i) => (
+          <span key={role} className="hero-role-tag">
+            {role}
+            {i < ROLES.length - 1 && (
+              <span className="hero-role-sep"> · </span>
+            )}
+          </span>
+        ))}
+      </div>
+
+      {/* Bio */}
+      <p className="hero-bio">
+        I design and deploy production Full-Stack and Web systems —
+        <br />
+        from model architecture to inference pipelines and a clean UI —
+        <br />
+        with a focus on reliability, efficiency, and real-world impact.
+      </p>
+
+      {/* CTA Buttons */}
+      <div className="hero-ctas">
+        <button
+          className="btn-glass btn-glow"
+          onClick={() => scrollTo('projects')}
+          type="button"
+        >
+          View My Work →
+        </button>
+        <a
+          href="https://www.linkedin.com/in/dinesh-a-122983374/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-glass btn-outline"
+        >
+          LinkedIn ↗
+        </a>
+      </div>
+    </div>
   );
 }
