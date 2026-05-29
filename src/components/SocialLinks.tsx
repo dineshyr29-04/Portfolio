@@ -1,4 +1,5 @@
 import React from 'react';
+import './SocialLinks.css';
 
 const Icon = ({ children }: { children: React.ReactNode }) => (
   <span className="social-icon" aria-hidden>
@@ -8,7 +9,8 @@ const Icon = ({ children }: { children: React.ReactNode }) => (
 
 export default function SocialLinks() {
   return (
-    <div className="social-links" role="navigation" aria-label="Social links">
+    <div className="social-links-wrapper">
+      <div className="social-links" role="navigation" aria-label="Social links">
       <a
         href="https://github.com/dineshyr29-04"
         target="_blank"
@@ -52,6 +54,21 @@ export default function SocialLinks() {
           </svg>
         </Icon>
       </a>
+      </div>
+      <div className="hackathons" aria-label="Hackathons and projects">
+        <h4>Hackathons & Projects</h4>
+        <p>
+          I regularly build and ship prototypes at hackathons — check out my
+          hackathon projects on GitHub.
+        </p>
+        <a
+          href="https://github.com/search?q=user%3Adineshyr29-04+topic%3Ahackathon&type=repositories"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View hackathon projects
+        </a>
+      </div>
     </div>
   );
 }
