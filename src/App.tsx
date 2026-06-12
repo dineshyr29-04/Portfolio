@@ -518,6 +518,7 @@ export default function App() {
             href="#hero"
             className="logo"
             onClick={e => {
+              e.preventDefault();
               const win = window as unknown as {
                 lenis?: {
                   scrollTo: (
