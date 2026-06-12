@@ -17,13 +17,12 @@ export default function FloatingImage({
 }: Props) {
   const imgRef = useRef<HTMLImageElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const [reduced, setReduced] = useState(false);
-
-  useEffect(() => {
-    setReduced(
-      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
-    );
-  }, []);
+  const [reduced] = useState(() => {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+    return false;
+  });
 
   useEffect(() => {
     if (reduced) return;

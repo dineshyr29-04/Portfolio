@@ -11,6 +11,7 @@ createRoot(document.getElementById('root')!).render(
 );
 
 // Initialize Lenis for smoother, native-feeling scrolling on all devices
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const lenis = new (Lenis as any)({
   duration: 1.4,
   easing: (t: number) => 1 - Math.pow(1 - t, 3),
@@ -20,6 +21,7 @@ const lenis = new (Lenis as any)({
 });
 
 // Expose Lenis globally so app code can use `window.lenis.scrollTo(...)` for anchor clicks
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (window as any).lenis = lenis;
 
 // Disable native smooth scrolling to avoid conflicting behavior

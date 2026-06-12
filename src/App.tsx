@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import Shuffle from './Shuffle';
@@ -226,7 +227,7 @@ function simulateCode(code: string, lang: string): string[] {
     const re = /\bprint\s*\(\s*(.+?)\s*\)\s*$/gm;
     let m: RegExpExecArray | null;
     while ((m = re.exec(code)) !== null) {
-      let arg = m[1].trim();
+      const arg = m[1].trim();
       // f-string
       if (/^f["']/.test(arg)) {
         const q = arg[1];
@@ -452,7 +453,14 @@ export default function App() {
   const scrollTo = useCallback((e: React.MouseEvent, id: string) => {
     e.preventDefault();
     const el = document.getElementById(id);
-    const win: any = window as any;
+    const win = window as unknown as {
+      lenis?: {
+        scrollTo: (
+          target: HTMLElement | number,
+          options?: { offset?: number }
+        ) => void;
+      };
+    };
     if (win.lenis && el) {
       win.lenis.scrollTo(el, { offset: -72 });
     } else {
@@ -510,8 +518,14 @@ export default function App() {
             href="#hero"
             className="logo"
             onClick={e => {
-              e.preventDefault();
-              const win: any = window as any;
+              const win = window as unknown as {
+                lenis?: {
+                  scrollTo: (
+                    target: HTMLElement | number,
+                    options?: { offset?: number }
+                  ) => void;
+                };
+              };
               if (win.lenis) {
                 win.lenis.scrollTo(0);
               } else {
@@ -567,6 +581,12 @@ export default function App() {
           </button>
         </div>
       </nav>
+
+      {/* Mobile drawer overlay backdrop */}
+      <div
+        className={`mobile-overlay${menuOpen ? ' open' : ''}`}
+        onClick={() => setMenuOpen(false)}
+      />
 
       {/* Mobile drawer */}
       <div className={`mobile-drawer${menuOpen ? ' open' : ''}`}>

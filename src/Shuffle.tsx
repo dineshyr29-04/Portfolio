@@ -21,16 +21,7 @@ type ShuffleProps = {
   immediate?: boolean;
 };
 
-/** Split a string into char tokens, handling newlines */
-function tokenise(text: string) {
-  const tokens: { ch: string; idx: number }[] = [];
-  let idx = 0;
-  for (const ch of text) {
-    tokens.push({ ch, idx: idx++ });
-  }
-  return tokens;
-}
-
+// Group text into lines, words, and space tokens to prevent letter-by-letter wrapping on mobile viewports
 const Shuffle: React.FC<ShuffleProps> = ({
   text,
   tag = 'p',
@@ -46,8 +37,29 @@ const Shuffle: React.FC<ShuffleProps> = ({
   const containerRef = useRef<HTMLElement | null>(null);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
 
-  // Chars rendered as React elements — React owns the DOM, GSAP just animates
-  const tokens = useMemo(() => tokenise(text), [text]);
+  const lines = useMemo(() => {
+    let globalCharIdx = 0;
+    return text.split('\n').map((lineText) => {
+      // Split by whitespace while preserving spaces
+      const parts = lineText.split(/(\s+)/);
+      return parts.map((part) => {
+        const isSpace = /^\s+$/.test(part);
+        if (isSpace) {
+          const spaceTokens = Array.from(part).map((ch) => ({
+            ch,
+            idx: globalCharIdx++,
+          }));
+          return { isSpace: true, tokens: spaceTokens };
+        } else {
+          const wordTokens = Array.from(part).map((ch) => ({
+            ch,
+            idx: globalCharIdx++,
+          }));
+          return { isSpace: false, tokens: wordTokens };
+        }
+      });
+    });
+  }, [text]);
 
   useGSAP(
     () => {
@@ -125,19 +137,34 @@ const Shuffle: React.FC<ShuffleProps> = ({
       style={style}
       aria-label={text}
     >
-      {tokens.map(({ ch, idx }) =>
-        ch === '\n' ? (
-          <br key={idx} />
-        ) : ch === ' ' ? (
-          <span key={idx} className="shf-sp" aria-hidden="true">
-            &nbsp;
-          </span>
-        ) : (
-          <span key={idx} className="shf-c" aria-hidden="true">
-            {ch}
-          </span>
-        )
-      )}
+      {lines.map((lineWords, lineIdx) => (
+        <React.Fragment key={lineIdx}>
+          {lineIdx > 0 && <br />}
+          {lineWords.map((word, wordIdx) => {
+            if (word.isSpace) {
+              return word.tokens.map(({ idx }) => (
+                <span key={idx} className="shf-sp" aria-hidden="true">
+                  &nbsp;
+                </span>
+              ));
+            }
+            return (
+              <span
+                key={wordIdx}
+                className="shf-word"
+                style={{ display: 'inline-block', whiteSpace: 'nowrap' }}
+                aria-hidden="true"
+              >
+                {word.tokens.map(({ ch, idx }) => (
+                  <span key={idx} className="shf-c" aria-hidden="true">
+                    {ch}
+                  </span>
+                ))}
+              </span>
+            );
+          })}
+        </React.Fragment>
+      ))}
     </Tag>
   );
 };

@@ -15,7 +15,14 @@ export default function Hero() {
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
-    const win = window as any;
+    const win = window as unknown as {
+      lenis?: {
+        scrollTo: (
+          target: HTMLElement | number,
+          options?: { offset?: number }
+        ) => void;
+      };
+    };
     if (win.lenis && el) {
       win.lenis.scrollTo(el, { offset: -72 });
     } else {
@@ -41,7 +48,7 @@ export default function Hero() {
       <div className="hero-role" aria-label="Specializations">
         <span className="hero-role-prefix">// </span>
         {ROLES.map((role, i) => (
-          <span key={role} className="hero-role-tag">
+          <span key={role} className={`hero-role-tag ${i === roleIdx ? 'active' : ''}`}>
             {role}
             {i < ROLES.length - 1 && (
               <span className="hero-role-sep"> · </span>
