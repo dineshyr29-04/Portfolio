@@ -500,7 +500,7 @@ export default function App() {
       </nav>
 
       {/* ══ HERO SECTION ══ */}
-      <section id="hero" className="w-full min-h-[90vh] flex items-center bg-[#07080a] relative pt-32 pb-16">
+      <section id="hero" className="w-full min-h-[90vh] flex items-center bg-[#07080a] relative z-10 pt-32 pb-16">
         <div className="w-full px-6 md:px-16 lg:px-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Hero Left Content */}
@@ -606,7 +606,7 @@ export default function App() {
       </section>
 
       {/* ══ ABOUT DINESH ══ */}
-      <section id="about" className="w-full py-20 bg-[#0d0e12]/40 border-y border-white/5">
+      <section id="about" className="w-full py-20 bg-[#0d0e12]/40 border-y border-white/5 relative z-10">
         <div className="w-full px-6 md:px-16 lg:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
@@ -668,7 +668,7 @@ export default function App() {
       </section>
 
       {/* ══ CAPABILITIES VIRTUAL MEMORY EXPLORER ══ */}
-      <section id="skills" className="w-full py-20 bg-[#07080a]">
+      <section id="skills" className="w-full py-20 bg-[#07080a] relative z-10">
         <div className="w-full px-6 md:px-16 lg:px-24">
           
           <div className="max-w-xl mb-12">
@@ -767,7 +767,7 @@ export default function App() {
       </section>
 
       {/* ══ PROJECTS SECTION (SYSTEM DRIVERS) ══ */}
-      <section id="projects" className="w-full py-20 bg-[#0d0e12]/40 border-y border-white/5">
+      <section id="projects" className="w-full py-20 bg-[#0d0e12]/40 border-y border-white/5 relative z-10">
         <div className="w-full px-6 md:px-16 lg:px-24">
           
           <div className="max-w-xl mb-12">
@@ -901,7 +901,7 @@ export default function App() {
       </section>
 
       {/* ══ EXPERIENCE SYSTEM PROCESS SCHEDULER ══ */}
-      <section id="experience" className="w-full py-20 bg-[#07080a]">
+      <section id="experience" className="w-full py-20 bg-[#07080a] relative z-10">
         <div className="w-full px-6 md:px-16 lg:px-24">
           
           <div className="max-w-xl mb-12">
@@ -981,7 +981,7 @@ export default function App() {
       </section>
 
       {/* ══ BEYOND CODE (EXTRACURRICULAR) ══ */}
-      <section id="extracurricular" className="w-full py-20 bg-[#0d0e12]/40 border-y border-white/5">
+      <section id="extracurricular" className="w-full py-20 bg-[#0d0e12]/40 border-y border-white/5 relative z-10">
         <div className="w-full px-6 md:px-16 lg:px-24">
           
           <div className="max-w-xl mb-12">
@@ -1013,7 +1013,7 @@ export default function App() {
       </section>
 
       {/* ══ CONTACT & SYSTEM SHUTDOWN ══ */}
-      <section id="contact" className="w-full py-24 bg-[#07080a] relative">
+      <section id="contact" className="w-full py-24 bg-[#07080a] relative z-10">
         <div className="w-full px-6 md:px-16 lg:px-24 flex justify-center">
           
           <div className="bg-[#0d0e12] border border-white/5 p-8 sm:p-12 rounded-3xl w-full max-w-4xl relative overflow-hidden shadow-2xl">
