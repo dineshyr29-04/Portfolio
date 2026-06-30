@@ -140,8 +140,8 @@ const PROJECTS = [
     type: 'Hackathon Platform / Event OS',
     color: '#6366f1',
     photoFile: 'project-sankalp.png',
-    title: 'Project Sankalp',
-    desc: 'A premium, high-impact hackathon management platform. Features an engineered UI for team collaboration, real-time tracking, and automated judging workflows.',
+    title: 'HackArena Platform',
+    desc: 'Co-founded and engineered HackArena, a premium hackathon evaluation and management ecosystem. Features real-time tracking, team matchmaking modules, and automated scoring configurations.',
     metric: '500+ Participants · 48h Live Stream',
     stack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
     repoUrl: 'https://github.com/dineshyr29-04/Sankalp',
@@ -153,7 +153,7 @@ const PROJECTS = [
     color: '#ec4899',
     photoFile: 'project-thinknode.png',
     title: 'Thinknode Customer Portal',
-    desc: 'An enterprise-grade customer dashboard for the ThinkNode cloud ecosystem. Orchestrates complex AI workflows and data visualization with sub-second latency.',
+    desc: 'Co-founded and engineered the customer portal for the ThinkNode cloud platform, enabling automated SaaS workflows and high-speed data analytics dashboards.',
     metric: '10k+ Active Users · 99.9% Uptime',
     stack: ['JavaScript', 'HTML', 'CSS', 'Node.js'],
     repoUrl: 'https://github.com/dineshyr29-04?tab=repositories&q=thinknode',
@@ -188,8 +188,8 @@ const PROJECTS = [
     type: 'MedTech / Data Analytics',
     color: '#f59e0b',
     photoFile: 'project-cardio-nerve.png',
-    title: 'Cardionerve Health',
-    desc: 'Clinical-grade analytics system for cardiovascular and neurological diagnosis. Processes high-frequency medical data with advanced filtering.',
+    title: 'CardioNerve Analytics',
+    desc: 'Co-founded and architected CardioNerve, an AI-driven cardiovascular analytics platform to process sensor telemetry data and compute predictive cardiac health scores.',
     metric: '97.5% Precision · Clinical Grade',
     stack: ['Python', 'JavaScript', 'Jupyter', 'DataViz'],
     repoUrl: 'https://github.com/dineshyr29-04?tab=repositories&q=cardio+nerve',
@@ -215,8 +215,8 @@ const EXP_ITEMS = [
     pid: 3001,
     period: '2025 — Present',
     company: 'Cardio Nerve',
-    role: 'Full-Stack Developer',
-    desc: 'An AI-driven cardiovascular intelligence platform that analyzes real-time heart rate and HRV data from PPG sensors to generate predictive cardiac risk scores. Designed a clinical dashboard for early detection, risk stratification, and preventive decision support. Architected and deployed production LLM pipelines processing 2M+ daily requests. Led fine-tuning initiatives for domain-specific applications.',
+    role: 'Founder & Chief Systems Architect',
+    desc: 'Co-founded and architected Cardio Nerve, an AI-driven cardiovascular intelligence platform analyzing real-time HRV data from PPG sensors to generate predictive risk scores. Designed clinical dashboards and deployed production LLM pipelines processing 2M+ daily requests.',
     tags: ['Express.js', 'PyTorch', 'Python', 'Node.js'],
     cpu: '18%',
     state: 'RUNNING'
@@ -224,22 +224,22 @@ const EXP_ITEMS = [
   {
     pid: 3002,
     period: '2024 — Present',
-    company: 'College Tech Club',
-    role: 'President',
-    desc: 'Presided over the technical club, spearheading numerous events, hackathons, and hands-on workshops. Fostered a vibrant developer community by organizing technical seminars, mentoring students in modern web technologies, and coordinating large-scale tech fests.',
-    tags: ['Leadership', 'Event Management', 'Community Building', 'Workshops'],
-    cpu: '8%',
-    state: 'SLEEPING'
+    company: 'HackArena',
+    role: 'Founder & Lead Developer',
+    desc: 'Co-founded and engineered HackArena, a next-generation hackathon management engine and event platform. Spearheaded the technical infrastructure supporting 500+ active participants, automated judging algorithms, and real-time team collaboration metrics.',
+    tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
+    cpu: '12%',
+    state: 'RUNNING'
   },
   {
     pid: 3003,
-    period: '2023 — Present',
-    company: 'Competitive Hackathons',
-    role: 'Competitor & Finalist',
-    desc: 'Actively competed in 9 major hackathons, rapidly prototyping complex full-stack and AI/ML solutions under tight 24-48 hour deadlines. Reached the grand finals in 2 prestigious hackathons, demonstrating exceptional problem-solving, teamwork, and technical execution.',
-    tags: ['Hackathons', 'Rapid Prototyping', 'Full-Stack', 'AI/ML'],
-    cpu: '12%',
-    state: 'WAITING'
+    period: '2024 — Present',
+    company: 'ThinkNode',
+    role: 'Founder & Full-Stack Architect',
+    desc: 'Co-founded ThinkNode, building enterprise cloud customer portals and SaaS interfaces. Managed multi-tenant architectures, AI model deployment pipelines, and high-performance serverless dashboards.',
+    tags: ['Node.js', 'Next.js', 'MongoDB', 'Redis'],
+    cpu: '15%',
+    state: 'RUNNING'
   }
 ];
 
@@ -439,7 +439,7 @@ export default function App() {
             SYS: ONLINE
           </span>
           <span className="hidden sm:inline text-zinc-600">|</span>
-          <span className="hidden sm:inline">KERNEL: dinesh-os v0.1.3</span>
+          <span className="hidden sm:inline">KERNEL: dinesh-os v0.1.4</span>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5">
@@ -555,11 +555,11 @@ export default function App() {
 
             <div className="font-code text-xs sm:text-sm text-gold flex items-center gap-2">
               <span>// </span>
-              <Shuffle text="AI/ML Developer & Systems Engineer" duration={0.6} />
+              <Shuffle text="Founder of CardioNerve, HackArena & ThinkNode" duration={0.6} />
             </div>
 
             <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-xl font-light">
-              I design and deploy production-grade Full-Stack applications and explore low-level operating system architectures, task scheduling paradigms, and CPU memory segmentation algorithms. Currently focusing on kernel-level execution threads and Next.js 16 frameworks.
+              I am the founder of CardioNerve, HackArena, and ThinkNode. I design and deploy production-grade AI pipelines and full-stack systems with a focus on high-impact low-level core web architectures.
             </p>
 
             <div className="flex gap-4 pt-4">
@@ -1135,7 +1135,7 @@ export default function App() {
       <footer className="w-full py-8 border-t border-white/5 bg-[#07080a] text-center text-[10px] font-code text-zinc-550 select-none">
         <div className="w-full px-6 md:px-16 lg:px-24">
           <p>
-            dinesh_a@Dinesh-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.1.3 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
+            dinesh_a@Dinesh-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.1.4 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
           </p>
         </div>
       </footer>
