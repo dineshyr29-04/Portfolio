@@ -113,18 +113,6 @@ const SKILL_MAPS = [
 
 const PROJECTS = [
   {
-    type: 'Premium Hospitality / Subscription OS',
-    color: '#b3925c',
-    photoFile: 'project-aura.jpg',
-    title: 'Aura Banquet & Catering',
-    desc: 'A premium, full-width catering and mess subscription platform. Features a React 19 interactive pricing calculator, custom menu builder, multi-language support, and client-side leads CRM.',
-    metric: 'Next.js 16 · Tailwind v4 · Lead CRM',
-    stack: ['Next.js', 'React 19', 'TypeScript', 'Tailwind CSS'],
-    repoUrl: 'https://github.com/dineshyr29-04/catering-and-mess',
-    liveUrl: 'https://aura-catering.vercel.app',
-    hex: '0xffffffffc0001000'
-  },
-  {
     type: 'Quality Control Standardization System',
     color: '#10b981',
     photoFile: 'project-drug-secure.png',
@@ -321,6 +309,93 @@ export default function App() {
   // Experience details expand state
   const [expandedExp, setExpandedExp] = useState<number | null>(3001);
 
+  // Projects View Mode & Console Explorer States
+  const [projectsViewMode, setProjectsViewMode] = useState<'grid' | 'console'>('grid');
+  const [selectedConsoleProj, setSelectedConsoleProj] = useState<typeof PROJECTS[0] | null>(null);
+
+  // Diagnostics Drawer & CLI Terminal States
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [cliInput, setCliInput] = useState('');
+  const [cliHistory, setCliHistory] = useState<string[]>([
+    'Welcome to Cadi Shell v0.1.7',
+    'Type "help" to see available commands.',
+    ''
+  ]);
+  const [isRebooting, setIsRebooting] = useState(false);
+  const [rebootLogs, setRebootLogs] = useState<string[]>([]);
+
+  const handleCliSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const cmd = cliInput.trim().toLowerCase();
+    if (!cmd) return;
+
+    let response = '';
+    const newHistory = [...cliHistory, `cadi-os:~$ ${cliInput}`];
+
+    switch (cmd) {
+      case 'help':
+        response = 'Available commands:\n  help      - Show this menu\n  ls        - List project modules\n  neofetch  - Display system statistics\n  contact   - Get contact credentials\n  reboot    - Reboot the Cadi OS system\n  clear     - Clear the console terminal';
+        break;
+      case 'ls':
+      case 'projects':
+        response = 'Loaded driver modules:\n  • Aura Banquet & Catering\n  • Drug Secure\n  • HackArena Platform\n  • Thinknode Customer Portal\n  • Openloop Automation\n  • AgroNova Platform\n  • CardioNerve Analytics\n  • Developer Portfolio';
+        break;
+      case 'neofetch':
+        response = ' dinesh_a@Cadi-PC\n ----------------\n OS: Cadi OS v0.1.7 (x86_64)\n Host: Dinesh-PC (Bangalore)\n Kernel: cadi-kernel v0.1.7-lts\n Uptime: ' + uptime + '\n Shell: bash / cadi-shell\n CPU: Simulated 8-Core Threaded Processor\n Memory: 5.6GB / 16GB (35%)';
+        break;
+      case 'contact':
+        response = 'Credentials:\n  Email: dineshyr2904@gmail.com\n  GitHub: github.com/dineshyr29-04\n  LinkedIn: linkedin.com/in/dinesha291204';
+        break;
+      case 'clear':
+        setCliHistory([]);
+        setCliInput('');
+        return;
+      case 'reboot':
+        triggerReboot();
+        setCliInput('');
+        return;
+      default:
+        response = `Command not found: "${cmd}". Type "help" for a list of commands.`;
+    }
+
+    setCliHistory([...newHistory, response, '']);
+    setCliInput('');
+  };
+
+  const triggerReboot = () => {
+    setIsRebooting(true);
+    setDrawerOpen(false);
+    setRebootLogs(['[cadi-os] Initiating system teardown...', '[cadi-os] Unmounting core memory segments...', '[cadi-os] Terminating active process threads...']);
+    
+    let step = 0;
+    const logs = [
+      '[cadi-os] Initiating system teardown...',
+      '[cadi-os] Unmounting core memory segments...',
+      '[cadi-os] Terminating active process threads...',
+      '[cadi-os] Halt complete. Booting kernel bootstrap loader...',
+      '[cadi-os] Memory check: 16384 MB OK',
+      '[cadi-os] Loading virtual paging file systems...',
+      '[cadi-os] CPU Core ONLINE (8 threads scheduled)',
+      '[cadi-os] Mounting CardioNerve API node [OK]',
+      '[cadi-os] Mounting HackArena Socket gateway [OK]',
+      '[cadi-os] Mounting ThinkNode Client Portal [OK]',
+      '[cadi-os] Starting system GUI...',
+      '[cadi-os] Reboot sequence completed successfully.'
+    ];
+
+    const interval = setInterval(() => {
+      if (step >= logs.length) {
+        clearInterval(interval);
+        setTimeout(() => {
+          setIsRebooting(false);
+        }, 300);
+        return;
+      }
+      setRebootLogs(prev => [...prev, logs[step]]);
+      step++;
+    }, 180);
+  };
+
   // Uptime ticker
   useEffect(() => {
     const start = Date.now();
@@ -432,14 +507,20 @@ export default function App() {
       <div className="dot-grid" />
 
       {/* 💻 SYSTEM STATUS HEADER */}
-      <div className="w-full bg-[#07080a]/90 backdrop-blur-md border-b border-white/5 py-2 px-6 md:px-16 lg:px-24 flex items-center justify-between text-[10px] font-code text-zinc-400 fixed top-0 left-0 right-0 z-50 select-none">
+      <div 
+        onClick={() => setDrawerOpen(!drawerOpen)}
+        className="w-full bg-[#07080a]/90 backdrop-blur-md border-b border-white/5 py-2 px-6 md:px-16 lg:px-24 flex items-center justify-between text-[10px] font-code text-zinc-400 fixed top-0 left-0 right-0 z-50 select-none cursor-pointer hover:bg-white/[0.03] transition-colors"
+      >
         <div className="flex items-center gap-3">
           <span className="inline-flex items-center gap-1.5 font-bold text-emerald-400 bg-emerald-500/5 px-2 py-0.5 rounded border border-emerald-500/10">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
             SYS: ONLINE
           </span>
           <span className="hidden sm:inline text-zinc-600">|</span>
-          <span className="hidden sm:inline">KERNEL: dinesh-os v0.1.4</span>
+          <span className="hidden sm:inline">KERNEL: cadi-os v0.1.8</span>
+          <span className="text-zinc-650 font-bold bg-white/5 border border-white/10 rounded px-2 py-0.5 text-[8px] hover:text-gold transition-colors flex items-center gap-1">
+            {drawerOpen ? "▲ CLOSE SHELL" : "▼ OPEN DIAGNOSTICS & SHELL"}
+          </span>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5">
@@ -457,17 +538,108 @@ export default function App() {
         </div>
       </div>
 
+      {/* 🛠️ DIAGNOSTICS DRAWER */}
+      <div 
+        className={`fixed left-0 right-0 z-45 bg-[#0a0b0e]/95 backdrop-blur-2xl border-b border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-500 ${
+          drawerOpen ? "top-[34px] max-h-[350px] py-6" : "top-[-350px] max-h-0 py-0"
+        }`}
+      >
+        <div className="w-full px-6 md:px-16 lg:px-24 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 select-none text-left">
+          {/* Left Panel: Service Telemetry */}
+          <div className="md:col-span-5 space-y-3.5">
+            <div className="flex justify-between items-center border-b border-white/5 pb-2">
+              <span className="text-[10px] font-code font-bold text-zinc-400 uppercase tracking-widest">
+                Telemetry Diagnostics
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-[9px] font-code font-bold text-emerald-400 bg-emerald-500/5 px-2 py-0.5 rounded border border-emerald-500/10">
+                PING: 24ms
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 text-[11px] font-code">
+              <div className="p-3 bg-white/[0.02] border border-white/5 rounded-xl space-y-1">
+                <span className="text-zinc-500 block text-[9px] uppercase">Node Cluster</span>
+                <span className="text-white font-bold">CADI-SOUTH-1</span>
+              </div>
+              <div className="p-3 bg-white/[0.02] border border-white/5 rounded-xl space-y-1">
+                <span className="text-zinc-500 block text-[9px] uppercase">Telemetry Host</span>
+                <span className="text-white font-bold">Cadi-PC</span>
+              </div>
+            </div>
+
+            {/* Microservice checklist */}
+            <div className="space-y-2 text-[10px] font-code pt-1">
+              <div className="flex items-center justify-between p-2 rounded bg-white/[0.01] border border-white/5">
+                <span className="text-zinc-400">CardioNerve AI Pipeline</span>
+                <span className="text-emerald-400 font-bold">HEALTHY</span>
+              </div>
+              <div className="flex items-center justify-between p-2 rounded bg-white/[0.01] border border-white/5">
+                <span className="text-zinc-400">HackArena Gateway Node</span>
+                <span className="text-emerald-400 font-bold">HEALTHY</span>
+              </div>
+              <div className="flex items-center justify-between p-2 rounded bg-white/[0.01] border border-white/5">
+                <span className="text-zinc-400">ThinkNode Cloud Portal</span>
+                <span className="text-emerald-400 font-bold">HEALTHY</span>
+              </div>
+            </div>
+
+            {/* Reboot CTA */}
+            <button
+              onClick={triggerReboot}
+              className="w-full py-2 rounded-xl bg-red-500/10 hover:bg-red-500 hover:text-white border border-red-500/20 text-red-400 font-code font-bold text-[10px] uppercase tracking-wider transition-all cursor-pointer"
+            >
+              ☢️ Force System Reboot
+            </button>
+          </div>
+
+          {/* Right Panel: CLI Terminal Shell */}
+          <div className="md:col-span-7 flex flex-col bg-black/60 border border-white/5 rounded-2xl overflow-hidden min-h-[220px]">
+            {/* Terminal Header */}
+            <div className="bg-white/5 px-4 py-2 flex justify-between items-center text-[10px] font-code border-b border-white/5">
+              <span className="text-zinc-400 font-bold">cadi-shell --terminal</span>
+              <div className="flex gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-zinc-700" />
+                <span className="w-2 h-2 rounded-full bg-zinc-700" />
+                <span className="w-2 h-2 rounded-full bg-zinc-700" />
+              </div>
+            </div>
+
+            {/* Terminal History */}
+            <div className="flex-1 p-4 font-code text-[11px] text-zinc-300 overflow-y-auto max-h-[160px] space-y-1.5 select-text leading-relaxed">
+              {cliHistory.map((line, idx) => (
+                <div key={idx} className="whitespace-pre-wrap">
+                  {line}
+                </div>
+              ))}
+            </div>
+
+            {/* Terminal Input */}
+            <form onSubmit={handleCliSubmit} className="border-t border-white/5 px-4 py-2.5 flex items-center gap-2">
+              <span className="font-code text-[11px] text-emerald-400 select-none">cadi-os:~$</span>
+              <input
+                type="text"
+                value={cliInput}
+                onChange={(e) => setCliInput(e.target.value)}
+                placeholder="Type 'help' or 'neofetch'..."
+                className="flex-1 bg-transparent border-none outline-none font-code text-[11px] text-white placeholder-zinc-750"
+                autoFocus={drawerOpen}
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+
       {/* ══ NAV BAR ══ */}
-      <nav className={`fixed left-1/2 -translate-x-1/2 z-40 transition-all duration-500 ${
-        scrolled 
-          ? "top-12 w-[92%] md:w-[85%] max-w-5xl bg-[#07080b]/80 backdrop-blur-lg border border-white/10 py-3 px-6 md:px-8 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.5)]" 
-          : "top-7 w-full bg-transparent py-5 px-6 md:px-16 lg:px-24"
-      }`}>
-        <div className="w-full flex items-center justify-between">
+      <nav className="fixed top-12 left-0 right-0 z-40 w-full px-6 select-none">
+        <div className={`mx-auto w-full max-w-5xl rounded-full border transition-all duration-300 flex items-center justify-between ${
+          scrolled 
+            ? "bg-[#07080b]/85 backdrop-blur-lg border-white/10 py-2.5 px-6 md:px-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)]" 
+            : "bg-white/[0.02] backdrop-blur-sm border-white/5 py-3 px-6 md:px-8"
+        }`}>
           <a
             href="#hero"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-3 group animate-fade-in"
           >
             <img
               src={projectPhoto}
@@ -523,7 +695,7 @@ export default function App() {
 
         {/* Mobile drawer */}
         {menuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 mt-2 bg-[#07080a]/95 backdrop-blur-lg border border-white/10 py-5 px-6 rounded-2xl shadow-2xl flex flex-col gap-4 animate-fade-in">
+          <div className="md:hidden absolute top-full left-6 right-6 mt-2 bg-[#07080a]/95 backdrop-blur-lg border border-white/10 py-5 px-6 rounded-2xl shadow-2xl flex flex-col gap-4 animate-fade-in">
             {[['about', 'About'], ['skills', 'Expertise'], ['projects', 'Work'], ['experience', 'Timeline'], ['contact', 'Contact']].map(([id, label]) => (
               <a
                 key={id}
@@ -809,50 +981,180 @@ export default function App() {
       <section id="projects" className="w-full py-20 bg-[#0d0e12]/40 border-y border-white/5 relative z-10">
         <div className="w-full px-6 md:px-16 lg:px-24">
           
-          <div className="max-w-xl mb-12">
-            <span className="text-gold font-bold text-[10px] font-code uppercase tracking-widest">// 03. LOADED DRIVERS</span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white mt-2">
-              System Driver Modules
-            </h2>
-            <div className="w-12 h-0.5 bg-gold mt-4" />
-          </div>
-
-          {/* Module drivers list */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {PROJECTS.map((p) => (
-              <div
-                key={p.title}
-                onClick={() => setExpandedProject(p)}
-                className="group cursor-pointer rounded-2xl border border-white/5 bg-[#07080a] overflow-hidden transition-all duration-300 hover:border-gold/30 hover:shadow-2xl"
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12">
+            <div>
+              <span className="text-gold font-bold text-[10px] font-code uppercase tracking-widest">// 03. LOADED DRIVERS</span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white mt-2">
+                System Driver Modules
+              </h2>
+            </div>
+            
+            {/* View Mode Toggle */}
+            <div className="flex bg-white/5 border border-white/5 p-1 rounded-xl font-code text-[9px] font-bold select-none shrink-0">
+              <button
+                onClick={() => setProjectsViewMode('grid')}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  projectsViewMode === 'grid' ? "bg-white/10 text-white" : "text-zinc-500 hover:text-zinc-350"
+                }`}
               >
-                <div className="h-[180px] relative overflow-hidden bg-neutral-900 border-b border-white/5">
-                  <img
-                    src={`/${p.photoFile}`}
-                    alt={p.title}
-                    className="w-full h-full object-cover opacity-60 group-hover:opacity-85 transition-opacity duration-300"
-                  />
-                  <div className="absolute top-4 left-4 font-code text-[9px] bg-black/75 px-2 py-0.5 rounded border border-white/10 text-zinc-400">
-                    ADDR: {p.hex}
-                  </div>
-                </div>
-
-                <div className="p-5 space-y-2">
-                  <h3 className="font-serif text-base font-bold text-white group-hover:text-gold transition-colors">
-                    {p.title}
-                  </h3>
-                  <div className="text-[10px] font-code text-zinc-500 uppercase tracking-wider">{p.type}</div>
-                  <p className="text-zinc-400 text-[11px] font-light leading-relaxed line-clamp-2">
-                    {p.desc}
-                  </p>
-                  
-                  <div className="pt-3 border-t border-white/5 flex items-center justify-between text-[9px] font-code text-zinc-500 group-hover:text-gold uppercase tracking-wider">
-                    <span>{p.metric}</span>
-                    <span>EXPAND →</span>
-                  </div>
-                </div>
-              </div>
-            ))}
+                GRID_HUD
+              </button>
+              <button
+                onClick={() => {
+                  setProjectsViewMode('console');
+                  if (!selectedConsoleProj) setSelectedConsoleProj(PROJECTS[0]);
+                }}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  projectsViewMode === 'console' ? "bg-white/10 text-white" : "text-zinc-500 hover:text-zinc-350"
+                }`}
+              >
+                CONSOLE_SHELL
+              </button>
+            </div>
           </div>
+
+          {projectsViewMode === 'grid' ? (
+            /* Module drivers list */
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {PROJECTS.map((p) => (
+                <div
+                  key={p.title}
+                  onClick={() => setExpandedProject(p)}
+                  className="group cursor-pointer rounded-2xl border border-white/5 bg-[#07080a] overflow-hidden transition-all duration-300 hover:border-gold/30 hover:shadow-2xl"
+                >
+                  <div className="h-[180px] relative overflow-hidden bg-neutral-900 border-b border-white/5">
+                    <img
+                      src={`/${p.photoFile}`}
+                      alt={p.title}
+                      className="w-full h-full object-cover opacity-60 group-hover:opacity-85 transition-opacity duration-300"
+                    />
+                    <div className="absolute top-4 left-4 font-code text-[9px] bg-black/75 px-2 py-0.5 rounded border border-white/10 text-zinc-400">
+                      ADDR: {p.hex}
+                    </div>
+                  </div>
+
+                  <div className="p-5 space-y-2 text-left">
+                    <h3 className="font-serif text-base font-bold text-white group-hover:text-gold transition-colors">
+                      {p.title}
+                    </h3>
+                    <div className="text-[10px] font-code text-zinc-550 uppercase tracking-wider">{p.type}</div>
+                    <p className="text-zinc-400 text-[11px] font-light leading-relaxed line-clamp-2">
+                      {p.desc}
+                    </p>
+                    
+                    <div className="pt-3 border-t border-white/5 flex items-center justify-between text-[9px] font-code text-zinc-550 group-hover:text-gold uppercase tracking-wider">
+                      <span>{p.metric}</span>
+                      <span>EXPAND →</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            /* Console Explorer View */
+            (() => {
+              const activeProj = selectedConsoleProj || PROJECTS[0];
+              return (
+                <div className="w-full border border-white/10 rounded-2xl bg-[#090a0d]/90 backdrop-blur-md shadow-2xl flex flex-col md:flex-row min-h-[400px] overflow-hidden text-left font-code">
+                  
+                  {/* Left Pane: File Tree Explorer */}
+                  <div className="w-full md:w-[280px] border-r border-white/5 bg-black/20 flex flex-col p-4 shrink-0">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-4 pb-2 border-b border-white/5 flex items-center gap-1.5">
+                      <span>📁</span>
+                      <span>SYSTEM_DRIVERS</span>
+                    </div>
+                    
+                    <div className="space-y-1.5 overflow-y-auto max-h-[300px]">
+                      {PROJECTS.map((p) => {
+                        const isSelected = activeProj.title === p.title;
+                        const fileBase = p.title.toLowerCase().replace(/\s+/g, '_') + '.sys';
+                        return (
+                          <button
+                            key={p.title}
+                            onClick={() => setSelectedConsoleProj(p)}
+                            className={`w-full text-left p-2.5 rounded-xl border text-[11px] flex items-center gap-2.5 transition-all cursor-pointer ${
+                              isSelected
+                                ? "bg-gold/10 border-gold/30 text-gold"
+                                : "bg-transparent border-transparent text-zinc-400 hover:bg-white/[0.02] hover:text-zinc-200"
+                            }`}
+                          >
+                            <span>📄</span>
+                            <span className="truncate">{fileBase}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Right Pane: Visual Console Inspector */}
+                  <div className="flex-1 flex flex-col bg-black/40 min-h-[320px]">
+                    
+                    {/* File Path Header */}
+                    <div className="bg-white/5 px-6 py-3 flex justify-between items-center text-[10px] border-b border-white/5">
+                      <span className="text-zinc-400 font-bold">
+                        cadi-editor: ~/system_drivers/{activeProj.title.toLowerCase().replace(/\s+/g, '_')}.sys
+                      </span>
+                      <span className="text-zinc-650 font-bold">[VIM MODE]</span>
+                    </div>
+
+                    {/* Inspector Content */}
+                    <div className="flex-1 p-6 md:p-8 space-y-6 overflow-y-auto max-h-[360px]">
+                      
+                      {/* Top header stats block */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-white/5 pb-5">
+                        <div className="space-y-1">
+                          <span className="text-[9px] uppercase text-zinc-550 block">Memory Address</span>
+                          <span className="text-emerald-400 text-xs font-bold font-code">{activeProj.hex}</span>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-[9px] uppercase text-zinc-550 block">Driver Stack</span>
+                          <span className="text-white text-xs font-bold font-code truncate block">
+                            {activeProj.stack.join(' · ')}
+                          </span>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-[9px] uppercase text-zinc-555 block">System Metric</span>
+                          <span className="text-gold text-xs font-bold font-code block">{activeProj.metric}</span>
+                        </div>
+                      </div>
+
+                      {/* Body Text and description */}
+                      <div className="space-y-3">
+                        <span className="text-[9px] uppercase text-zinc-555 block">Module Description</span>
+                        <p className="text-zinc-350 text-xs md:text-sm font-sans font-light leading-relaxed max-w-4xl">
+                          {activeProj.desc}
+                        </p>
+                      </div>
+
+                      {/* Direct Action triggers */}
+                      <div className="flex flex-wrap gap-3.5 pt-4 border-t border-white/5">
+                        <a
+                          href={activeProj.repoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="px-5 py-2.5 rounded-xl bg-white hover:bg-gold text-[#07080a] hover:text-[#07080a] font-bold text-[10px] uppercase tracking-wider transition-all"
+                        >
+                          View Source Code ↗
+                        </a>
+                        {activeProj.liveUrl && (
+                          <a
+                            href={activeProj.liveUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="px-5 py-2.5 rounded-xl border border-white/10 hover:border-gold text-zinc-350 hover:text-gold font-bold text-[10px] uppercase tracking-wider transition-all"
+                          >
+                            Initialize Live Demo ↗
+                          </a>
+                        )}
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+              );
+            })()
+          )}
 
           {/* Project expanded Modal overlay */}
           {expandedProject && (
@@ -1058,17 +1360,36 @@ export default function App() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {EXTRA_ITEMS.map((item, idx) => (
-              <div key={idx} className="p-5 rounded-2xl border border-white/5 bg-[#07080a] shadow-md flex flex-col justify-between space-y-4">
-                <div className="space-y-2">
-                  <div className="text-2xl">{item.icon}</div>
-                  <h3 className="font-serif text-sm font-bold text-white">{item.title}</h3>
-                  <p className="text-zinc-400 text-[11px] font-light leading-relaxed">
-                    {item.desc}
-                  </p>
+              <div
+                key={idx}
+                className="group relative p-6 rounded-2xl border border-white/5 bg-[#0d0e12]/40 backdrop-blur-md flex flex-col justify-between space-y-5 transition-all duration-300 hover:border-gold/30 hover:bg-[#0d0e12]/80 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(197,168,128,0.1)]"
+              >
+                {/* Glowing top line accent on hover */}
+                <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-gold/50 to-transparent scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+                
+                <div className="space-y-4">
+                  {/* Glowing Icon Wrapper */}
+                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-lg transition-colors group-hover:bg-gold/10 group-hover:border-gold/30">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-sm font-bold text-white group-hover:text-gold transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-zinc-400 text-[11px] font-light leading-relaxed mt-2">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-                <span className="text-[10px] font-code text-gold bg-gold/5 px-2.5 py-0.5 rounded border border-gold/10 uppercase tracking-wider self-start select-none">
-                  {item.highlight}
-                </span>
+
+                <div className="flex items-center justify-between pt-2">
+                  <span className="text-[9px] font-code text-gold bg-gold/5 px-2.5 py-0.5 rounded-full border border-gold/15 uppercase tracking-wider select-none">
+                    {item.highlight}
+                  </span>
+                  <span className="text-zinc-600 group-hover:text-gold transition-colors text-[10px] font-code">
+                    [OK]
+                  </span>
+                </div>
               </div>
             ))}
           </div>
@@ -1135,10 +1456,35 @@ export default function App() {
       <footer className="w-full py-8 border-t border-white/5 bg-[#07080a] text-center text-[10px] font-code text-zinc-550 select-none">
         <div className="w-full px-6 md:px-16 lg:px-24">
           <p>
-            dinesh_a@Dinesh-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.1.4 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
+            dinesh_a@Cadi-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.1.8 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
           </p>
         </div>
       </footer>
+
+      {/* 🔌 REBOOT SYSTEM OVERLAY */}
+      {isRebooting && (
+        <div className="fixed inset-0 bg-[#040608] z-[9999] p-8 md:p-16 flex flex-col justify-start font-code text-xs text-emerald-400 overflow-y-auto leading-relaxed select-none text-left">
+          <div className="max-w-2xl space-y-1">
+            <pre className="text-emerald-500 font-bold mb-4">
+{`
+   ____          _  _           ___  ____  
+  / ___|  __ _  (_)(_)         / _ \\/ ___| 
+ | |     / _\` | | || | _____  | | | \\___ \\ 
+ | |___ | (_| | | || ||_____| | |_| |___) |
+  \\____| \\__,_| |_||_|         \\___/|____/ 
+                                           
+`}
+            </pre>
+            {rebootLogs.map((log, index) => (
+              <div key={index} className="flex gap-2">
+                <span className="text-emerald-600 select-none">►</span>
+                <span>{log}</span>
+              </div>
+            ))}
+            <div className="blink-cursor inline-block w-2 h-4 bg-emerald-400 mt-2" />
+          </div>
+        </div>
+      )}
     </>
   );
 }
