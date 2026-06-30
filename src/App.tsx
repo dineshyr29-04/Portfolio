@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import Shuffle from './Shuffle';
 import './Shuffle.css';
@@ -324,6 +324,25 @@ export default function App() {
   const [isRebooting, setIsRebooting] = useState(false);
   const [rebootLogs, setRebootLogs] = useState<string[]>([]);
 
+  // Refs for Terminal scroll and focus
+  const terminalEndRef = useRef<HTMLDivElement | null>(null);
+  const terminalInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Auto-scroll terminal history to bottom
+  useEffect(() => {
+    terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [cliHistory]);
+
+  // Auto-focus terminal input when diagnostics drawer opens
+  useEffect(() => {
+    if (drawerOpen) {
+      const timer = setTimeout(() => {
+        terminalInputRef.current?.focus();
+      }, 80);
+      return () => clearTimeout(timer);
+    }
+  }, [drawerOpen]);
+
   const handleCliSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const cmd = cliInput.trim().toLowerCase();
@@ -517,7 +536,7 @@ export default function App() {
             SYS: ONLINE
           </span>
           <span className="hidden sm:inline text-zinc-600">|</span>
-          <span className="hidden sm:inline">KERNEL: cadi-os v0.1.8</span>
+          <span className="hidden sm:inline">KERNEL: cadi-os v0.1.9</span>
           <span className="text-zinc-650 font-bold bg-white/5 border border-white/10 rounded px-2 py-0.5 text-[8px] hover:text-gold transition-colors flex items-center gap-1">
             {drawerOpen ? "▲ CLOSE SHELL" : "▼ OPEN DIAGNOSTICS & SHELL"}
           </span>
@@ -611,12 +630,14 @@ export default function App() {
                   {line}
                 </div>
               ))}
+              <div ref={terminalEndRef} />
             </div>
 
             {/* Terminal Input */}
             <form onSubmit={handleCliSubmit} className="border-t border-white/5 px-4 py-2.5 flex items-center gap-2">
               <span className="font-code text-[11px] text-emerald-400 select-none">cadi-os:~$</span>
               <input
+                ref={terminalInputRef}
                 type="text"
                 value={cliInput}
                 onChange={(e) => setCliInput(e.target.value)}
@@ -1456,7 +1477,7 @@ export default function App() {
       <footer className="w-full py-8 border-t border-white/5 bg-[#07080a] text-center text-[10px] font-code text-zinc-550 select-none">
         <div className="w-full px-6 md:px-16 lg:px-24">
           <p>
-            dinesh_a@Cadi-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.1.8 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
+            dinesh_a@Cadi-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.1.9 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
           </p>
         </div>
       </footer>
