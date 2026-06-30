@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import Shuffle from './Shuffle';
 import './Shuffle.css';
@@ -270,6 +270,32 @@ const EXTRA_ITEMS = [
   }
 ];
 
+function Sparkline({ active }: { active: boolean }) {
+  const [points, setPoints] = useState<number[]>([10, 15, 8, 12, 18, 14, 25, 20, 30, 22]);
+  
+  useEffect(() => {
+    if (!active) return;
+    const interval = setInterval(() => {
+      setPoints((prev) => {
+        const next = [...prev.slice(1)];
+        const last = prev[prev.length - 1];
+        const change = (Math.random() - 0.5) * 12;
+        const newVal = Math.max(5, Math.min(45, last + change));
+        next.push(newVal);
+        return next;
+      });
+    }, 800);
+    return () => clearInterval(interval);
+  }, [active]);
+
+  const pathD = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${i * 12} ${50 - p}`).join(' ');
+  return (
+    <svg className="w-24 h-8 text-emerald-400 opacity-80" viewBox="0 0 108 50" fill="none">
+      <path d={pathD} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export default function App() {
   const [activeSection, setActiveSection] = useState('');
   const [scrolled, setScrolled] = useState(false);
@@ -291,6 +317,9 @@ export default function App() {
 
   // Project Details Modal State
   const [expandedProject, setExpandedProject] = useState<typeof PROJECTS[0] | null>(null);
+
+  // Experience details expand state
+  const [expandedExp, setExpandedExp] = useState<number | null>(3001);
 
   // Uptime ticker
   useEffect(() => {
@@ -372,11 +401,16 @@ export default function App() {
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
+    const win = window as any;
     if (el) {
-      const offset = 90;
-      const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      if (win.lenis) {
+        win.lenis.scrollTo(el, { offset: -90 });
+      } else {
+        const offset = 90;
+        const elementPosition = el.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
     }
     setMenuOpen(false);
   };
@@ -405,7 +439,7 @@ export default function App() {
             SYS: ONLINE
           </span>
           <span className="hidden sm:inline text-zinc-600">|</span>
-          <span className="hidden sm:inline">KERNEL: dinesh-os v6.2.0-rc3</span>
+          <span className="hidden sm:inline">KERNEL: dinesh-os v0.1.3</span>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5">
@@ -424,10 +458,12 @@ export default function App() {
       </div>
 
       {/* ══ NAV BAR ══ */}
-      <nav className={`fixed top-7 left-0 right-0 z-40 transition-all duration-300 w-full ${
-        scrolled ? "bg-[#07080a]/90 border-b border-white/5 py-4 shadow-2xl" : "bg-transparent py-5"
+      <nav className={`fixed left-1/2 -translate-x-1/2 z-40 transition-all duration-500 ${
+        scrolled 
+          ? "top-12 w-[92%] md:w-[85%] max-w-5xl bg-[#07080b]/80 backdrop-blur-lg border border-white/10 py-3 px-6 md:px-8 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.5)]" 
+          : "top-7 w-full bg-transparent py-5 px-6 md:px-16 lg:px-24"
       }`}>
-        <div className="w-full px-6 md:px-16 lg:px-24 flex items-center justify-between">
+        <div className="w-full flex items-center justify-between">
           <a
             href="#hero"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
@@ -456,11 +492,14 @@ export default function App() {
                 <a
                   href={`#${id}`}
                   onClick={(e) => { e.preventDefault(); scrollTo(id); }}
-                  className={`text-[10px] font-bold uppercase tracking-wider transition-all duration-200 py-1 border-b ${
+                  className={`text-[10px] font-bold uppercase tracking-wider transition-all duration-200 py-1 border-b relative group/item ${
                     activeSection === id ? "border-gold text-gold" : "border-transparent text-zinc-400 hover:text-zinc-100"
                   }`}
                 >
                   {label}
+                  <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-gold scale-x-0 transition-transform duration-300 origin-left group-hover/item:scale-x-100 ${
+                    activeSection === id ? "scale-x-100" : ""
+                  }`} />
                 </a>
               </li>
             ))}
@@ -484,7 +523,7 @@ export default function App() {
 
         {/* Mobile drawer */}
         {menuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-[#07080a] border-b border-white/15 py-6 px-6 shadow-2xl flex flex-col gap-4">
+          <div className="md:hidden absolute top-full left-0 right-0 mt-2 bg-[#07080a]/95 backdrop-blur-lg border border-white/10 py-5 px-6 rounded-2xl shadow-2xl flex flex-col gap-4 animate-fade-in">
             {[['about', 'About'], ['skills', 'Expertise'], ['projects', 'Work'], ['experience', 'Timeline'], ['contact', 'Contact']].map(([id, label]) => (
               <a
                 key={id}
@@ -531,7 +570,7 @@ export default function App() {
                 Explore Modules
               </button>
               <a
-                href="https://www.linkedin.com/in/dinesh-a-122983374/"
+                href="https://www.linkedin.com/in/dinesha291204/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3 rounded-full border border-white/10 hover:border-gold/40 text-zinc-300 hover:text-gold font-bold text-[10px] tracking-widest uppercase transition-all flex items-center gap-1.5"
@@ -914,67 +953,92 @@ export default function App() {
             </p>
           </div>
 
-          {/* Process scheduler table */}
-          <div className="w-full border border-white/5 rounded-2xl bg-[#0d0e12] overflow-x-auto shadow-xl select-none">
-            <table className="w-full border-collapse text-left font-code text-xs">
-              
-              {/* Table header */}
-              <thead>
-                <tr className="border-b border-white/5 bg-white/5 text-zinc-500 text-[10px] font-bold uppercase tracking-wider">
-                  <th className="p-4">PID</th>
-                  <th className="p-4">Period</th>
-                  <th className="p-4">Thread Name</th>
-                  <th className="p-4">Role</th>
-                  <th className="p-4">CPU%</th>
-                  <th className="p-4">State</th>
-                </tr>
-              </thead>
-
-              {/* Table body */}
-              <tbody>
-                {EXP_ITEMS.map((exp, idx) => (
-                  <React.Fragment key={idx}>
-                    
-                    {/* Main Row */}
-                    <tr className="border-b border-white/5 text-zinc-350 hover:bg-white/5 transition-colors">
-                      <td className="p-4 text-gold font-bold">{exp.pid}</td>
-                      <td className="p-4 text-zinc-400 font-light">{exp.period}</td>
-                      <td className="p-4 text-white font-bold">{exp.company}</td>
-                      <td className="p-4 text-zinc-450 font-bold">{exp.role}</td>
-                      <td className="p-4 text-emerald-400">{exp.cpu}</td>
-                      <td className="p-4">
-                        <span className={`px-2 py-0.5 rounded text-[9px] font-bold tracking-widest ${
-                          exp.state === 'RUNNING' ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" :
-                          exp.state === 'SLEEPING' ? "bg-zinc-500/10 text-zinc-500 border border-zinc-500/20" :
-                          "bg-amber-500/10 text-gold border border-gold/20"
-                        }`}>
-                          {exp.state}
-                        </span>
-                      </td>
-                    </tr>
-
-                    {/* Detailed info nested row */}
-                    <tr className="bg-black/20 border-b border-white/5">
-                      <td colSpan={6} className="p-5 font-sans leading-relaxed text-zinc-400 text-xs font-light">
-                        <p className="mb-3 max-w-4xl text-neutral-300">
-                          {exp.desc}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5">
-                          <span className="text-[10px] font-code text-zinc-500 uppercase tracking-widest mr-2 flex items-center">Scope:</span>
-                          {exp.tags.map((t) => (
-                            <span key={t} className="px-2 py-0.5 bg-white/5 border border-white/5 font-code text-[9px] text-zinc-500 rounded">
-                              {t}
-                            </span>
-                          ))}
+          {/* Process scheduler container */}
+          <div className="space-y-4">
+            {EXP_ITEMS.map((exp) => {
+              const isExpanded = expandedExp === exp.pid;
+              const color = exp.state === 'RUNNING' ? '#10b981' : exp.state === 'SLEEPING' ? '#71717a' : '#f59e0b';
+              const shadowColor = exp.state === 'RUNNING' ? 'rgba(16,185,129,0.15)' : exp.state === 'SLEEPING' ? 'rgba(113,113,122,0.1)' : 'rgba(245,158,11,0.15)';
+              return (
+                <div
+                  key={exp.pid}
+                  onClick={() => setExpandedExp(isExpanded ? null : exp.pid)}
+                  className={`group cursor-pointer rounded-2xl border transition-all duration-300 p-5 md:p-6 bg-[#0d0e12]/60 hover:bg-[#0d0e12]/90 ${
+                    isExpanded 
+                      ? "border-gold/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)]" 
+                      : "border-white/5 hover:border-white/10"
+                  }`}
+                  style={{
+                    borderLeft: `4px solid ${color}`,
+                    boxShadow: isExpanded ? `0 15px 40px ${shadowColor}` : ''
+                  }}
+                >
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    {/* Left side: Role + Company */}
+                    <div className="flex items-center gap-4">
+                      <div className="font-code text-xs text-zinc-500 font-bold bg-white/5 px-2.5 py-1 rounded border border-white/5">
+                        PID: {exp.pid}
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-serif text-lg font-bold text-white group-hover:text-gold transition-colors">
+                            {exp.company}
+                          </h3>
+                          <span className={`w-1.5 h-1.5 rounded-full ${
+                            exp.state === 'RUNNING' ? 'bg-emerald-500 animate-pulse' :
+                            exp.state === 'SLEEPING' ? 'bg-zinc-500' : 'bg-amber-500'
+                          }`} />
                         </div>
-                      </td>
-                    </tr>
+                        <p className="text-zinc-400 text-xs font-semibold mt-0.5">
+                          {exp.role} <span className="text-zinc-700 font-normal">|</span> <span className="text-zinc-500 font-normal">{exp.period}</span>
+                        </p>
+                      </div>
+                    </div>
 
-                  </React.Fragment>
-                ))}
-              </tbody>
+                    {/* Right side: Stats Dashboard */}
+                    <div className="flex items-center gap-6 justify-between md:justify-end border-t md:border-t-0 border-white/5 pt-3 md:pt-0">
+                      {/* Real-time Sparkline for RUNNING state */}
+                      <div className="hidden sm:block">
+                        <Sparkline active={exp.state === 'RUNNING'} />
+                      </div>
+                      
+                      <div className="font-code text-right text-[11px] space-y-1">
+                        <div className="text-zinc-500">
+                          LOAD: <strong className="text-emerald-400">{exp.cpu}</strong>
+                        </div>
+                        <div className="text-zinc-500">
+                          STATUS: <strong style={{ color }}>{exp.state}</strong>
+                        </div>
+                      </div>
 
-            </table>
+                      <div className="text-zinc-400 group-hover:text-gold transition-colors pl-2">
+                        <span className="text-lg font-code">{isExpanded ? '−' : '+'}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Expandable Details with height animation */}
+                  <div className={`transition-all duration-500 overflow-hidden ${
+                    isExpanded ? "max-h-[500px] opacity-100 mt-5 pt-5 border-t border-white/5" : "max-h-0 opacity-0"
+                  }`}>
+                    <p className="text-zinc-350 text-xs md:text-sm font-light leading-relaxed max-w-4xl">
+                      {exp.desc}
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-2 mt-4 pt-2">
+                      <span className="text-[10px] font-code text-zinc-500 uppercase tracking-widest mr-2 flex items-center">
+                        Active Workspace Modules:
+                      </span>
+                      {exp.tags.map((t) => (
+                        <span key={t} className="px-2.5 py-1 bg-white/5 border border-white/5 font-code text-[10px] text-zinc-450 rounded">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
         </div>
@@ -1042,7 +1106,7 @@ export default function App() {
             {/* Social profiles and download */}
             <div className="flex flex-wrap gap-3.5 mt-8 border-t border-white/5 pt-8">
               <a
-                href="https://www.linkedin.com/in/dinesh-a-122983374/"
+                href="https://www.linkedin.com/in/dinesha291204/"
                 target="_blank"
                 rel="noreferrer"
                 className="px-4 py-2 rounded-lg border border-white/10 hover:border-gold text-zinc-450 hover:text-gold text-[10px] font-code uppercase tracking-wider font-semibold transition-all"
@@ -1071,7 +1135,7 @@ export default function App() {
       <footer className="w-full py-8 border-t border-white/5 bg-[#07080a] text-center text-[10px] font-code text-zinc-550 select-none">
         <div className="w-full px-6 md:px-16 lg:px-24">
           <p>
-            dinesh_a@Dinesh-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v2.4.1 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
+            dinesh_a@Dinesh-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.1.3 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
           </p>
         </div>
       </footer>

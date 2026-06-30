@@ -24,7 +24,7 @@ export default function SocialLinks() {
         </Icon>
       </a>
       <a
-        href="https://www.linkedin.com/in/dinesh-a-122983374/"
+        href="https://www.linkedin.com/in/dinesha291204/"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="LinkedIn"

@@ -76,7 +76,7 @@ export default function Hero() {
           View My Work →
         </button>
         <a
-          href="https://www.linkedin.com/in/dinesh-a-122983374/"
+          href="https://www.linkedin.com/in/dinesha291204/"
           target="_blank"
           rel="noopener noreferrer"
           className="btn-glass btn-outline"
