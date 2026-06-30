@@ -317,7 +317,7 @@ export default function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [cliInput, setCliInput] = useState('');
   const [cliHistory, setCliHistory] = useState<string[]>([
-    'Welcome to Cadi Shell v0.1.10',
+    'Welcome to Cadi Shell v0.1.11',
     'Type "help" to see available commands.',
     ''
   ]);
@@ -536,7 +536,7 @@ export default function App() {
             SYS: ONLINE
           </span>
           <span className="hidden sm:inline text-zinc-600">|</span>
-          <span className="hidden sm:inline">KERNEL: cadi-os v0.1.10</span>
+          <span className="hidden sm:inline">KERNEL: cadi-os v0.1.11</span>
           <span className="text-zinc-650 font-bold bg-white/5 border border-white/10 rounded px-2 py-0.5 text-[8px] hover:text-gold transition-colors flex items-center gap-1">
             {drawerOpen ? "▲ CLOSE SHELL" : "▼ OPEN DIAGNOSTICS & SHELL"}
           </span>
@@ -1477,7 +1477,7 @@ export default function App() {
       <footer className="w-full py-8 border-t border-white/5 bg-[#07080a] text-center text-[10px] font-code text-zinc-550 select-none">
         <div className="w-full px-6 md:px-16 lg:px-24">
           <p>
-            dinesh_a@Cadi-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.1.10 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
+            dinesh_a@Cadi-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.1.11 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
           </p>
         </div>
       </footer>
