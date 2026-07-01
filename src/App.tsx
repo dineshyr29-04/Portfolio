@@ -293,7 +293,6 @@ export default function App() {
   const [cpuLoad, setCpuLoad] = useState('8.4%');
   const [ramUsage, setRamUsage] = useState('5.6GB');
   const [uptime, setUptime] = useState('00:00:00');
-  const [coreLoads, setCoreLoads] = useState<number[]>([12, 45, 8, 88, 22, 64, 30, 15]);
 
   // Accent Theme Controller state
   const [theme, setTheme] = useState<'gold' | 'emerald' | 'amber' | 'cobalt' | 'crimson'>('gold');
@@ -541,7 +540,6 @@ export default function App() {
       // Fluctuating load
       setCpuLoad(`${(8.0 + Math.random() * 6).toFixed(1)}%`);
       setRamUsage(`${(5.4 + Math.random() * 0.4).toFixed(2)}GB`);
-      setCoreLoads(Array.from({ length: 8 }, () => Math.floor(Math.random() * 100)));
     }, 1000);
     return () => clearInterval(interval);
   }, []);
@@ -697,30 +695,6 @@ export default function App() {
               <div className="p-3 bg-white/[0.02] border border-white/5 rounded-xl space-y-1">
                 <span className="text-zinc-500 block text-[9px] uppercase">Telemetry Host</span>
                 <span className="text-white font-bold">Cadi-PC</span>
-              </div>
-            </div>
-
-            {/* Visual CPU Cores Grid */}
-            <div className="p-3 bg-white/[0.02] border border-white/5 rounded-xl space-y-2">
-              <div className="flex justify-between items-center text-[9px] uppercase text-zinc-500 font-code">
-                <span>CPU CORES (THREADS)</span>
-                <span className="text-gold font-bold">8 ACTIVE</span>
-              </div>
-              <div className="grid grid-cols-8 gap-1.5">
-                {coreLoads.map((load, i) => {
-                  const colorClass = load > 80 
-                    ? "bg-red-500/80 border-red-400/20 shadow-[0_0_8px_rgba(239,68,68,0.3)]" 
-                    : load > 40 
-                      ? "bg-gold/80 border-gold/20 shadow-[0_0_8px_rgba(197,168,128,0.3)]" 
-                      : "bg-emerald-500/80 border-emerald-400/20 shadow-[0_0_8px_rgba(16,185,129,0.3)]";
-                  return (
-                    <span 
-                      key={i} 
-                      className={`h-3 rounded-sm border transition-all duration-300 ${colorClass}`}
-                      title={`Core ${i}: ${load}%`}
-                    />
-                  );
-                })}
               </div>
             </div>
 
