@@ -293,6 +293,10 @@ export default function App() {
   const [cpuLoad, setCpuLoad] = useState('8.4%');
   const [ramUsage, setRamUsage] = useState('5.6GB');
   const [uptime, setUptime] = useState('00:00:00');
+  const [coreLoads, setCoreLoads] = useState<number[]>([12, 45, 8, 88, 22, 64, 30, 15]);
+
+  // Accent Theme Controller state
+  const [theme, setTheme] = useState<'gold' | 'emerald' | 'amber' | 'cobalt' | 'crimson'>('gold');
 
   // Code Playground States
   const [runnerTab, setRunnerTab] = useState<'C' | 'Python'>('C');
@@ -302,6 +306,7 @@ export default function App() {
 
   // Skill Segment Map state
   const [selectedSegment, setSelectedSegment] = useState(SKILL_MAPS[0]);
+  const [isSegmentLoading, setIsSegmentLoading] = useState(false);
 
   // Project Details Modal State
   const [expandedProject, setExpandedProject] = useState<typeof PROJECTS[0] | null>(null);
@@ -317,12 +322,17 @@ export default function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [cliInput, setCliInput] = useState('');
   const [cliHistory, setCliHistory] = useState<string[]>([
-    'Welcome to Cadi Shell v0.1.11',
+    'Welcome to Cadi Shell v0.2.0',
     'Type "help" to see available commands.',
     ''
   ]);
   const [isRebooting, setIsRebooting] = useState(false);
   const [rebootLogs, setRebootLogs] = useState<string[]>([]);
+
+  // BASH Mail client state
+  const [mailForm, setMailForm] = useState({ name: '', email: '', message: '' });
+  const [mailStep, setMailStep] = useState(0);
+  const [mailLogs, setMailLogs] = useState<string[]>([]);
 
   // Refs for Terminal scroll and focus
   const terminalEndRef = useRef<HTMLDivElement | null>(null);
@@ -343,25 +353,128 @@ export default function App() {
     }
   }, [drawerOpen]);
 
+  // Sync Accent CSS Variables to root
+  useEffect(() => {
+    const root = document.documentElement;
+    const themes = {
+      gold: { accent: '#c5a880', light: '#ebd6b8' },
+      emerald: { accent: '#10b981', light: '#34d399' },
+      amber: { accent: '#f59e0b', light: '#fbbf24' },
+      cobalt: { accent: '#3b82f6', light: '#60a5fa' },
+      crimson: { accent: '#ef4444', light: '#f87171' }
+    };
+    const active = themes[theme];
+    root.style.setProperty('--color-gold', active.accent);
+    root.style.setProperty('--color-gold-light', active.light);
+    root.style.setProperty('--accent3', active.accent);
+  }, [theme]);
+
+  // Select memory segment with transition
+  const selectSegmentWithAnim = (seg: typeof SKILL_MAPS[0]) => {
+    setIsSegmentLoading(true);
+    setSelectedSegment(seg);
+    setTimeout(() => {
+      setIsSegmentLoading(false);
+    }, 450);
+  };
+
+  // Run cyber hacking print simulation
+  const runHackingSimulation = (currentHistory: string[]) => {
+    const hist = [...currentHistory, 'cadi-os:~$ hack', '[*] INITIATING DECRYPTION PROTOCOL ON THINKNODE CORE...', ''];
+    setCliHistory(hist);
+    
+    const steps = [
+      '[*] Scanning network ports...',
+      '[+] Port 8080 (ThinkNode API) - Vulnerability CVE-2026-X found.',
+      '[*] Injecting payload to memory address 0x7FFF5DEC...',
+      '[*] Overflowing stack pointer register (ESP)...',
+      '[+] Firewall bypassed! Elevating privileges to kernel root...',
+      '[SUCCESS] ROOT ACCESS ACQUIRED: dinesh_a@cadi-os:~#',
+      'DECRYPTED FLAG: {CADI_OS_CORE_UNLOCKED}',
+      'SYSTEM STATUS: ThinkNode, CardioNerve, and HackArena are 100% operational.',
+      ''
+    ];
+
+    steps.forEach((stepText, index) => {
+      setTimeout(() => {
+        setCliHistory((prev) => [...prev, stepText]);
+      }, (index + 1) * 300);
+    });
+  };
+
+  // Contact client transmission simulation
+  const startMailTransmission = () => {
+    setMailStep(4);
+    setMailLogs(['[*] Initializing SMTP handshake...', '[*] Compiling message payload...']);
+    
+    const logs = [
+      '[*] Performing security handshake with SMTP client...',
+      '[*] Packaging envelope: [From: ' + mailForm.email + ']',
+      '[*] Encrypting message body (AES-256)...',
+      '[+] Mail packet compiled successfully.',
+      'cadi-mail:~$ ready to transmit payload to dineshyr2904@gmail.com'
+    ];
+
+    logs.forEach((log, index) => {
+      setTimeout(() => {
+        setMailLogs((prev) => [...prev, log]);
+        if (index === logs.length - 1) {
+          setMailStep(5);
+        }
+      }, (index + 1) * 300);
+    });
+  };
+
   const handleCliSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const cmd = cliInput.trim().toLowerCase();
-    if (!cmd) return;
+    const trimmedInput = cliInput.trim();
+    if (!trimmedInput) return;
+
+    const parts = trimmedInput.split(/\s+/);
+    const cmd = parts[0].toLowerCase();
+    const arg = parts.slice(1).join(' ').toLowerCase();
 
     let response = '';
     const newHistory = [...cliHistory, `cadi-os:~$ ${cliInput}`];
 
     switch (cmd) {
       case 'help':
-        response = 'Available commands:\n  help      - Show this menu\n  ls        - List project modules\n  neofetch  - Display system statistics\n  contact   - Get contact credentials\n  reboot    - Reboot the Cadi OS system\n  clear     - Clear the console terminal';
+        response = 'Available commands:\n  help      - Show this menu\n  ls        - List active project drivers\n  neofetch  - Display system statistics\n  skills    - Visualise capabilities ASCII chart\n  theme     - Change CLI theme (e.g. "theme cobalt")\n  hack      - Launch cyber-security port decryptor\n  contact   - Get contact coordinates\n  reboot    - Reboot the Cadi OS system\n  clear     - Clear the console terminal';
         break;
       case 'ls':
       case 'projects':
-        response = 'Loaded driver modules:\n  • Aura Banquet & Catering\n  • Drug Secure\n  • HackArena Platform\n  • Thinknode Customer Portal\n  • Openloop Automation\n  • AgroNova Platform\n  • CardioNerve Analytics\n  • Developer Portfolio';
+        response = 'Loaded driver modules:\n  • Drug Secure\n  • HackArena Platform\n  • Thinknode Customer Portal\n  • Openloop Automation\n  • AgroNova Platform\n  • CardioNerve Analytics\n  • Developer Portfolio';
         break;
       case 'neofetch':
-        response = ' dinesh_a@Cadi-PC\n ----------------\n OS: Cadi OS v0.1.7 (x86_64)\n Host: Dinesh-PC (Bangalore)\n Kernel: cadi-kernel v0.1.7-lts\n Uptime: ' + uptime + '\n Shell: bash / cadi-shell\n CPU: Simulated 8-Core Threaded Processor\n Memory: 5.6GB / 16GB (35%)';
+        response = ' dinesh_a@Cadi-PC\n ----------------\n OS: Cadi OS v0.2.0 (x86_64)\n Host: Dinesh-PC (Bangalore)\n Kernel: cadi-kernel v0.2.0-lts\n Uptime: ' + uptime + '\n Shell: bash / cadi-shell\n CPU: Simulated 8-Core Threaded Processor\n Memory: 5.6GB / 16GB (35%)';
         break;
+      case 'skills':
+        response = [
+          'TECHNICAL CAPABILITIES SEGMENTS:',
+          '=====================================',
+          '• React/TypeScript   [██████████] 100%',
+          '• Node.js/Vite       [█████████░]  90%',
+          '• Tailwind CSS v4    [██████████] 100%',
+          '• Python/MLOps       [████████░░]  80%',
+          '• SQL/Databases      [████████░░]  80%',
+          '=====================================',
+          'Type "ls" to see project modules or scroll to the virtual memory sections.'
+        ].join('\n');
+        break;
+      case 'theme':
+        if (!arg) {
+          response = 'Usage: theme <color>\nAvailable themes: gold, emerald, amber, cobalt, crimson\nExample: theme cobalt';
+        } else if (['gold', 'emerald', 'amber', 'cobalt', 'crimson'].includes(arg)) {
+          setTheme(arg as any);
+          response = `Theme changed successfully to: ${arg.toUpperCase()}`;
+        } else {
+          response = `Theme "${arg}" not recognized. Available: gold, emerald, amber, cobalt, crimson`;
+        }
+        break;
+      case 'hack':
+        runHackingSimulation(cliHistory);
+        setCliInput('');
+        return;
       case 'contact':
         response = 'Credentials:\n  Email: dineshyr2904@gmail.com\n  GitHub: github.com/dineshyr29-04\n  LinkedIn: linkedin.com/in/dinesha291204';
         break;
@@ -428,6 +541,7 @@ export default function App() {
       // Fluctuating load
       setCpuLoad(`${(8.0 + Math.random() * 6).toFixed(1)}%`);
       setRamUsage(`${(5.4 + Math.random() * 0.4).toFixed(2)}GB`);
+      setCoreLoads(Array.from({ length: 8 }, () => Math.floor(Math.random() * 100)));
     }, 1000);
     return () => clearInterval(interval);
   }, []);
@@ -536,7 +650,7 @@ export default function App() {
             SYS: ONLINE
           </span>
           <span className="hidden sm:inline text-zinc-600">|</span>
-          <span className="hidden sm:inline">KERNEL: cadi-os v0.1.11</span>
+          <span className="hidden sm:inline">KERNEL: cadi-os v0.2.0</span>
           <span className="text-zinc-650 font-bold bg-white/5 border border-white/10 rounded px-2 py-0.5 text-[8px] hover:text-gold transition-colors flex items-center gap-1">
             {drawerOpen ? "▲ CLOSE SHELL" : "▼ OPEN DIAGNOSTICS & SHELL"}
           </span>
@@ -583,6 +697,30 @@ export default function App() {
               <div className="p-3 bg-white/[0.02] border border-white/5 rounded-xl space-y-1">
                 <span className="text-zinc-500 block text-[9px] uppercase">Telemetry Host</span>
                 <span className="text-white font-bold">Cadi-PC</span>
+              </div>
+            </div>
+
+            {/* Visual CPU Cores Grid */}
+            <div className="p-3 bg-white/[0.02] border border-white/5 rounded-xl space-y-2">
+              <div className="flex justify-between items-center text-[9px] uppercase text-zinc-500 font-code">
+                <span>CPU CORES (THREADS)</span>
+                <span className="text-gold font-bold">8 ACTIVE</span>
+              </div>
+              <div className="grid grid-cols-8 gap-1.5">
+                {coreLoads.map((load, i) => {
+                  const colorClass = load > 80 
+                    ? "bg-red-500/80 border-red-400/20 shadow-[0_0_8px_rgba(239,68,68,0.3)]" 
+                    : load > 40 
+                      ? "bg-gold/80 border-gold/20 shadow-[0_0_8px_rgba(197,168,128,0.3)]" 
+                      : "bg-emerald-500/80 border-emerald-400/20 shadow-[0_0_8px_rgba(16,185,129,0.3)]";
+                  return (
+                    <span 
+                      key={i} 
+                      className={`h-3 rounded-sm border transition-all duration-300 ${colorClass}`}
+                      title={`Core ${i}: ${load}%`}
+                    />
+                  );
+                })}
               </div>
             </div>
 
@@ -922,7 +1060,7 @@ export default function App() {
                 return (
                   <button
                     key={seg.id}
-                    onClick={() => setSelectedSegment(seg)}
+                    onClick={() => selectSegmentWithAnim(seg)}
                     className={`w-full p-4 rounded-xl border text-left transition-all duration-300 flex justify-between items-center ${
                       selectedSegment.id === seg.id
                         ? "bg-white/5 border-gold text-white translate-x-1"
@@ -951,46 +1089,61 @@ export default function App() {
             </div>
 
             {/* Segment Contents (Right) */}
-            <div className="lg:col-span-6 bg-[#0d0e12] border border-white/5 p-6 md:p-8 rounded-2xl min-h-[280px] flex flex-col justify-between shadow-xl">
+            <div className="lg:col-span-6 bg-[#0d0e12] border border-white/5 p-6 md:p-8 rounded-2xl min-h-[280px] flex flex-col justify-between shadow-xl relative overflow-hidden">
               
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-[10px] font-code text-gold tracking-widest uppercase">
-                    SEGMENT DUMP: {selectedSegment.address}
-                  </span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              {isSegmentLoading ? (
+                <div className="space-y-4 font-code text-gold/60 text-[11px] leading-relaxed select-none h-full flex flex-col justify-center py-8">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-gold animate-ping" />
+                    <span className="uppercase tracking-widest text-[9px] font-bold text-gold">READING MEMORY SEGMENT...</span>
+                  </div>
+                  <pre className="opacity-80 animate-pulse">
+{`0x1E0D:  A2 C5 80 EB D6 B8 FF FF
+0x2C4B:  10 B9 81 34 D3 99 AA BB
+0x7F2A:  F5 9E 0B FB BF 24 CC DD
+0x8E1B:  3B 82 F6 60 A5 FA EE FF
+0x9D0C:  EF 44 44 F8 71 71 00 11`}
+                  </pre>
                 </div>
+              ) : (
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] font-code text-gold tracking-widest uppercase">
+                      SEGMENT DUMP: {selectedSegment.address}
+                    </span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  </div>
 
-                <h3 className="font-serif text-xl font-bold text-white border-b border-white/5 pb-3">
-                  {selectedSegment.title}
-                </h3>
+                  <h3 className="font-serif text-xl font-bold text-white border-b border-white/5 pb-3">
+                    {selectedSegment.title}
+                  </h3>
 
-                <p className="text-zinc-400 text-xs font-light leading-relaxed">
-                  {selectedSegment.description}
-                </p>
+                  <p className="text-zinc-400 text-xs font-light leading-relaxed">
+                    {selectedSegment.description}
+                  </p>
 
-                {/* Sub-skills list */}
-                <div className="pt-2">
-                  <label className="block text-[9px] uppercase font-code font-bold tracking-widest text-zinc-500 mb-2">
-                    Segment Variables:
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedSegment.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-2.5 py-1 rounded bg-white/5 border border-white/5 font-code text-[10px] text-zinc-350"
-                      >
-                        {skill}
-                      </span>
-                    ))}
+                  {/* Sub-skills list */}
+                  <div className="pt-2">
+                    <label className="block text-[9px] uppercase font-code font-bold tracking-widest text-zinc-500 mb-2">
+                      Segment Variables:
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedSegment.skills.map((skill) => (
+                        <span
+                          key={skill}
+                          className="px-2.5 py-1 rounded bg-white/5 border border-white/5 font-code text-[10px] text-zinc-350"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               <div className="text-[8px] font-code text-zinc-500 uppercase tracking-widest border-t border-white/5 pt-4 mt-6">
                 * Hex segment memory block verified ok.
               </div>
-
             </div>
 
           </div>
@@ -1437,13 +1590,199 @@ export default function App() {
               Open to collaborative ML pipelines explorations, technical internships, full-stack systems engineering architectures and complex software audits. Responses return within 24 execution hours.
             </p>
 
-            <a
-              href="mailto:dineshyr2904@gmail.com"
-              className="inline-flex items-center gap-2.5 text-xs sm:text-sm font-code text-gold bg-gold/5 px-4.5 py-2.5 rounded-xl border border-gold/15 hover:bg-gold hover:text-[#07080a] hover:border-gold transition-all duration-300"
-            >
-              <Mail className="w-4 h-4" />
-              <span>dineshyr2904@gmail.com</span>
-            </a>
+            {/* Cadi Mail Client Terminal */}
+            <div className="mt-8 bg-black/45 border border-white/5 rounded-2xl p-6 font-code text-xs text-left text-zinc-350">
+              <div className="flex justify-between items-center border-b border-white/5 pb-2 mb-4 text-[10px] text-zinc-550">
+                <span>cadi-mail --form-handler</span>
+                <span className="text-gold font-bold uppercase select-none tracking-widest">[ READY ]</span>
+              </div>
+              
+              {mailStep === 0 && (
+                <div className="space-y-3">
+                  <p className="text-zinc-500">// Enter sender\'s identifier to begin secure connection.</p>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-gold">cadi-mail:~$ enter name:</span>
+                    <input
+                      type="text"
+                      className="bg-transparent text-white border-b border-white/10 focus:border-gold focus:outline-none w-full sm:w-64 py-0.5 tracking-wide"
+                      placeholder="e.g. Recruiter Name"
+                      value={mailForm.name}
+                      autoFocus
+                      onChange={(e) => setMailForm({ ...mailForm, name: e.target.value })}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && mailForm.name.trim()) setMailStep(1);
+                      }}
+                    />
+                    <button
+                      disabled={!mailForm.name.trim()}
+                      onClick={() => setMailStep(1)}
+                      className="px-3 py-1 rounded bg-white/5 hover:bg-gold hover:text-black transition-colors font-bold text-[10px] disabled:opacity-50 disabled:hover:bg-white/5 disabled:hover:text-zinc-350"
+                    >
+                      NEXT [Enter]
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {mailStep === 1 && (
+                <div className="space-y-3">
+                  <p className="text-zinc-500">// Enter email coordinates for response routing.</p>
+                  <div>
+                    <span className="text-zinc-500">cadi-mail:~$ enter name:</span>
+                    <span className="text-white ml-2">{mailForm.name}</span>
+                  </div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-gold">cadi-mail:~$ enter email:</span>
+                    <input
+                      type="email"
+                      className="bg-transparent text-white border-b border-white/10 focus:border-gold focus:outline-none w-full sm:w-64 py-0.5 tracking-wide"
+                      placeholder="e.g. name@company.com"
+                      value={mailForm.email}
+                      autoFocus
+                      onChange={(e) => setMailForm({ ...mailForm, email: e.target.value })}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && mailForm.email.trim().includes('@')) setMailStep(2);
+                      }}
+                    />
+                    <button
+                      disabled={!mailForm.email.trim().includes('@')}
+                      onClick={() => setMailStep(2)}
+                      className="px-3 py-1 rounded bg-white/5 hover:bg-gold hover:text-black transition-colors font-bold text-[10px] disabled:opacity-50 disabled:hover:bg-white/5"
+                    >
+                      NEXT [Enter]
+                    </button>
+                    <button 
+                      onClick={() => setMailStep(0)} 
+                      className="text-[9px] text-zinc-500 hover:text-zinc-300 ml-2"
+                    >
+                      [Back]
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {mailStep === 2 && (
+                <div className="space-y-3">
+                  <p className="text-zinc-500">// Input payload message text bytes.</p>
+                  <div>
+                    <span className="text-zinc-500">cadi-mail:~$ enter name:</span>
+                    <span className="text-white ml-2">{mailForm.name}</span>
+                  </div>
+                  <div>
+                    <span className="text-zinc-500">cadi-mail:~$ enter email:</span>
+                    <span className="text-white ml-2">{mailForm.email}</span>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="text-gold">cadi-mail:~$ enter message:</div>
+                    <textarea
+                      rows={3}
+                      className="bg-transparent text-white border border-white/10 focus:border-gold focus:outline-none w-full p-2.5 rounded-lg tracking-wide resize-none font-code"
+                      placeholder="Write your email proposal here..."
+                      value={mailForm.message}
+                      autoFocus
+                      onChange={(e) => setMailForm({ ...mailForm, message: e.target.value })}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && e.ctrlKey && mailForm.message.trim()) {
+                          setMailStep(3);
+                        }
+                      }}
+                    />
+                    <div className="flex gap-2">
+                      <button
+                        disabled={!mailForm.message.trim()}
+                        onClick={() => setMailStep(3)}
+                        className="px-3.5 py-1.5 rounded bg-white/5 hover:bg-gold hover:text-black transition-colors font-bold text-[10px] disabled:opacity-50 disabled:hover:bg-white/5"
+                      >
+                        COMPILE [Ctrl+Enter]
+                      </button>
+                      <button 
+                        onClick={() => setMailStep(1)} 
+                        className="text-[9px] text-zinc-500 hover:text-zinc-300 flex items-center"
+                      >
+                        [Back]
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {mailStep === 3 && (
+                <div className="space-y-3">
+                  <p className="text-emerald-400 font-bold">// SECURE PACKET PRE-COMPILE COMPLETE. REVIEW SEGMENTS:</p>
+                  <div className="bg-white/[0.02] border border-white/5 rounded-lg p-3 space-y-1 text-zinc-400">
+                    <div><span className="text-zinc-550">SENDER:</span> {mailForm.name}</div>
+                    <div><span className="text-zinc-550">ROUTING:</span> {mailForm.email}</div>
+                    <div className="border-t border-white/5 mt-2 pt-2"><span className="text-zinc-550">PAYLOAD:</span></div>
+                    <p className="text-zinc-350 italic text-[11px] font-light leading-relaxed">{mailForm.message}</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={startMailTransmission}
+                      className="px-4 py-2 rounded bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-[10px] transition-colors uppercase tracking-wider cursor-pointer"
+                    >
+                      TRANSMIT PACKET [send]
+                    </button>
+                    <button
+                      onClick={() => {
+                        setMailForm({ name: '', email: '', message: '' });
+                        setMailStep(0);
+                      }}
+                      className="px-4 py-2 rounded bg-white/5 hover:bg-red-500 hover:text-white text-zinc-350 font-bold text-[10px] transition-all uppercase tracking-wider cursor-pointer"
+                    >
+                      RESET FORM [abort]
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {mailStep === 4 && (
+                <div className="space-y-2">
+                  {mailLogs.map((log, i) => (
+                    <div key={i} className="flex gap-2 items-center">
+                      <span className="text-gold">►</span>
+                      <span className="font-code text-zinc-350">{log}</span>
+                    </div>
+                  ))}
+                  <div className="blink-cursor inline-block w-1.5 h-3.5 bg-gold" />
+                </div>
+              )}
+
+              {mailStep === 5 && (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+                    <span>[SUCCESS] ENVELOPE COMPILED & SEALED!</span>
+                  </div>
+                  <p className="text-zinc-400 text-[11px] leading-relaxed max-w-lg">
+                    Your email payload was encrypted and packetized into a standard URL stream. Press the button below to dispatch the secure envelope over your device\'s native mail client.
+                  </p>
+                  <div className="flex items-center gap-3.5 flex-wrap">
+                    <a
+                      href={`mailto:dineshyr2904@gmail.com?subject=Portfolio%20Message%20from%20${encodeURIComponent(mailForm.name)}&body=${encodeURIComponent(mailForm.message)}%0D%0A%0D%0AFrom:%20${encodeURIComponent(mailForm.name)}%20(${encodeURIComponent(mailForm.email)})`}
+                      className="inline-flex items-center gap-2 text-xs font-code font-bold text-black bg-gold hover:bg-gold-light px-4 py-2.5 rounded-xl border border-gold hover:border-gold-light transition-all shadow-[0_0_12px_rgba(197,168,128,0.3)] animate-pulse"
+                    >
+                      <Mail className="w-4 h-4" />
+                      <span>DISPATCH PAYLOAD (OPEN MAIL)</span>
+                    </a>
+                    <button
+                      onClick={() => {
+                        setMailForm({ name: '', email: '', message: '' });
+                        setMailStep(0);
+                        setMailLogs([]);
+                      }}
+                      className="px-3.5 py-2.5 rounded-xl border border-white/10 hover:border-gold text-zinc-500 hover:text-gold transition-colors font-bold text-[10px] uppercase tracking-wider cursor-pointer"
+                    >
+                      WRITE ANOTHER
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Quick fallback option */}
+            <div className="mt-6 text-[10px] text-zinc-500 font-code text-center">
+              Fallback direct address: <a href="mailto:dineshyr2904@gmail.com" className="text-gold hover:underline">dineshyr2904@gmail.com</a>
+            </div>
 
             {/* Social profiles and download */}
             <div className="flex flex-wrap gap-3.5 mt-8 border-t border-white/5 pt-8">
@@ -1477,7 +1816,7 @@ export default function App() {
       <footer className="w-full py-8 border-t border-white/5 bg-[#07080a] text-center text-[10px] font-code text-zinc-550 select-none">
         <div className="w-full px-6 md:px-16 lg:px-24">
           <p>
-            dinesh_a@Cadi-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.1.11 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
+            dinesh_a@Cadi-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.2.0 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
           </p>
         </div>
       </footer>

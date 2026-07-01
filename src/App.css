@@ -88,18 +88,20 @@ body {
 
 /* Custom Scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: #07080a;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1f2023;
-  border-radius: 3px;
+  background: linear-gradient(180deg, #18191c, #2b2d33);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent3);
+  background: linear-gradient(180deg, var(--accent3), #ebd6b8);
+  box-shadow: 0 0 10px rgba(197, 168, 128, 0.5);
 }
 
 /* Custom Blinking Caret */
