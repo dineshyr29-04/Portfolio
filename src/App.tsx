@@ -236,25 +236,29 @@ const EXTRA_ITEMS = [
     icon: '🏆',
     title: 'Hackathon Organizer',
     desc: 'Organized and managed large-scale hackathons with 500+ participants. Built the entire event platform from scratch.',
-    highlight: 'Project Sankalp'
+    highlight: 'Project Sankalp',
+    log: 'LOG: EVENT_OK'
   },
   {
     icon: '📖',
     title: 'Research & Papers',
     desc: 'Actively studying transformer architectures, attention mechanisms, and publishing findings on ML system design.',
-    highlight: 'Deep Learning Focus'
+    highlight: 'Deep Learning Focus',
+    log: 'LOG: RUN_OK'
   },
   {
     icon: '🌐',
     title: 'Open Source',
     desc: 'Contributing to open-source ML tools and building developer utilities used by the community.',
-    highlight: 'GitHub Active'
+    highlight: 'GitHub Active',
+    log: 'LOG: BUILD_OK'
   },
   {
     icon: '🎤',
     title: 'Tech Talks & Mentoring',
     desc: 'Presenting on AI/ML topics at college events and mentoring junior developers in web and ML engineering.',
-    highlight: 'Community Builder'
+    highlight: 'Community Builder',
+    log: 'LOG: SYNC_OK'
   }
 ];
 
@@ -321,7 +325,7 @@ export default function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [cliInput, setCliInput] = useState('');
   const [cliHistory, setCliHistory] = useState<string[]>([
-    'Welcome to Cadi Shell v0.2.1',
+    'Welcome to Cadi Shell v0.2.2',
     'Type "help" to see available commands.',
     ''
   ]);
@@ -445,7 +449,7 @@ export default function App() {
         response = 'Loaded driver modules:\n  • Drug Secure\n  • HackArena Platform\n  • Thinknode Customer Portal\n  • Openloop Automation\n  • AgroNova Platform\n  • CardioNerve Analytics\n  • Developer Portfolio';
         break;
       case 'neofetch':
-        response = ' dinesh_a@Cadi-PC\n ----------------\n OS: Cadi OS v0.2.1 (x86_64)\n Host: Dinesh-PC (Bangalore)\n Kernel: cadi-kernel v0.2.1-lts\n Uptime: ' + uptime + '\n Shell: bash / cadi-shell\n CPU: Simulated 8-Core Threaded Processor\n Memory: 5.6GB / 16GB (35%)';
+        response = ' dinesh_a@Cadi-PC\n ----------------\n OS: Cadi OS v0.2.2 (x86_64)\n Host: Dinesh-PC (Bangalore)\n Kernel: cadi-kernel v0.2.2-lts\n Uptime: ' + uptime + '\n Shell: bash / cadi-shell\n CPU: Simulated 8-Core Threaded Processor\n Memory: 5.6GB / 16GB (35%)';
         break;
       case 'skills':
         response = [
@@ -648,7 +652,7 @@ export default function App() {
             SYS: ONLINE
           </span>
           <span className="hidden sm:inline text-zinc-600">|</span>
-          <span className="hidden sm:inline">KERNEL: cadi-os v0.2.1</span>
+          <span className="hidden sm:inline">KERNEL: cadi-os v0.2.2</span>
           <span className="text-zinc-650 font-bold bg-white/5 border border-white/10 rounded px-2 py-0.5 text-[8px] hover:text-gold transition-colors flex items-center gap-1">
             {drawerOpen ? "▲ CLOSE SHELL" : "▼ OPEN DIAGNOSTICS & SHELL"}
           </span>
@@ -1098,17 +1102,23 @@ export default function App() {
 
                   {/* Sub-skills list */}
                   <div className="pt-2">
-                    <label className="block text-[9px] uppercase font-code font-bold tracking-widest text-zinc-500 mb-2">
+                    <label className="block text-[9px] uppercase font-code font-bold tracking-widest text-zinc-500 mb-3">
                       Segment Variables:
                     </label>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                       {selectedSegment.skills.map((skill) => (
-                        <span
+                        <div
                           key={skill}
-                          className="px-2.5 py-1 rounded bg-white/5 border border-white/5 font-code text-[10px] text-zinc-350"
+                          className="px-3.5 py-2.5 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between gap-3 transition-all duration-300 hover:border-gold/30 hover:bg-white/[0.04] group/skill"
                         >
-                          {skill}
-                        </span>
+                          <div className="flex flex-col text-left">
+                            <span className="font-code text-[10px] font-bold text-white tracking-wide group-hover/skill:text-gold transition-colors">{skill}</span>
+                            <span className="font-code text-[7px] text-zinc-600 mt-0.5 select-none uppercase tracking-wider">
+                              [0x{(skill.charCodeAt(0) * 16 + skill.charCodeAt(skill.length - 1)).toString(16).toUpperCase()}]
+                            </span>
+                          </div>
+                          <span className="w-1 h-1 rounded-full bg-gold/40 group-hover/skill:bg-gold transition-colors" />
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -1534,8 +1544,8 @@ export default function App() {
                   <span className="text-[9px] font-code text-gold bg-gold/5 px-2.5 py-0.5 rounded-full border border-gold/15 uppercase tracking-wider select-none">
                     {item.highlight}
                   </span>
-                  <span className="text-zinc-600 group-hover:text-gold transition-colors text-[10px] font-code">
-                    [OK]
+                  <span className="text-zinc-600 group-hover:text-gold transition-colors text-[9px] font-code tracking-wider uppercase">
+                    {item.log}
                   </span>
                 </div>
               </div>
@@ -1794,7 +1804,7 @@ export default function App() {
       <footer className="w-full py-8 border-t border-white/5 bg-[#07080a] text-center text-[10px] font-code text-zinc-550 select-none">
         <div className="w-full px-6 md:px-16 lg:px-24">
           <p>
-            dinesh_a@Cadi-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.2.1 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
+            dinesh_a@Cadi-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.2.2 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
           </p>
         </div>
       </footer>
