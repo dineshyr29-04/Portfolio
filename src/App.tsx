@@ -736,7 +736,7 @@ export default function App() {
             </div>
 
             {/* Terminal History */}
-            <div className="flex-1 p-4 font-code text-[11px] text-zinc-300 overflow-y-auto max-h-[160px] space-y-1.5 select-text leading-relaxed">
+            <div className="flex-1 p-4 font-code text-[11px] text-zinc-300 overflow-y-auto max-h-[160px] space-y-1.5 select-text leading-relaxed" data-lenis-prevent>
               {cliHistory.map((line, idx) => (
                 <div key={idx} className="whitespace-pre-wrap">
                   {line}
@@ -887,7 +887,7 @@ export default function App() {
           </div>
 
           {/* Hero Right Code simulation dashboard */}
-          <div className="lg:col-span-6 bg-[#0d0e12] border border-white/5 rounded-2xl shadow-2xl p-5 md:p-6 font-code text-xs relative overflow-hidden select-none">
+          <div className="lg:col-span-6 bg-[#05070a] border border-white/5 rounded-2xl shadow-2xl p-5 md:p-6 font-code text-xs relative overflow-hidden select-none">
             
             {/* Header tab buttons */}
             <div className="flex justify-between items-center border-b border-white/5 pb-3 mb-4">
@@ -933,7 +933,7 @@ export default function App() {
             {/* Console Output logs */}
             <div className="mt-4 pt-3 border-t border-white/5">
               <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mb-2">System stdout:</div>
-              <div className="p-3 bg-black/60 rounded-lg text-emerald-400 font-code text-[11px] min-h-[90px] max-h-[120px] overflow-y-auto space-y-1">
+              <div className="p-3 bg-black/60 rounded-lg text-emerald-400 font-code text-[11px] min-h-[90px] max-h-[120px] overflow-y-auto space-y-1" data-lenis-prevent>
                 {outputLines.map((line, idx) => (
                   <div key={idx} className="flex gap-2">
                     <span className="text-zinc-600 select-none">►</span>
@@ -950,7 +950,7 @@ export default function App() {
       </section>
 
       {/* ══ ABOUT DINESH ══ */}
-      <section id="about" className="w-full py-20 bg-[#0d0e12]/40 border-y border-white/5 relative z-10">
+      <section id="about" className="w-full py-20 bg-[#05070a]/40 border-y border-white/5 relative z-10">
         <div className="w-full px-6 md:px-16 lg:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
@@ -983,7 +983,7 @@ export default function App() {
             </div>
 
             <div className="lg:col-span-5 flex justify-center">
-              <div className="relative p-6 border border-white/5 rounded-2xl bg-[#0d0e12]/80 max-w-sm w-full select-none shadow-xl">
+              <div className="relative p-6 border border-white/5 rounded-2xl bg-[#05070a]/80 max-w-sm w-full select-none shadow-xl">
                 <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-gold animate-pulse" />
                 <h4 className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-3">Host Information</h4>
                 <div className="space-y-3.5 text-xs font-code">
@@ -1038,7 +1038,7 @@ export default function App() {
                     className={`w-full p-4 rounded-xl border text-left transition-all duration-300 flex justify-between items-center ${
                       selectedSegment.id === seg.id
                         ? "bg-white/5 border-gold text-white translate-x-1"
-                        : "border-white/5 bg-[#0d0e12]/40 text-zinc-500 hover:border-white/10 hover:text-zinc-200"
+                        : "border-white/5 bg-[#05070a]/40 text-zinc-500 hover:border-white/10 hover:text-zinc-200"
                     }`}
                   >
                     <div className="flex items-center gap-3.5">
@@ -1063,7 +1063,7 @@ export default function App() {
             </div>
 
             {/* Segment Contents (Right) */}
-            <div className="lg:col-span-6 bg-[#0d0e12] border border-white/5 p-6 md:p-8 rounded-2xl min-h-[280px] flex flex-col justify-between shadow-xl relative overflow-hidden">
+            <div className="lg:col-span-6 bg-[#05070a] border border-white/5 p-6 md:p-8 rounded-2xl min-h-[280px] flex flex-col justify-between shadow-xl relative overflow-hidden">
               
               {isSegmentLoading ? (
                 <div className="space-y-4 font-code text-gold/60 text-[11px] leading-relaxed select-none h-full flex flex-col justify-center py-8">
@@ -1126,7 +1126,7 @@ export default function App() {
       </section>
 
       {/* ══ PROJECTS SECTION (SYSTEM DRIVERS) ══ */}
-      <section id="projects" className="w-full py-20 bg-[#0d0e12]/40 border-y border-white/5 relative z-10">
+      <section id="projects" className="w-full py-20 bg-[#05070a]/40 border-y border-white/5 relative z-10">
         <div className="w-full px-6 md:px-16 lg:px-24">
           
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12">
@@ -1212,7 +1212,7 @@ export default function App() {
                       <span>SYSTEM_DRIVERS</span>
                     </div>
                     
-                    <div className="space-y-1.5 overflow-y-auto max-h-[300px]">
+                    <div className="space-y-1.5 overflow-y-auto max-h-[300px]" data-lenis-prevent>
                       {PROJECTS.map((p) => {
                         const isSelected = activeProj.title === p.title;
                         const fileBase = p.title.toLowerCase().replace(/\s+/g, '_') + '.sys';
@@ -1246,7 +1246,7 @@ export default function App() {
                     </div>
 
                     {/* Inspector Content */}
-                    <div className="flex-1 p-6 md:p-8 space-y-6 overflow-y-auto max-h-[360px]">
+                    <div className="flex-1 p-6 md:p-8 space-y-6 overflow-y-auto max-h-[360px]" data-lenis-prevent>
                       
                       {/* Top header stats block */}
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-white/5 pb-5">
@@ -1307,7 +1307,7 @@ export default function App() {
           {/* Project expanded Modal overlay */}
           {expandedProject && (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in select-none">
-              <div className="bg-[#0d0e12] border border-white/10 rounded-2xl overflow-hidden max-w-2xl w-full shadow-2xl relative">
+              <div className="bg-[#05070a] border border-white/10 rounded-2xl overflow-hidden max-w-2xl w-full shadow-2xl relative">
                 
                 <button
                   onClick={() => setExpandedProject(null)}
@@ -1413,7 +1413,7 @@ export default function App() {
                 <div
                   key={exp.pid}
                   onClick={() => setExpandedExp(isExpanded ? null : exp.pid)}
-                  className={`group cursor-pointer rounded-2xl border transition-all duration-300 p-5 md:p-6 bg-[#0d0e12]/60 hover:bg-[#0d0e12]/90 ${
+                  className={`group cursor-pointer rounded-2xl border transition-all duration-300 p-5 md:p-6 bg-[#05070a]/60 hover:bg-[#05070a]/90 ${
                     isExpanded 
                       ? "border-gold/30 shadow-[0_10px_30px_rgba(0,0,0,0.5)]" 
                       : "border-white/5 hover:border-white/10"
@@ -1495,7 +1495,7 @@ export default function App() {
       </section>
 
       {/* ══ BEYOND CODE (EXTRACURRICULAR) ══ */}
-      <section id="extracurricular" className="w-full py-20 bg-[#0d0e12]/40 border-y border-white/5 relative z-10">
+      <section id="extracurricular" className="w-full py-20 bg-[#05070a]/40 border-y border-white/5 relative z-10">
         <div className="w-full px-6 md:px-16 lg:px-24">
           
           <div className="max-w-xl mb-12">
@@ -1510,7 +1510,7 @@ export default function App() {
             {EXTRA_ITEMS.map((item, idx) => (
               <div
                 key={idx}
-                className="group relative p-6 rounded-2xl border border-white/5 bg-[#0d0e12]/40 backdrop-blur-md flex flex-col justify-between space-y-5 transition-all duration-300 hover:border-gold/30 hover:bg-[#0d0e12]/80 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(197,168,128,0.1)]"
+                className="group relative p-6 rounded-2xl border border-white/5 bg-[#05070a]/40 backdrop-blur-md flex flex-col justify-between space-y-5 transition-all duration-300 hover:border-gold/30 hover:bg-[#05070a]/80 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(197,168,128,0.1)]"
               >
                 {/* Glowing top line accent on hover */}
                 <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-gold/50 to-transparent scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
@@ -1549,7 +1549,7 @@ export default function App() {
       <section id="contact" className="w-full py-24 bg-[#07080a] relative z-10">
         <div className="w-full px-6 md:px-16 lg:px-24 flex justify-center">
           
-          <div className="bg-[#0d0e12] border border-white/5 p-8 sm:p-12 rounded-3xl w-full max-w-4xl relative overflow-hidden shadow-2xl">
+          <div className="bg-[#05070a] border border-white/5 p-8 sm:p-12 rounded-3xl w-full max-w-4xl relative overflow-hidden shadow-2xl">
             {/* Subtle glowing circuit dot */}
             <div className="absolute top-6 right-6 w-2.5 h-2.5 rounded-full bg-gold animate-ping" />
 
