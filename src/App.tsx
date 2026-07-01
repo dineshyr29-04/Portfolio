@@ -1776,9 +1776,13 @@ export default function App() {
               >
                 ↗ GitHub
               </a>
-              <span className="px-4 py-2 rounded-lg border border-white/10 text-zinc-600 text-[10px] font-code uppercase tracking-wider font-semibold select-none cursor-not-allowed">
+              <a
+                href="/resume.pdf"
+                download="Dinesh_Resume.pdf"
+                className="px-4 py-2 rounded-lg border border-white/10 hover:border-gold text-zinc-450 hover:text-gold text-[10px] font-code uppercase tracking-wider font-semibold transition-all cursor-pointer"
+              >
                 ↓ Download Resume
-              </span>
+              </a>
             </div>
 
           </div>
