@@ -321,7 +321,7 @@ export default function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [cliInput, setCliInput] = useState('');
   const [cliHistory, setCliHistory] = useState<string[]>([
-    'Welcome to Cadi Shell v0.2.0',
+    'Welcome to Cadi Shell v0.2.1',
     'Type "help" to see available commands.',
     ''
   ]);
@@ -445,7 +445,7 @@ export default function App() {
         response = 'Loaded driver modules:\n  • Drug Secure\n  • HackArena Platform\n  • Thinknode Customer Portal\n  • Openloop Automation\n  • AgroNova Platform\n  • CardioNerve Analytics\n  • Developer Portfolio';
         break;
       case 'neofetch':
-        response = ' dinesh_a@Cadi-PC\n ----------------\n OS: Cadi OS v0.2.0 (x86_64)\n Host: Dinesh-PC (Bangalore)\n Kernel: cadi-kernel v0.2.0-lts\n Uptime: ' + uptime + '\n Shell: bash / cadi-shell\n CPU: Simulated 8-Core Threaded Processor\n Memory: 5.6GB / 16GB (35%)';
+        response = ' dinesh_a@Cadi-PC\n ----------------\n OS: Cadi OS v0.2.1 (x86_64)\n Host: Dinesh-PC (Bangalore)\n Kernel: cadi-kernel v0.2.1-lts\n Uptime: ' + uptime + '\n Shell: bash / cadi-shell\n CPU: Simulated 8-Core Threaded Processor\n Memory: 5.6GB / 16GB (35%)';
         break;
       case 'skills':
         response = [
@@ -648,7 +648,7 @@ export default function App() {
             SYS: ONLINE
           </span>
           <span className="hidden sm:inline text-zinc-600">|</span>
-          <span className="hidden sm:inline">KERNEL: cadi-os v0.2.0</span>
+          <span className="hidden sm:inline">KERNEL: cadi-os v0.2.1</span>
           <span className="text-zinc-650 font-bold bg-white/5 border border-white/10 rounded px-2 py-0.5 text-[8px] hover:text-gold transition-colors flex items-center gap-1">
             {drawerOpen ? "▲ CLOSE SHELL" : "▼ OPEN DIAGNOSTICS & SHELL"}
           </span>
@@ -1794,7 +1794,7 @@ export default function App() {
       <footer className="w-full py-8 border-t border-white/5 bg-[#07080a] text-center text-[10px] font-code text-zinc-550 select-none">
         <div className="w-full px-6 md:px-16 lg:px-24">
           <p>
-            dinesh_a@Cadi-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.2.0 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
+            dinesh_a@Cadi-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.2.1 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
           </p>
         </div>
       </footer>
