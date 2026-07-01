@@ -325,7 +325,7 @@ export default function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [cliInput, setCliInput] = useState('');
   const [cliHistory, setCliHistory] = useState<string[]>([
-    'Welcome to Cadi Shell v0.2.2',
+    'Welcome to Cadi Shell v0.2.3',
     'Type "help" to see available commands.',
     ''
   ]);
@@ -449,7 +449,7 @@ export default function App() {
         response = 'Loaded driver modules:\n  • Drug Secure\n  • HackArena Platform\n  • Thinknode Customer Portal\n  • Openloop Automation\n  • AgroNova Platform\n  • CardioNerve Analytics\n  • Developer Portfolio';
         break;
       case 'neofetch':
-        response = ' dinesh_a@Cadi-PC\n ----------------\n OS: Cadi OS v0.2.2 (x86_64)\n Host: Dinesh-PC (Bangalore)\n Kernel: cadi-kernel v0.2.2-lts\n Uptime: ' + uptime + '\n Shell: bash / cadi-shell\n CPU: Simulated 8-Core Threaded Processor\n Memory: 5.6GB / 16GB (35%)';
+        response = ' dinesh_a@Cadi-PC\n ----------------\n OS: Cadi OS v0.2.3 (x86_64)\n Host: Dinesh-PC (Bangalore)\n Kernel: cadi-kernel v0.2.3-lts\n Uptime: ' + uptime + '\n Shell: bash / cadi-shell\n CPU: Simulated 8-Core Threaded Processor\n Memory: 5.6GB / 16GB (35%)';
         break;
       case 'skills':
         response = [
@@ -652,7 +652,7 @@ export default function App() {
             SYS: ONLINE
           </span>
           <span className="hidden sm:inline text-zinc-600">|</span>
-          <span className="hidden sm:inline">KERNEL: cadi-os v0.2.2</span>
+          <span className="hidden sm:inline">KERNEL: cadi-os v0.2.3</span>
           <span className="text-zinc-650 font-bold bg-white/5 border border-white/10 rounded px-2 py-0.5 text-[8px] hover:text-gold transition-colors flex items-center gap-1">
             {drawerOpen ? "▲ CLOSE SHELL" : "▼ OPEN DIAGNOSTICS & SHELL"}
           </span>
@@ -1020,12 +1020,12 @@ export default function App() {
         <div className="w-full px-6 md:px-16 lg:px-24">
           
           <div className="max-w-xl mb-12">
-            <span className="text-gold font-bold text-[10px] font-code uppercase tracking-widest">// 02. CAPABILITIES SEGMENTS</span>
+            <span className="text-gold font-bold text-[10px] font-code uppercase tracking-widest">// 02. TECHNICAL SKILLS</span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white mt-2">
-              Virtual Memory Mapping
+              Technical Capabilities
             </h2>
             <p className="text-zinc-500 text-xs font-light mt-3 max-w-md">
-              Click on the virtual memory segments below to explore my technical capabilities mapped into standard CPU segments.
+              Click on the categories below to explore my technical skills and competencies mapped across different architecture segments.
             </p>
           </div>
 
@@ -1804,7 +1804,7 @@ export default function App() {
       <footer className="w-full py-8 border-t border-white/5 bg-[#07080a] text-center text-[10px] font-code text-zinc-550 select-none">
         <div className="w-full px-6 md:px-16 lg:px-24">
           <p>
-            dinesh_a@Cadi-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.2.2 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
+            dinesh_a@Cadi-PC:~$ shutdown -h now &nbsp;·&nbsp; Build v0.2.3 &nbsp;·&nbsp; Built with Precision &nbsp;·&nbsp; 2026
           </p>
         </div>
       </footer>
