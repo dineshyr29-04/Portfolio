@@ -1573,7 +1573,7 @@ export default function App() {
               
               {mailStep === 0 && (
                 <div className="space-y-3">
-                  <p className="text-zinc-500">// Enter sender\'s identifier to begin secure connection.</p>
+                  <p className="text-zinc-500">// Enter sender&apos;s identifier to begin secure connection.</p>
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="text-gold">cadi-mail:~$ enter name:</span>
                     <input
@@ -1728,7 +1728,7 @@ export default function App() {
                     <span>[SUCCESS] ENVELOPE COMPILED & SEALED!</span>
                   </div>
                   <p className="text-zinc-400 text-[11px] leading-relaxed max-w-lg">
-                    Your email payload was encrypted and packetized into a standard URL stream. Press the button below to dispatch the secure envelope over your device\'s native mail client.
+                    Your email payload was encrypted and packetized into a standard URL stream. Press the button below to dispatch the secure envelope over your device&apos;s native mail client.
                   </p>
                   <div className="flex items-center gap-3.5 flex-wrap">
                     <a
