@@ -70,19 +70,14 @@ const PROJECTS = [
 
 const EXPERIENCE = [
   {
-    period: '2025 — Present', company: 'CardioNerve', role: 'Co-Founder & Systems Architect',
-    description: 'Co-founded an AI-driven cardiovascular intelligence platform analyzing real-time HRV data from PPG sensors to generate predictive risk scores. Designed clinical dashboards and deployed production LLM pipelines.',
-    tags: ['PyTorch', 'Python', 'Node.js', 'Express.js'], accent: '#ef4444',
+    period: '2024 — Present', company: 'AWS Cloud Club', role: 'Tech Relationship Head',
+    description: 'Spearheaded cloud architecture initiatives and fostered technical partnerships within the AWS student community. Organized hands-on cloud deployment workshops and networking events.',
+    tags: ['AWS', 'Cloud Architecture', 'Leadership'], accent: '#f59e0b',
   },
   {
     period: '2024 — Present', company: 'HackArena', role: 'Co-Founder & Lead Developer',
     description: 'Co-founded and engineered HackArena — a next-generation hackathon management engine supporting 500+ active participants with automated judging and real-time team collaboration.',
     tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'], accent: '#6366f1',
-  },
-  {
-    period: '2024 — Present', company: 'ThinkNode', role: 'Co-Founder & Full-Stack Architect',
-    description: 'Co-founded ThinkNode, building enterprise cloud customer portals and SaaS interfaces. Managed multi-tenant architectures, AI deployment pipelines, and serverless dashboards.',
-    tags: ['Next.js', 'Node.js', 'MongoDB', 'Redis'], accent: '#ec4899',
   },
 ];
 
@@ -138,16 +133,20 @@ export default function App() {
     );
     document.querySelectorAll('.rv').forEach((el) => obs.observe(el));
     return () => obs.disconnect();
-  });
+  }, []);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (!el) return;
     const win = window as any;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (win.lenis) {
       win.lenis.scrollTo(el, { offset: -80 });
     } else {
-      window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+      window.scrollTo({
+        top: el.getBoundingClientRect().top + window.pageYOffset - 80,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      });
     }
     setMenuOpen(false);
   };
@@ -174,36 +173,32 @@ export default function App() {
 
       <CursorGlow />
 
-      {/* ── NAVBAR ── */}
-      <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
-        <div className="navbar__inner">
-          <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="navbar__logo">
-            <div className="logo-mark">D</div>
-            <div>
-              <span className="navbar__name">Dinesh A</span>
-              <span className="navbar__subtitle">Full-Stack · AI/ML</span>
-            </div>
+      {/* ── NAVBAR (Floating Pill) ── */}
+      <div className="nav-wrapper">
+        <nav className={`nav-pill ${scrolled ? 'nav-pill--scrolled' : ''}`}>
+          <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="nav-pill__logo">
+            D.
           </a>
-
-          <ul className="navbar__links">
+          
+          <ul className="nav-pill__links hidden-mobile">
             {NAV_LINKS.map(({ id, label }) => (
               <li key={id}>
                 <a href={`#${id}`} onClick={(e) => { e.preventDefault(); scrollTo(id); }}
-                  className={`navbar__link ${activeSection === id ? 'active' : ''}`}>
+                  className={`nav-pill__link ${activeSection === id ? 'active' : ''}`}>
                   {label}
                 </a>
               </li>
             ))}
           </ul>
 
-          <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer" className="nav-cta hidden-mobile">
-            Let's Connect <ArrowUpRight size={13} />
+          <a href="mailto:dineshyr2904@gmail.com" className="nav-pill__btn hidden-mobile">
+            Hire Me
           </a>
 
           <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-        </div>
+        </nav>
 
         {menuOpen && (
           <div className="mobile-menu">
@@ -212,48 +207,71 @@ export default function App() {
             ))}
           </div>
         )}
-      </nav>
+      </div>
 
-      {/* ── HERO — centered, no sidebar ── */}
+      {/* ── HERO ── */}
       <section id="hero" className="hero">
         <div className="container">
-          <div className="hero__content rv">
+          <div className="hero__layout rv">
+            
+            <div className="hero__left">
+              <div className="hero__photo-row">
+                <img src={projectPhoto} alt="Dinesh A" className="hero__avatar" />
+                <span className="hero__location"><MapPin size={13} /> Chennai, India</span>
+              </div>
 
-            <div className="hero__photo-row">
-              <img src={projectPhoto} alt="Dinesh A" className="hero__avatar" />
-              <span className="hero__location"><MapPin size={13} /> Bangalore, India</span>
+              <h1 className="hero__name">
+                Dinesh <span className="hero__name-accent">A.</span>
+              </h1>
+
+              <p className="hero__tagline">
+                Co-Founder of <strong>CardioNerve</strong>, <strong>HackArena</strong> &amp; <strong>ThinkNode</strong>.<br />
+                I architect production-grade AI systems and full-stack applications that scale.
+              </p>
+
+              <div className="hero__actions">
+                <button className="btn-primary" onClick={() => scrollTo('projects')}>
+                  View My Work <ArrowRight size={15} />
+                </button>
+                <a href="/resume.pdf" download="Dinesh_Resume.pdf" className="btn-ghost">
+                  <Download size={15} /> Resume
+                </a>
+              </div>
+
+              <div className="hero__socials">
+                <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer">
+                  <GithubIcon size={15} /> GitHub
+                </a>
+                <span className="divider" />
+                <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer">
+                  <LinkedinIcon size={15} /> LinkedIn
+                </a>
+                <span className="divider" />
+                <a href="mailto:dineshyr2904@gmail.com">
+                  <Mail size={15} /> Email
+                </a>
+              </div>
             </div>
 
-            <h1 className="hero__name">
-              Dinesh <span className="hero__name-accent">A.</span>
-            </h1>
-
-            <p className="hero__tagline">
-              Co-Founder of <strong>CardioNerve</strong>, <strong>HackArena</strong> &amp; <strong>ThinkNode</strong>.<br />
-              I architect production-grade AI systems and full-stack applications that scale.
-            </p>
-
-            <div className="hero__actions">
-              <button className="btn-primary" onClick={() => scrollTo('projects')}>
-                View My Work <ArrowRight size={15} />
-              </button>
-              <a href="/resume.pdf" download="Dinesh_Resume.pdf" className="btn-ghost">
-                <Download size={15} /> Resume
-              </a>
-            </div>
-
-            <div className="hero__socials">
-              <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer">
-                <GithubIcon size={15} /> GitHub
-              </a>
-              <span className="divider" />
-              <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer">
-                <LinkedinIcon size={15} /> LinkedIn
-              </a>
-              <span className="divider" />
-              <a href="mailto:dineshyr2904@gmail.com">
-                <Mail size={15} /> Email
-              </a>
+            <div className="hero__right">
+              <div className="hero__accents-list">
+                <div className="hero-accent">
+                  <span className="hero-accent__label">Leadership</span>
+                  <span className="hero-accent__val">AWS Student Group<br/>Tech Relationship Head</span>
+                </div>
+                <div className="hero-accent">
+                  <span className="hero-accent__label">Community</span>
+                  <span className="hero-accent__val">Tech Club President<br/>@ NxtWave</span>
+                </div>
+                <div className="hero-accent">
+                  <span className="hero-accent__label">Focus</span>
+                  <span className="hero-accent__val">AI &amp; Full-Stack<br/>Systems Architecture</span>
+                </div>
+                <div className="hero-accent">
+                  <span className="hero-accent__label">Building</span>
+                  <span className="hero-accent__val">CardioNerve &amp;<br/>HackArena</span>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -375,30 +393,27 @@ export default function App() {
                 className={`project-card rv ${hoveredProject !== null && hoveredProject !== i ? 'project-card--dimmed' : ''}`}
                 onMouseEnter={() => setHoveredProject(i)}
                 onMouseLeave={() => setHoveredProject(null)}
-                style={{ '--accent': p.accent } as React.CSSProperties}
               >
-                <div className="project-card__accent-bar" />
-                <div className="project-card__inner">
-                  <div className="project-card__head">
-                    <span className="project-card__num">{p.num}</span>
-                    <div className="project-card__links">
-                      {p.repoUrl && (
-                        <a href={p.repoUrl} target="_blank" rel="noreferrer" className="icon-btn" aria-label="View Source">
-                          <GithubIcon size={15} />
-                        </a>
-                      )}
-                      {p.liveUrl && (
-                        <a href={p.liveUrl} target="_blank" rel="noreferrer" className="icon-btn" aria-label="View Live Site">
-                          <ExternalLink size={15} />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                  <span className="project-card__cat">{p.category}</span>
+                <div className="project-card__head">
                   <h3 className="project-card__title">{p.title}</h3>
-                  <p className="project-card__desc">{p.description}</p>
+                  <span className="project-card__cat">{p.category}</span>
+                </div>
+                <p className="project-card__desc">{p.description}</p>
+                <div className="project-card__footer">
                   <div className="project-card__stack">
-                    {p.stack.map(tech => <span key={tech} className="stack-pill">{tech}</span>)}
+                    {p.stack.map(tech => <span key={tech} className="stack-txt">{tech}</span>)}
+                  </div>
+                  <div className="project-card__links">
+                    {p.repoUrl && (
+                      <a href={p.repoUrl} target="_blank" rel="noreferrer" className="project-link" aria-label="View Source">
+                        <GithubIcon size={16} />
+                      </a>
+                    )}
+                    {p.liveUrl && (
+                      <a href={p.liveUrl} target="_blank" rel="noreferrer" className="project-link" aria-label="View Live Site">
+                        <ArrowUpRight size={16} />
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

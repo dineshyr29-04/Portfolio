@@ -27,7 +27,10 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  background: #060608;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(201, 169, 110, 0.14), transparent 30%),
+    radial-gradient(circle at 80% 12%, rgba(99, 102, 241, 0.12), transparent 24%),
+    linear-gradient(180deg, #050507 0%, #060608 42%, #040406 100%);
   color: var(--text-1);
   font-family: 'Outfit', sans-serif;
   font-size: 15px;
@@ -43,6 +46,14 @@ a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
 img { display: block; max-width: 100%; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid rgba(201, 169, 110, 0.85);
+  outline-offset: 3px;
+}
 
 /* ═══════════════════════════════════════════════
    FULL-WIDTH CONTAINER
@@ -69,6 +80,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   pointer-events: none;
   z-index: 2;
   transition: left 0.06s, top 0.06s;
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-glow {
+    display: none;
+  }
 }
 
 /* ═══════════════════════════════════════════════
@@ -291,6 +308,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .navbar__link:hover, .navbar__link.active { color: var(--text-1); }
 .navbar__link:hover::after, .navbar__link.active::after { width: 100%; }
+.navbar__link:focus-visible { color: var(--text-1); }
 
 .nav-cta {
   display: none;
@@ -308,6 +326,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: all 0.25s;
 }
 .nav-cta:hover { background: rgba(201,169,110,0.18); transform: translateY(-1px); }
+.nav-cta:focus-visible { color: var(--gold-light); }
 
 .hidden-mobile { display: none; }
 @media (min-width: 768px) {
@@ -333,6 +352,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   gap: 20px;
   box-shadow: 0 24px 64px rgba(0,0,0,0.7);
   animation: slideDown 0.22s var(--ease);
+  max-height: min(60vh, 420px);
+  overflow-y: auto;
 }
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-10px); }
@@ -346,9 +367,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--text-2);
 }
 .mobile-menu__link:hover { color: var(--gold); }
+.mobile-menu__link:focus-visible { color: var(--gold); }
 
 /* ═══════════════════════════════════════════════
-   HERO — centered, full screen, no sidebar
+/* ═══════════════════════════════════════════════
+   HERO — Side-by-Side Layout
 ═══════════════════════════════════════════════ */
 .hero {
   position: relative;
@@ -356,18 +379,40 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
   padding: 140px 0 100px;
-  text-align: center;
   background: transparent;
 }
 
-.hero__content {
+.hero__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 64px;
+  align-items: center;
+}
+@media (min-width: 960px) {
+  .hero__layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+}
+
+.hero__left {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  max-width: 900px;
-  margin: 0 auto;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.hero__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+@media (min-width: 960px) {
+  .hero__right {
+    align-items: flex-end;
+    text-align: right;
+  }
 }
 
 /* Photo row at top */
@@ -422,17 +467,15 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
-  justify-content: center;
-  margin-bottom: 72px;
+  margin-bottom: 56px;
 }
 
 /* Social strip at bottom of hero */
 .hero__socials {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 24px;
-  padding-top: 36px;
-  border-top: 1px solid var(--border);
 }
 .hero__socials a {
   display: flex;
@@ -449,6 +492,42 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .hero__socials .divider {
   width: 1px; height: 16px;
   background: var(--border);
+}
+
+/* Hero Accents List (Right side) */
+.hero__accents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.hero-accent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+.hero-accent:hover { opacity: 1; }
+@media (min-width: 960px) {
+  .hero-accent {
+    align-items: flex-end;
+  }
+}
+
+.hero-accent__label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+}
+.hero-accent__val {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-2);
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* Scroll indicator */
@@ -619,6 +698,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   box-shadow: 0 20px 50px rgba(0,0,0,0.3), 0 0 40px rgba(201,169,110,0.05);
 }
 .skill-card:hover::before { opacity: 1; }
+.skill-card:hover .skill-card__cat { color: var(--gold-light); }
 
 .skill-card__top {
   display: flex;
@@ -726,6 +806,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: color 0.25s;
 }
 .project-card:hover .project-card__title { color: var(--gold); }
+.project-card--dimmed:hover { opacity: 1; transform: translateY(-2px) scale(0.98); }
 
 .project-card__desc {
   font-size: 13px;
@@ -880,6 +961,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   border-color: var(--border-hover);
   transform: translateX(6px);
 }
+.contact-item:focus-visible { border-color: rgba(201, 169, 110, 0.6); }
 
 .contact-item__icon {
   width: 40px; height: 40px;
@@ -1030,4 +1112,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .footer__socials a:hover {
   color: var(--gold);
   transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

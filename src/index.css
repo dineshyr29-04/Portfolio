@@ -3,4 +3,12 @@
 @theme {
   --color-gold: #c5a880;
   --color-gold-light: #ebd6b8;
+  --gold: #c9a96e;
+  --gold-light: #e8cc9a;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::selection {
+  background: rgba(201, 169, 110, 0.28);
+  color: #fff;
 }
