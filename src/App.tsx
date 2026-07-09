@@ -1,14 +1,27 @@
 import { useState, useEffect, useRef } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import projectPhoto from './assets/DA (1).png';
-import { Mail, ExternalLink, Menu, X, ArrowRight, Download, Github, Linkedin, MapPin, ArrowUpRight } from 'lucide-react';
+import { Mail, ExternalLink, Menu, X, ArrowRight, Download, MapPin, ArrowUpRight } from 'lucide-react';
+
+const GithubIcon = ({ size = 15, className = "" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+    <path d="M9 18c-4.51 2-5-2-7-2"/>
+  </svg>
+);
+
+const LinkedinIcon = ({ size = 15, className = "" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+    <rect width="4" height="12" x="2" y="9"/>
+    <circle cx="4" cy="4" r="2"/>
+  </svg>
+);
 import DarkVeil from './DarkVeil';
 import './DarkVeil.css';
 import './App.css';
 
-/* ─────────────────────────────────────────────────
-   DATA
-───────────────────────────────────────────────── */
+/* ─── DATA ─── */
 const SKILLS = [
   { category: 'Frontend', icon: '⚡', items: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'GSAP'] },
   { category: 'Backend', icon: '🔧', items: ['Node.js', 'Express.js', 'Python', 'REST APIs', 'Redis'] },
@@ -18,91 +31,58 @@ const SKILLS = [
 
 const PROJECTS = [
   {
-    num: '01',
-    category: 'AI · Healthcare',
-    title: 'Drug Secure',
+    num: '01', category: 'AI · Healthcare', title: 'Drug Secure',
     description: 'AI-powered quality control system for Ayurvedic drug validation using E-Tongue electrochemical sensor inputs and K-Means clustering for batch validation.',
     stack: ['React', 'GSAP', 'Unsupervised ML', 'Data Science'],
-    repoUrl: 'https://github.com/dineshyr29-04/drug-secure',
-    liveUrl: 'https://drug-secure.vercel.app',
-    accent: '#10b981',
+    repoUrl: 'https://github.com/dineshyr29-04/drug-secure', liveUrl: 'https://drug-secure.vercel.app', accent: '#10b981',
   },
   {
-    num: '02',
-    category: 'Hackathon Platform',
-    title: 'HackArena',
+    num: '02', category: 'Hackathon Platform', title: 'HackArena',
     description: 'Co-founded a premium hackathon evaluation ecosystem with real-time tracking, team matchmaking, and automated scoring — supporting 500+ participants.',
     stack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
-    repoUrl: 'https://github.com/dineshyr29-04/Sankalp',
-    liveUrl: 'https://project-sankalp.dev',
-    accent: '#6366f1',
+    repoUrl: 'https://github.com/dineshyr29-04/Sankalp', liveUrl: 'https://project-sankalp.dev', accent: '#6366f1',
   },
   {
-    num: '03',
-    category: 'SaaS · Cloud',
-    title: 'ThinkNode Portal',
+    num: '03', category: 'SaaS · Cloud', title: 'ThinkNode Portal',
     description: 'Co-founded and engineered the customer portal for a cloud platform with automated SaaS workflows and high-speed analytics dashboards serving 10k+ users.',
     stack: ['JavaScript', 'HTML', 'CSS', 'Node.js'],
-    repoUrl: 'https://github.com/dineshyr29-04?tab=repositories&q=thinknode',
-    liveUrl: 'https://thinknode-customers.vercel.app/',
-    accent: '#ec4899',
+    repoUrl: 'https://github.com/dineshyr29-04?tab=repositories&q=thinknode', liveUrl: 'https://thinknode-customers.vercel.app/', accent: '#ec4899',
   },
   {
-    num: '04',
-    category: 'Automation · AI',
-    title: 'Openloop',
+    num: '04', category: 'Automation · AI', title: 'Openloop',
     description: 'A scalable automation engine for AI pipeline orchestration using event-driven architecture to manage long-running repetitive tasks with 89% accuracy.',
     stack: ['JavaScript', 'TypeScript', 'Python', 'YAML'],
-    repoUrl: 'https://github.com/dineshyr29-04/Openloop',
-    liveUrl: '',
-    accent: '#f59e0b',
+    repoUrl: 'https://github.com/dineshyr29-04/Openloop', liveUrl: '', accent: '#f59e0b',
   },
   {
-    num: '05',
-    category: 'AgTech · IoT',
-    title: 'AgroNova',
+    num: '05', category: 'AgTech · IoT', title: 'AgroNova',
     description: 'Smart agriculture platform integrating IoT sensor data for predictive crop analytics — empowering farmers with real-time soil and climate insights.',
     stack: ['JavaScript', 'Python', 'MongoDB', 'SQL'],
-    repoUrl: 'https://github.com/dineshyr29-04?tab=repositories&q=agro+nova',
-    liveUrl: '',
-    accent: '#22c55e',
+    repoUrl: 'https://github.com/dineshyr29-04?tab=repositories&q=agro+nova', liveUrl: '', accent: '#22c55e',
   },
   {
-    num: '06',
-    category: 'MedTech · AI',
-    title: 'CardioNerve',
+    num: '06', category: 'MedTech · AI', title: 'CardioNerve',
     description: 'Co-founded an AI-driven cardiovascular analytics platform processing PPG sensor telemetry to compute predictive cardiac health scores at 97.5% precision.',
     stack: ['Python', 'JavaScript', 'Jupyter', 'PyTorch'],
-    repoUrl: 'https://github.com/dineshyr29-04?tab=repositories&q=cardio+nerve',
-    liveUrl: '',
-    accent: '#ef4444',
+    repoUrl: 'https://github.com/dineshyr29-04?tab=repositories&q=cardio+nerve', liveUrl: '', accent: '#ef4444',
   },
 ];
 
 const EXPERIENCE = [
   {
-    period: '2025 — Present',
-    company: 'CardioNerve',
-    role: 'Co-Founder & Systems Architect',
+    period: '2025 — Present', company: 'CardioNerve', role: 'Co-Founder & Systems Architect',
     description: 'Co-founded an AI-driven cardiovascular intelligence platform analyzing real-time HRV data from PPG sensors to generate predictive risk scores. Designed clinical dashboards and deployed production LLM pipelines.',
-    tags: ['PyTorch', 'Python', 'Node.js', 'Express.js'],
-    accent: '#ef4444',
+    tags: ['PyTorch', 'Python', 'Node.js', 'Express.js'], accent: '#ef4444',
   },
   {
-    period: '2024 — Present',
-    company: 'HackArena',
-    role: 'Co-Founder & Lead Developer',
+    period: '2024 — Present', company: 'HackArena', role: 'Co-Founder & Lead Developer',
     description: 'Co-founded and engineered HackArena — a next-generation hackathon management engine supporting 500+ active participants with automated judging and real-time team collaboration.',
-    tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
-    accent: '#6366f1',
+    tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'], accent: '#6366f1',
   },
   {
-    period: '2024 — Present',
-    company: 'ThinkNode',
-    role: 'Co-Founder & Full-Stack Architect',
+    period: '2024 — Present', company: 'ThinkNode', role: 'Co-Founder & Full-Stack Architect',
     description: 'Co-founded ThinkNode, building enterprise cloud customer portals and SaaS interfaces. Managed multi-tenant architectures, AI deployment pipelines, and serverless dashboards.',
-    tags: ['Next.js', 'Node.js', 'MongoDB', 'Redis'],
-    accent: '#ec4899',
+    tags: ['Next.js', 'Node.js', 'MongoDB', 'Redis'], accent: '#ec4899',
   },
 ];
 
@@ -114,12 +94,9 @@ const NAV_LINKS = [
   { id: 'contact', label: 'Contact' },
 ];
 
-/* ─────────────────────────────────────────────────
-   CURSOR GLOW
-───────────────────────────────────────────────── */
+/* ─── CURSOR GLOW ─── */
 function CursorGlow() {
   const glowRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const move = (e: MouseEvent) => {
       if (glowRef.current) {
@@ -130,13 +107,10 @@ function CursorGlow() {
     window.addEventListener('mousemove', move);
     return () => window.removeEventListener('mousemove', move);
   }, []);
-
   return <div ref={glowRef} className="cursor-glow" />;
 }
 
-/* ─────────────────────────────────────────────────
-   APP
-───────────────────────────────────────────────── */
+/* ─── APP ─── */
 export default function App() {
   const [activeSection, setActiveSection] = useState('');
   const [scrolled, setScrolled] = useState(false);
@@ -168,7 +142,13 @@ export default function App() {
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
-    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+    if (!el) return;
+    const win = window as any;
+    if (win.lenis) {
+      win.lenis.scrollTo(el, { offset: -80 });
+    } else {
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+    }
     setMenuOpen(false);
   };
 
@@ -234,88 +214,51 @@ export default function App() {
         )}
       </nav>
 
-      {/* ── HERO ── */}
+      {/* ── HERO — centered, no sidebar ── */}
       <section id="hero" className="hero">
         <div className="container">
-          <div className="hero__layout">
+          <div className="hero__content rv">
 
-            {/* Left: text */}
-            <div className="hero__text">
-              <div className="hero__badge rv">
-                <span className="badge-pulse" />
-                Available for work · Bangalore, India
-              </div>
-
-              <h1 className="hero__name rv">
-                Dinesh<br />
-                <span className="hero__name-gold">A.</span>
-              </h1>
-
-              <p className="hero__tagline rv">
-                Co-Founder of <strong>CardioNerve</strong>, <strong>HackArena</strong> &amp; <strong>ThinkNode</strong>.
-                I architect production-grade AI systems and full-stack applications that scale.
-              </p>
-
-              <div className="hero__actions rv">
-                <button className="btn-primary" onClick={() => scrollTo('projects')}>
-                  View My Work <ArrowRight size={15} />
-                </button>
-                <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer" className="btn-ghost">
-                  <Linkedin size={15} /> LinkedIn
-                </a>
-              </div>
-
-              {/* Stats */}
-              <div className="hero__stats rv">
-                {[
-                  { value: '3+', label: 'Startups\nCo-founded' },
-                  { value: '7+', label: 'Projects\nShipped' },
-                  { value: '10k+', label: 'Users\nImpacted' },
-                ].map((s, i) => (
-                  <div key={i} className="hero-stat">
-                    <span className="hero-stat__val">{s.value}</span>
-                    <span className="hero-stat__label">{s.label}</span>
-                  </div>
-                ))}
-              </div>
+            <div className="hero__photo-row">
+              <img src={projectPhoto} alt="Dinesh A" className="hero__avatar" />
+              <span className="hero__location"><MapPin size={13} /> Bangalore, India</span>
             </div>
 
-            {/* Right: profile card */}
-            <div className="hero__card rv">
-              <div className="profile-card">
-                <div className="profile-card__glow" />
-                <img src={projectPhoto} alt="Dinesh A" className="profile-card__img" />
-                <div className="profile-card__body">
-                  <div className="profile-card__info">
-                    <p className="profile-card__name">Dinesh A</p>
-                    <p className="profile-card__role">AI/ML · Full-Stack Engineer</p>
-                    <div className="profile-card__location">
-                      <MapPin size={11} /> Bangalore, India
-                    </div>
-                  </div>
-                  <div className="profile-card__socials">
-                    <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer">
-                      <Github size={16} />
-                    </a>
-                    <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer">
-                      <Linkedin size={16} />
-                    </a>
-                    <a href="mailto:dineshyr2904@gmail.com">
-                      <Mail size={16} />
-                    </a>
-                  </div>
-                </div>
-                {/* Floating tech tags */}
-                <div className="float-tag float-tag--1">React</div>
-                <div className="float-tag float-tag--2">PyTorch</div>
-                <div className="float-tag float-tag--3">Node.js</div>
-              </div>
+            <h1 className="hero__name">
+              Dinesh <span className="hero__name-accent">A.</span>
+            </h1>
+
+            <p className="hero__tagline">
+              Co-Founder of <strong>CardioNerve</strong>, <strong>HackArena</strong> &amp; <strong>ThinkNode</strong>.<br />
+              I architect production-grade AI systems and full-stack applications that scale.
+            </p>
+
+            <div className="hero__actions">
+              <button className="btn-primary" onClick={() => scrollTo('projects')}>
+                View My Work <ArrowRight size={15} />
+              </button>
+              <a href="/resume.pdf" download="Dinesh_Resume.pdf" className="btn-ghost">
+                <Download size={15} /> Resume
+              </a>
+            </div>
+
+            <div className="hero__socials">
+              <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer">
+                <GithubIcon size={15} /> GitHub
+              </a>
+              <span className="divider" />
+              <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer">
+                <LinkedinIcon size={15} /> LinkedIn
+              </a>
+              <span className="divider" />
+              <a href="mailto:dineshyr2904@gmail.com">
+                <Mail size={15} /> Email
+              </a>
             </div>
 
           </div>
         </div>
 
-        {/* Scroll indicator */}
         <div className="scroll-indicator">
           <div className="scroll-indicator__line" />
           <span>Scroll</span>
@@ -326,7 +269,6 @@ export default function App() {
       <section id="about" className="section">
         <div className="container">
           <div className="about__layout">
-
             <div className="about__left rv">
               <div className="section-eyebrow">About Me</div>
               <h2 className="section-title">
@@ -341,7 +283,6 @@ export default function App() {
                 From kernel-level operating systems to production LLM pipelines, I bring deep technical curiosity
                 to every layer of the stack. I believe in shipping fast, iterating intelligently, and building things that last.
               </p>
-
               <div className="about__actions">
                 <a href="/resume.pdf" download="Dinesh_Resume.pdf" className="btn-primary">
                   <Download size={14} /> Download Resume
@@ -353,7 +294,6 @@ export default function App() {
             </div>
 
             <div className="about__right">
-              {/* Info card */}
               <div className="info-card rv">
                 <div className="info-card__header">
                   <span className="info-card__label">Personal Info</span>
@@ -375,7 +315,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Activity cards */}
               <div className="activity-grid rv">
                 {[
                   { icon: '🏆', title: 'Hackathon Organizer', sub: '500+ participants' },
@@ -391,7 +330,6 @@ export default function App() {
                 ))}
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -404,7 +342,6 @@ export default function App() {
             <h2 className="section-title">Technical Expertise</h2>
             <p className="section-subtitle">Technologies I use to design, build, and ship production systems.</p>
           </div>
-
           <div className="skills__grid">
             {SKILLS.map((group, i) => (
               <div key={i} className="skill-card rv">
@@ -431,7 +368,6 @@ export default function App() {
             <h2 className="section-title">Selected Work</h2>
             <p className="section-subtitle">A curated selection of projects I've designed, built, and shipped.</p>
           </div>
-
           <div className="projects__grid">
             {PROJECTS.map((p, i) => (
               <div
@@ -444,25 +380,25 @@ export default function App() {
                 <div className="project-card__accent-bar" />
                 <div className="project-card__inner">
                   <div className="project-card__head">
-                    <div className="project-card__num">{p.num}</div>
+                    <span className="project-card__num">{p.num}</span>
                     <div className="project-card__links">
-                      {p.liveUrl && (
-                        <a href={p.liveUrl} target="_blank" rel="noreferrer" className="icon-btn" title="Live demo">
-                          <ExternalLink size={14} />
+                      {p.repoUrl && (
+                        <a href={p.repoUrl} target="_blank" rel="noreferrer" className="icon-btn" aria-label="View Source">
+                          <GithubIcon size={15} />
                         </a>
                       )}
-                      <a href={p.repoUrl} target="_blank" rel="noreferrer" className="icon-btn" title="Source code">
-                        <Github size={14} />
-                      </a>
+                      {p.liveUrl && (
+                        <a href={p.liveUrl} target="_blank" rel="noreferrer" className="icon-btn" aria-label="View Live Site">
+                          <ExternalLink size={15} />
+                        </a>
+                      )}
                     </div>
                   </div>
-
                   <span className="project-card__cat">{p.category}</span>
                   <h3 className="project-card__title">{p.title}</h3>
                   <p className="project-card__desc">{p.description}</p>
-
                   <div className="project-card__stack">
-                    {p.stack.map((s) => <span key={s} className="stack-pill">{s}</span>)}
+                    {p.stack.map(tech => <span key={tech} className="stack-pill">{tech}</span>)}
                   </div>
                 </div>
               </div>
@@ -476,25 +412,24 @@ export default function App() {
         <div className="container">
           <div className="section-header rv">
             <div className="section-eyebrow">Experience</div>
-            <h2 className="section-title">Career Timeline</h2>
+            <h2 className="section-title">Professional Journey</h2>
           </div>
-
-          <div className="timeline">
+          <div className="timeline rv">
             {EXPERIENCE.map((exp, i) => (
-              <div key={i} className="tl-item rv" style={{ '--accent': exp.accent } as React.CSSProperties}>
+              <div key={i} className="tl-item" style={{ '--accent': exp.accent } as React.CSSProperties}>
                 <div className="tl-item__line" />
                 <div className="tl-item__dot" />
                 <div className="tl-item__card">
                   <div className="tl-item__head">
                     <div>
                       <h3 className="tl-item__company">{exp.company}</h3>
-                      <p className="tl-item__role">{exp.role}</p>
+                      <div className="tl-item__role">{exp.role}</div>
                     </div>
                     <span className="tl-item__period">{exp.period}</span>
                   </div>
                   <p className="tl-item__desc">{exp.description}</p>
                   <div className="tl-item__tags">
-                    {exp.tags.map((t) => <span key={t} className="stack-pill">{t}</span>)}
+                    {exp.tags.map(t => <span key={t} className="skill-pill">{t}</span>)}
                   </div>
                 </div>
               </div>
@@ -507,100 +442,84 @@ export default function App() {
       <section id="contact" className="section">
         <div className="container">
           <div className="contact__layout">
-
-            {/* Left */}
             <div className="contact__left rv">
               <div className="section-eyebrow">Contact</div>
-              <h2 className="section-title">
-                Let's build<br />
-                <span className="text-gold">something great.</span>
-              </h2>
+              <h2 className="section-title">Let's build<br /><span className="text-gold">something great.</span></h2>
               <p className="contact__desc">
-                Open to internships, collaborative projects, and full-time roles.
-                I respond within 24 hours.
+                Currently open to new opportunities. Whether you have a question, a project idea, or just want to connect — my inbox is always open.
               </p>
-
               <div className="contact__links">
                 <a href="mailto:dineshyr2904@gmail.com" className="contact-item">
-                  <div className="contact-item__icon"><Mail size={16} /></div>
+                  <div className="contact-item__icon"><Mail size={18} /></div>
                   <div>
-                    <p className="contact-item__label">Email</p>
-                    <p className="contact-item__val">dineshyr2904@gmail.com</p>
-                  </div>
-                </a>
-                <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer" className="contact-item">
-                  <div className="contact-item__icon"><Github size={16} /></div>
-                  <div>
-                    <p className="contact-item__label">GitHub</p>
-                    <p className="contact-item__val">dineshyr29-04</p>
+                    <div className="contact-item__label">Email Me</div>
+                    <div className="contact-item__val">dineshyr2904@gmail.com</div>
                   </div>
                 </a>
                 <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer" className="contact-item">
-                  <div className="contact-item__icon"><Linkedin size={16} /></div>
+                  <div className="contact-item__icon"><LinkedinIcon size={18} /></div>
                   <div>
-                    <p className="contact-item__label">LinkedIn</p>
-                    <p className="contact-item__val">dinesha291204</p>
+                    <div className="contact-item__label">Connect on LinkedIn</div>
+                    <div className="contact-item__val">linkedin.com/in/dinesha291204</div>
                   </div>
                 </a>
               </div>
             </div>
 
-            {/* Right: form */}
-            <div className="contact__form-wrap rv">
-              {formStatus === 'sent' ? (
-                <div className="form-success">
-                  <div className="form-success__check">✓</div>
-                  <h4>Message Ready!</h4>
-                  <p>Your mail client should have opened. If not, email me directly at <a href="mailto:dineshyr2904@gmail.com">dineshyr2904@gmail.com</a></p>
-                  <button className="btn-ghost" style={{ marginTop: '20px' }} onClick={() => { setFormStatus('idle'); setContactForm({ name: '', email: '', message: '' }); }}>
-                    Send another
-                  </button>
-                </div>
-              ) : (
-                <form className="contact__form" onSubmit={(e) => { e.preventDefault(); handleSend(); }}>
-                  <h3 className="form-title">Send a message</h3>
-                  <div className="form-row">
-                    <div className="form-group">
-                      <label className="form-label">Your Name</label>
-                      <input type="text" className="form-input" placeholder="John Doe" value={contactForm.name}
-                        onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })} />
+            <div className="contact__right rv">
+              <div className="contact__form-wrap">
+                {formStatus === 'idle' ? (
+                  <form className="contact__form" onSubmit={(e) => { e.preventDefault(); handleSend(); }}>
+                    <h3 className="form-title">Send a Message</h3>
+                    <div className="form-row">
+                      <div className="form-group">
+                        <label className="form-label">Name</label>
+                        <input type="text" className="form-input" placeholder="Your name" required
+                          value={contactForm.name} onChange={e => setContactForm({ ...contactForm, name: e.target.value })} />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">Email</label>
+                        <input type="email" className="form-input" placeholder="john@example.com" required
+                          value={contactForm.email} onChange={e => setContactForm({ ...contactForm, email: e.target.value })} />
+                      </div>
                     </div>
                     <div className="form-group">
-                      <label className="form-label">Email</label>
-                      <input type="email" className="form-input" placeholder="john@company.com" value={contactForm.email}
-                        onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })} />
+                      <label className="form-label">Message</label>
+                      <textarea className="form-input form-textarea" placeholder="How can I help you?" required
+                        value={contactForm.message} onChange={e => setContactForm({ ...contactForm, message: e.target.value })} />
                     </div>
+                    <button type="submit" className="btn-primary form-submit">
+                      Send Message <ArrowRight size={15} />
+                    </button>
+                  </form>
+                ) : (
+                  <div className="form-success">
+                    <div className="form-success__check">✓</div>
+                    <h4>Message Sent!</h4>
+                    <p>Thanks for reaching out! Your email client should have opened with the message ready to send.</p>
+                    <button onClick={() => { setFormStatus('idle'); setContactForm({ name: '', email: '', message: '' }); }} className="btn-ghost" style={{ marginTop: '12px' }}>
+                      Send Another
+                    </button>
                   </div>
-                  <div className="form-group">
-                    <label className="form-label">Message</label>
-                    <textarea className="form-input form-textarea" rows={5}
-                      placeholder="Tell me about your project, opportunity, or collaboration idea..."
-                      value={contactForm.message}
-                      onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })} />
-                  </div>
-                  <button type="submit" className="btn-primary form-submit"
-                    disabled={!contactForm.name || !contactForm.email || !contactForm.message}>
-                    Send Message <ArrowRight size={15} />
-                  </button>
-                </form>
-              )}
+                )}
+              </div>
             </div>
-
           </div>
         </div>
       </section>
 
       {/* ── FOOTER ── */}
       <footer className="footer">
-        <div className="container footer__inner">
-          <div className="footer__left">
-            <div className="logo-mark logo-mark--sm">D</div>
-            <span>Dinesh A · Built with React &amp; TypeScript · © 2026</span>
-          </div>
-          <div className="footer__socials">
-            <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer"><Github size={16} /></a>
-            <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer"><Linkedin size={16} /></a>
-            <a href="mailto:dineshyr2904@gmail.com"><Mail size={16} /></a>
+        <div className="container">
+          <div className="footer__inner">
+            <div className="footer__left">
+              <div className="logo-mark logo-mark--sm">D</div>
+              <span>© {new Date().getFullYear()} Dinesh A. All rights reserved.</span>
+            </div>
+            <div className="footer__socials">
+              <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer" aria-label="GitHub"><GithubIcon size={16} /></a>
+              <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><LinkedinIcon size={16} /></a>
+            </div>
           </div>
         </div>
       </footer>
