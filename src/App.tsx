@@ -1,8 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import projectPhoto from './assets/DA (1).png';
-import { Github, Linkedin, Mail, ExternalLink, Menu, X, ArrowRight, Download } from 'lucide-react';
+import { Mail, ExternalLink, Menu, X, ArrowRight, Download } from 'lucide-react';
 import './App.css';
+
+const GithubIcon = ({ size = 16 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.11.77-.25.77-.55 0-.27-.01-1-.02-1.95-3.2.7-3.88-1.54-3.88-1.54-.52-1.34-1.27-1.7-1.27-1.7-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.25 3.33.96.1-.75.4-1.25.72-1.54-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.52-1.47.11-3.06 0 0 .96-.31 3.14 1.18a10.9 10.9 0 0 1 2.86-.39c.97 0 1.95.13 2.86.39 2.17-1.49 3.13-1.18 3.13-1.18.63 1.59.23 2.77.11 3.06.73.81 1.18 1.84 1.18 3.1 0 4.43-2.71 5.4-5.29 5.68.41.35.77 1.05.77 2.12 0 1.53-.01 2.77-.01 3.15 0 .3.2.66.78.55C20.71 21.39 24 17.08 24 12c0-6.35-5.15-11.5-12-11.5z" />
+  </svg>
+);
+
+const LinkedinIcon = ({ size = 16 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M4.98 3.5C3.88 3.5 3 4.38 3 5.48c0 1.1.88 1.99 1.98 1.99 1.1 0 1.98-.89 1.98-1.99C6.96 4.38 6.08 3.5 4.98 3.5zM3.5 8.98h3v11.52h-3V8.98zM9.5 8.98h2.87v1.57h.04c.4-.76 1.38-1.57 2.84-1.57 3.04 0 3.6 2.01 3.6 4.62v6.9h-3v-6.11c0-1.46-.03-3.34-2.03-3.34-2.03 0-2.34 1.58-2.34 3.22v6.23h-3V8.98z" />
+  </svg>
+);
 
 /* ─────────────────────────────────────────────
    DATA
@@ -278,7 +290,7 @@ export default function App() {
                 rel="noopener noreferrer"
                 className="btn-outline"
               >
-                <Linkedin size={14} /> LinkedIn
+                <LinkedinIcon size={14} /> LinkedIn
               </a>
             </div>
 
@@ -305,10 +317,10 @@ export default function App() {
               <p className="hero__card-role">AI/ML · Full-Stack Engineer</p>
               <div className="hero__card-links">
                 <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer" aria-label="GitHub">
-                  <Github size={16} />
+                  <GithubIcon size={16} />
                 </a>
                 <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-                  <Linkedin size={16} />
+                  <LinkedinIcon size={16} />
                 </a>
                 <a href="mailto:dineshyr2904@gmail.com" aria-label="Email">
                   <Mail size={16} />
@@ -419,7 +431,7 @@ export default function App() {
                       </a>
                     )}
                     <a href={p.repoUrl} target="_blank" rel="noreferrer" aria-label="Repository">
-                      <Github size={14} />
+                      <GithubIcon size={14} />
                     </a>
                   </div>
                 </div>
@@ -495,11 +507,11 @@ export default function App() {
                   <span>dineshyr2904@gmail.com</span>
                 </a>
                 <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer" className="contact-link">
-                  <Github size={16} />
+                  <GithubIcon size={16} />
                   <span>github.com/dineshyr29-04</span>
                 </a>
                 <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer" className="contact-link">
-                  <Linkedin size={16} />
+                  <LinkedinIcon size={16} />
                   <span>linkedin.com/in/dinesha291204</span>
                 </a>
               </div>
@@ -571,10 +583,10 @@ export default function App() {
           <span>© 2026 Dinesh A · Built with React &amp; TypeScript</span>
           <div className="footer__links">
             <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer" aria-label="GitHub">
-              <Github size={16} />
+              <GithubIcon size={16} />
             </a>
             <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-              <Linkedin size={16} />
+              <LinkedinIcon size={16} />
             </a>
             <a href="mailto:dineshyr2904@gmail.com" aria-label="Email">
               <Mail size={16} />
