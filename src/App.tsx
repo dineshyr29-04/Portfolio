@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { Mail, Menu, X, ArrowRight, Download, MapPin, ArrowUpRight } from 'lucide-react';
+import './App.css';
+import DarkVeil from './DarkVeil';
 
 const GithubIcon = ({ size = 15, className = "" }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -16,9 +18,6 @@ const LinkedinIcon = ({ size = 15, className = "" }) => (
     <circle cx="4" cy="4" r="2"/>
   </svg>
 );
-import './App.css';
-import DarkVeil from './DarkVeil';
-import Shuffle from './Shuffle';
 
 /* ─── DATA ─── */
 const SKILLS = [
@@ -96,6 +95,7 @@ export default function App() {
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [formStatus, setFormStatus] = useState<'idle' | 'sent'>('idle');
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,13 +109,36 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Robust scroll-reveal: uses a stable ref for the observer
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.setAttribute('data-visible', 'true'); obs.unobserve(e.target); } }),
-      { threshold: 0.06, rootMargin: '0px 0px 40px 0px' }
+    // Disconnect any existing observer
+    if (observerRef.current) observerRef.current.disconnect();
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('rv--visible');
+            observerRef.current?.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.05, rootMargin: '0px 0px 60px 0px' }
     );
-    document.querySelectorAll('.rv').forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
+
+    // Observe all .rv elements
+    const els = document.querySelectorAll('.rv');
+    els.forEach((el) => {
+      // If already in viewport, mark visible immediately
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        el.classList.add('rv--visible');
+      } else {
+        observerRef.current?.observe(el);
+      }
+    });
+
+    return () => observerRef.current?.disconnect();
   }, []);
 
   const scrollTo = (id: string) => {
@@ -152,14 +175,14 @@ export default function App() {
         warpAmount={0.3}
         resolutionScale={1.5}
       />
-      
-      {/* ── NAVBAR (Minimalist Header) ── */}
+
+      {/* ── NAVBAR ── */}
       <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
         <div className="container navbar__container">
           <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="navbar__logo">
             Dinesh.
           </a>
-          
+
           <ul className="navbar__links hidden-mobile">
             {NAV_LINKS.map(({ id, label }) => (
               <li key={id}>
@@ -181,55 +204,86 @@ export default function App() {
         </div>
       </header>
 
-        {menuOpen && (
-          <div className="mobile-menu">
-            {NAV_LINKS.map(({ id, label }) => (
-              <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); scrollTo(id); }} className="mobile-menu__link">{label}</a>
-            ))}
-          </div>
-        )}
+      {menuOpen && (
+        <div className="mobile-menu">
+          {NAV_LINKS.map(({ id, label }) => (
+            <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); scrollTo(id); }} className="mobile-menu__link">{label}</a>
+          ))}
+        </div>
+      )}
 
       {/* ── HERO ── */}
       <section id="hero" className="hero">
-        <div className="container">
-          <div className="hero__content rv">
-            
-            <div className="hero__badge-row">
-              <span className="hero__badge"><MapPin size={13} /> Chennai, India</span>
-              <span className="hero__badge hero__badge--accent">Open to opportunities</span>
+        {/* Decorative grid lines */}
+        <div className="hero__grid-lines" aria-hidden="true">
+          <span /><span /><span /><span /><span />
+        </div>
+
+        <div className="container hero__container">
+          <div className="hero__body">
+
+            {/* Top badge row */}
+            <div className="hero__badge-row hero__anim-1">
+              <span className="hero__badge">
+                <MapPin size={12} /> Chennai, India
+              </span>
+              <span className="hero__badge hero__badge--green">
+                <span className="hero__pulse" />
+                Open to Opportunities
+              </span>
             </div>
 
-            <h1 className="hero__name">
-              <Shuffle tag="span" text="Architecting" immediate style={{ display: 'block' }} />
-              <span className="hero__name-accent">
-                <Shuffle tag="span" text="Intelligent Systems." immediate style={{ display: 'block' }} />
-              </span>
+            {/* Headline */}
+            <h1 className="hero__headline hero__anim-2">
+              Architecting<br />
+              <span className="hero__headline-gradient">Intelligent</span>{' '}
+              <span className="hero__headline-outline">Systems.</span>
             </h1>
 
-            <p className="hero__tagline">
-              I'm <strong>Dinesh A.</strong>, co-founder of CardioNerve & HackArena.<br />
+            {/* Sub-headline */}
+            <p className="hero__sub hero__anim-3">
+              I'm <strong>Dinesh A.</strong> — co-founder of <strong>CardioNerve</strong> &amp; <strong>HackArena</strong>.<br />
               I build production-grade AI applications and scalable full-stack infrastructure.
             </p>
 
-            <div className="hero__actions">
+            {/* Stats row */}
+            <div className="hero__stats hero__anim-4">
+              {[
+                { val: '6+', label: 'Projects Shipped' },
+                { val: '500+', label: 'Hackathon Participants' },
+                { val: '3', label: 'Co-Founded Startups' },
+              ].map((s) => (
+                <div key={s.label} className="hero__stat">
+                  <span className="hero__stat-val">{s.val}</span>
+                  <span className="hero__stat-label">{s.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA buttons */}
+            <div className="hero__actions hero__anim-5">
               <button className="btn-primary" onClick={() => scrollTo('projects')}>
-                View My Work
+                View My Work <ArrowRight size={15} />
               </button>
               <a href="/resume.pdf" download="Dinesh_Resume.pdf" className="btn-ghost">
-                Download Resume
+                <Download size={14} /> Download Resume
               </a>
             </div>
 
-            <div className="hero__socials hero__socials--centered">
+            {/* Social links */}
+            <div className="hero__socials hero__anim-6">
               <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer">
-                <GithubIcon size={15} /> GitHub
+                <GithubIcon size={14} /> GitHub
               </a>
-              <span className="divider" />
+              <span className="hero__socials-divider" />
               <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer">
-                <LinkedinIcon size={15} /> LinkedIn
+                <LinkedinIcon size={14} /> LinkedIn
+              </a>
+              <span className="hero__socials-divider" />
+              <a href="mailto:dineshyr2904@gmail.com">
+                <Mail size={14} /> Email
               </a>
             </div>
-
           </div>
         </div>
 
@@ -289,7 +343,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="activity-grid rv">
+              <div className="activity-grid">
                 {[
                   { icon: '🏆', title: 'Hackathon Organizer', sub: '500+ participants' },
                   { icon: '📖', title: 'ML Research', sub: 'Transformers & LLMs' },
@@ -349,7 +403,9 @@ export default function App() {
                 className={`project-card rv ${hoveredProject !== null && hoveredProject !== i ? 'project-card--dimmed' : ''}`}
                 onMouseEnter={() => setHoveredProject(i)}
                 onMouseLeave={() => setHoveredProject(null)}
+                style={{ '--card-accent': p.accent } as React.CSSProperties}
               >
+                <div className="project-card__num">{p.num}</div>
                 <div className="project-card__head">
                   <h3 className="project-card__title">{p.title}</h3>
                   <span className="project-card__cat">{p.category}</span>
@@ -484,7 +540,7 @@ export default function App() {
         <div className="container">
           <div className="footer__inner">
             <div className="footer__left">
-              <div className="logo-mark logo-mark--sm">D</div>
+              <span className="footer__logo">Dinesh.</span>
               <span>© {new Date().getFullYear()} Dinesh A. All rights reserved.</span>
             </div>
             <div className="footer__socials">
