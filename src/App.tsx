@@ -17,6 +17,8 @@ const LinkedinIcon = ({ size = 15, className = "" }) => (
   </svg>
 );
 import './App.css';
+import DarkVeil from './DarkVeil';
+import Shuffle from './Shuffle';
 
 /* ─── DATA ─── */
 const SKILLS = [
@@ -109,7 +111,7 @@ export default function App() {
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }),
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.setAttribute('data-visible', 'true'); obs.unobserve(e.target); } }),
       { threshold: 0.06, rootMargin: '0px 0px 40px 0px' }
     );
     document.querySelectorAll('.rv').forEach((el) => obs.observe(el));
@@ -141,9 +143,16 @@ export default function App() {
   return (
     <>
       <Analytics />
-
-
-
+      <DarkVeil
+        hueShift={0}
+        noiseIntensity={0.06}
+        scanlineIntensity={0.4}
+        speed={0.3}
+        scanlineFrequency={800}
+        warpAmount={0.3}
+        resolutionScale={1.5}
+      />
+      
       {/* ── NAVBAR (Minimalist Header) ── */}
       <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
         <div className="container navbar__container">
@@ -191,8 +200,10 @@ export default function App() {
             </div>
 
             <h1 className="hero__name">
-              Architecting <br/>
-              <span className="hero__name-accent">Intelligent Systems.</span>
+              <Shuffle tag="span" text="Architecting" immediate style={{ display: 'block' }} />
+              <span className="hero__name-accent">
+                <Shuffle tag="span" text="Intelligent Systems." immediate style={{ display: 'block' }} />
+              </span>
             </h1>
 
             <p className="hero__tagline">
