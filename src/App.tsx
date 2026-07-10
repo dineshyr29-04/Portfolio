@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import projectPhoto from './assets/DA (1).png';
-import { Mail, ExternalLink, Menu, X, ArrowRight, Download, MapPin, ArrowUpRight } from 'lucide-react';
+import { Mail, Menu, X, ArrowRight, Download, MapPin, ArrowUpRight } from 'lucide-react';
 
 const GithubIcon = ({ size = 15, className = "" }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -17,8 +17,6 @@ const LinkedinIcon = ({ size = 15, className = "" }) => (
     <circle cx="4" cy="4" r="2"/>
   </svg>
 );
-import DarkVeil from './DarkVeil';
-import './DarkVeil.css';
 import './App.css';
 
 /* ─── DATA ─── */
@@ -89,22 +87,6 @@ const NAV_LINKS = [
   { id: 'contact', label: 'Contact' },
 ];
 
-/* ─── CURSOR GLOW ─── */
-function CursorGlow() {
-  const glowRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const move = (e: MouseEvent) => {
-      if (glowRef.current) {
-        glowRef.current.style.left = e.clientX + 'px';
-        glowRef.current.style.top = e.clientY + 'px';
-      }
-    };
-    window.addEventListener('mousemove', move);
-    return () => window.removeEventListener('mousemove', move);
-  }, []);
-  return <div ref={glowRef} className="cursor-glow" />;
-}
-
 /* ─── APP ─── */
 export default function App() {
   const [activeSection, setActiveSection] = useState('');
@@ -161,44 +143,35 @@ export default function App() {
     <>
       <Analytics />
 
-      {/* WebGL animated background */}
-      <DarkVeil
-        hueShift={220}
-        noiseIntensity={0}
-        scanlineIntensity={0}
-        speed={0.5}
-        scanlineFrequency={0}
-        warpAmount={0.2}
-      />
 
-      <CursorGlow />
 
-      {/* ── NAVBAR (Floating Pill) ── */}
-      <div className="nav-wrapper">
-        <nav className={`nav-pill ${scrolled ? 'nav-pill--scrolled' : ''}`}>
-          <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="nav-pill__logo">
-            D.
+      {/* ── NAVBAR (Minimalist Header) ── */}
+      <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
+        <div className="container navbar__container">
+          <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="navbar__logo">
+            Dinesh.
           </a>
           
-          <ul className="nav-pill__links hidden-mobile">
+          <ul className="navbar__links hidden-mobile">
             {NAV_LINKS.map(({ id, label }) => (
               <li key={id}>
                 <a href={`#${id}`} onClick={(e) => { e.preventDefault(); scrollTo(id); }}
-                  className={`nav-pill__link ${activeSection === id ? 'active' : ''}`}>
+                  className={`navbar__link ${activeSection === id ? 'active' : ''}`}>
                   {label}
                 </a>
               </li>
             ))}
           </ul>
 
-          <a href="mailto:dineshyr2904@gmail.com" className="nav-pill__btn hidden-mobile">
+          <a href="mailto:dineshyr2904@gmail.com" className="navbar__btn hidden-mobile">
             Hire Me
           </a>
 
           <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-        </nav>
+        </div>
+      </header>
 
         {menuOpen && (
           <div className="mobile-menu">
@@ -207,7 +180,6 @@ export default function App() {
             ))}
           </div>
         )}
-      </div>
 
       {/* ── HERO ── */}
       <section id="hero" className="hero">
