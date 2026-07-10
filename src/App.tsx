@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
-import projectPhoto from './assets/DA (1).png';
 import { Mail, Menu, X, ArrowRight, Download, MapPin, ArrowUpRight } from 'lucide-react';
 
 const GithubIcon = ({ size = 15, className = "" }) => (
@@ -184,66 +183,40 @@ export default function App() {
       {/* ── HERO ── */}
       <section id="hero" className="hero">
         <div className="container">
-          <div className="hero__layout rv">
+          <div className="hero__content rv">
             
-            <div className="hero__left">
-              <div className="hero__photo-row">
-                <img src={projectPhoto} alt="Dinesh A" className="hero__avatar" />
-                <span className="hero__location"><MapPin size={13} /> Chennai, India</span>
-              </div>
-
-              <h1 className="hero__name">
-                Dinesh <span className="hero__name-accent">A.</span>
-              </h1>
-
-              <p className="hero__tagline">
-                Co-Founder of <strong>CardioNerve</strong>, <strong>HackArena</strong> &amp; <strong>ThinkNode</strong>.<br />
-                I architect production-grade AI systems and full-stack applications that scale.
-              </p>
-
-              <div className="hero__actions">
-                <button className="btn-primary" onClick={() => scrollTo('projects')}>
-                  View My Work <ArrowRight size={15} />
-                </button>
-                <a href="/resume.pdf" download="Dinesh_Resume.pdf" className="btn-ghost">
-                  <Download size={15} /> Resume
-                </a>
-              </div>
-
-              <div className="hero__socials">
-                <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer">
-                  <GithubIcon size={15} /> GitHub
-                </a>
-                <span className="divider" />
-                <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer">
-                  <LinkedinIcon size={15} /> LinkedIn
-                </a>
-                <span className="divider" />
-                <a href="mailto:dineshyr2904@gmail.com">
-                  <Mail size={15} /> Email
-                </a>
-              </div>
+            <div className="hero__badge-row">
+              <span className="hero__badge"><MapPin size={13} /> Chennai, India</span>
+              <span className="hero__badge hero__badge--accent">Open to opportunities</span>
             </div>
 
-            <div className="hero__right">
-              <div className="hero__accents-list">
-                <div className="hero-accent">
-                  <span className="hero-accent__label">Leadership</span>
-                  <span className="hero-accent__val">AWS Student Group<br/>Tech Relationship Head</span>
-                </div>
-                <div className="hero-accent">
-                  <span className="hero-accent__label">Community</span>
-                  <span className="hero-accent__val">Tech Club President<br/>@ NxtWave</span>
-                </div>
-                <div className="hero-accent">
-                  <span className="hero-accent__label">Focus</span>
-                  <span className="hero-accent__val">AI &amp; Full-Stack<br/>Systems Architecture</span>
-                </div>
-                <div className="hero-accent">
-                  <span className="hero-accent__label">Building</span>
-                  <span className="hero-accent__val">CardioNerve &amp;<br/>HackArena</span>
-                </div>
-              </div>
+            <h1 className="hero__name">
+              Architecting <br/>
+              <span className="hero__name-accent">Intelligent Systems.</span>
+            </h1>
+
+            <p className="hero__tagline">
+              I'm <strong>Dinesh A.</strong>, co-founder of CardioNerve & HackArena.<br />
+              I build production-grade AI applications and scalable full-stack infrastructure.
+            </p>
+
+            <div className="hero__actions">
+              <button className="btn-primary" onClick={() => scrollTo('projects')}>
+                View My Work
+              </button>
+              <a href="/resume.pdf" download="Dinesh_Resume.pdf" className="btn-ghost">
+                Download Resume
+              </a>
+            </div>
+
+            <div className="hero__socials hero__socials--centered">
+              <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer">
+                <GithubIcon size={15} /> GitHub
+              </a>
+              <span className="divider" />
+              <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer">
+                <LinkedinIcon size={15} /> LinkedIn
+              </a>
             </div>
 
           </div>
