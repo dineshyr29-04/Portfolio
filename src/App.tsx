@@ -118,7 +118,7 @@ export default function App() {
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            e.target.classList.add('rv--visible');
+            (e.target as HTMLElement).dataset.rvVisible = 'true';
             observerRef.current?.unobserve(e.target);
           }
         });
@@ -132,7 +132,7 @@ export default function App() {
       // If already in viewport, mark visible immediately
       const rect = el.getBoundingClientRect();
       if (rect.top < window.innerHeight) {
-        el.classList.add('rv--visible');
+        (el as HTMLElement).dataset.rvVisible = 'true';
       } else {
         observerRef.current?.observe(el);
       }
@@ -213,17 +213,11 @@ export default function App() {
       )}
 
       {/* ── HERO ── */}
-      <section id="hero" className="hero">
-        {/* Decorative grid lines */}
-        <div className="hero__grid-lines" aria-hidden="true">
-          <span /><span /><span /><span /><span />
-        </div>
-
-        <div className="container hero__container">
-          <div className="hero__body">
-
-            {/* Top badge row */}
-            <div className="hero__badge-row hero__anim-1">
+      <section id="hero" className="hero hero--split">
+        <div className="container hero__container--split">
+          
+          <div className="hero__left-split rv">
+            <div className="hero__badge-row">
               <span className="hero__badge">
                 <MapPin size={12} /> Chennai, India
               </span>
@@ -233,58 +227,60 @@ export default function App() {
               </span>
             </div>
 
-            {/* Headline */}
-            <h1 className="hero__headline hero__anim-2">
-              Architecting<br />
-              <span className="hero__headline-gradient">Intelligent</span>{' '}
-              <span className="hero__headline-outline">Systems.</span>
+            <h1 className="hero__headline">
+              Crafting <br />
+              <span className="hero__headline-gradient">Digital</span> <br />
+              Experiences.
             </h1>
 
-            {/* Sub-headline */}
-            <p className="hero__sub hero__anim-3">
-              I'm <strong>Dinesh A.</strong> — co-founder of <strong>CardioNerve</strong> &amp; <strong>HackArena</strong>.<br />
-              I build production-grade AI applications and scalable full-stack infrastructure.
+            <p className="hero__sub">
+              Hi, I'm <strong>Dinesh A.</strong> I specialize in building 
+              high-performance web applications, scalable AI infrastructure, 
+              and beautiful user interfaces.
             </p>
 
-            {/* Stats row */}
-            <div className="hero__stats hero__anim-4">
-              {[
-                { val: '6+', label: 'Projects Shipped' },
-                { val: '500+', label: 'Hackathon Participants' },
-                { val: '3', label: 'Co-Founded Startups' },
-              ].map((s) => (
-                <div key={s.label} className="hero__stat">
-                  <span className="hero__stat-val">{s.val}</span>
-                  <span className="hero__stat-label">{s.label}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* CTA buttons */}
-            <div className="hero__actions hero__anim-5">
+            <div className="hero__actions hero__actions--split">
               <button className="btn-primary" onClick={() => scrollTo('projects')}>
-                View My Work <ArrowRight size={15} />
+                Explore Work <ArrowRight size={15} />
               </button>
-              <a href="/resume.pdf" download="Dinesh_Resume.pdf" className="btn-ghost">
-                <Download size={14} /> Download Resume
-              </a>
-            </div>
-
-            {/* Social links */}
-            <div className="hero__socials hero__anim-6">
-              <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer">
-                <GithubIcon size={14} /> GitHub
-              </a>
-              <span className="hero__socials-divider" />
-              <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer">
-                <LinkedinIcon size={14} /> LinkedIn
-              </a>
-              <span className="hero__socials-divider" />
-              <a href="mailto:dineshyr2904@gmail.com">
-                <Mail size={14} /> Email
-              </a>
+              <div className="hero__socials hero__socials--inline">
+                <a href="https://github.com/dineshyr29-04" target="_blank" rel="noreferrer" aria-label="GitHub">
+                  <GithubIcon size={18} />
+                </a>
+                <a href="https://www.linkedin.com/in/dinesha291204/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                  <LinkedinIcon size={18} />
+                </a>
+              </div>
             </div>
           </div>
+
+          <div className="hero__right-split rv">
+            {/* Pseudo Code Editor Window */}
+            <div className="code-window">
+              <div className="code-window__header">
+                <div className="code-window__dots">
+                  <span className="dot dot--red"></span>
+                  <span className="dot dot--yellow"></span>
+                  <span className="dot dot--green"></span>
+                </div>
+                <div className="code-window__title">developer.ts</div>
+              </div>
+              <div className="code-window__body">
+                <pre><code>
+<span className="code-keyword">const</span> <span className="code-var">developer</span> = {'{'}
+  <span className="code-prop">name</span>: <span className="code-string">"Dinesh A."</span>,
+  <span className="code-prop">role</span>: <span className="code-string">"Full Stack Engineer"</span>,
+  <span className="code-prop">skills</span>: [<span className="code-string">"React"</span>, <span className="code-string">"Node.js"</span>, <span className="code-string">"Python"</span>],
+  <span className="code-prop">co_founded</span>: [<span className="code-string">"CardioNerve"</span>, <span className="code-string">"HackArena"</span>],
+  <span className="code-prop">status</span>: <span className="code-string">"Building next-gen systems"</span>
+{'}'};
+<br/>
+<span className="code-keyword">export default</span> <span className="code-var">developer</span>;
+                </code></pre>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <div className="scroll-indicator">
@@ -400,17 +396,28 @@ export default function App() {
             {PROJECTS.map((p, i) => (
               <div
                 key={i}
-                className={`project-card rv ${hoveredProject !== null && hoveredProject !== i ? 'project-card--dimmed' : ''}`}
+                className="project-card rv"
+                data-dimmed={hoveredProject !== null && hoveredProject !== i ? 'true' : 'false'}
                 onMouseEnter={() => setHoveredProject(i)}
                 onMouseLeave={() => setHoveredProject(null)}
                 style={{ '--card-accent': p.accent } as React.CSSProperties}
               >
-                <div className="project-card__num">{p.num}</div>
-                <div className="project-card__head">
-                  <h3 className="project-card__title">{p.title}</h3>
+                {/* Accent glow strip at top */}
+                <div className="project-card__strip" />
+
+                {/* Header row */}
+                <div className="project-card__meta">
+                  <span className="project-card__num">{p.num}</span>
                   <span className="project-card__cat">{p.category}</span>
                 </div>
+
+                {/* Title */}
+                <h3 className="project-card__title">{p.title}</h3>
+
+                {/* Description */}
                 <p className="project-card__desc">{p.description}</p>
+
+                {/* Footer */}
                 <div className="project-card__footer">
                   <div className="project-card__stack">
                     {p.stack.map(tech => <span key={tech} className="stack-txt">{tech}</span>)}
@@ -418,12 +425,12 @@ export default function App() {
                   <div className="project-card__links">
                     {p.repoUrl && (
                       <a href={p.repoUrl} target="_blank" rel="noreferrer" className="project-link" aria-label="View Source">
-                        <GithubIcon size={16} />
+                        <GithubIcon size={15} />
                       </a>
                     )}
                     {p.liveUrl && (
-                      <a href={p.liveUrl} target="_blank" rel="noreferrer" className="project-link" aria-label="View Live Site">
-                        <ArrowUpRight size={16} />
+                      <a href={p.liveUrl} target="_blank" rel="noreferrer" className="project-link" aria-label="Visit Live">
+                        <ArrowUpRight size={15} />
                       </a>
                     )}
                   </div>
