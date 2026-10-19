@@ -12,10 +12,11 @@ import {
 } from 'lucide-react';
 import './portfolio.css';
 import ProjectGallery from './components/ProjectGallery';
+import TechnicalSkills from './components/TechnicalSkills';
 
 const github = 'https://github.com/dineshyr29-04';
 const email = 'dineshyr2904@gmail.com';
-const navigation = ['Work', 'Focus', 'About', 'Contact'];
+const navigation = ['Work', 'Focus', 'Skills', 'About', 'Contact'];
 const projects = [
   {
     name: 'Openloop',
@@ -355,13 +356,14 @@ export default function App() {
             </div>
           </div>
         </section>
+        <TechnicalSkills />
         <section
           id="about"
           className="about-section page-width"
           aria-labelledby="about-title"
         >
           <div className="about-intro">
-            <span className="eyebrow">03 / THE PERSON</span>
+            <span className="eyebrow">04 / THE PERSON</span>
             <h2 id="about-title">
               Curious about <br />
               the whole stack.
@@ -409,7 +411,7 @@ export default function App() {
           aria-labelledby="contact-title"
         >
           <div className="page-width">
-            <span className="eyebrow">04 / GET IN TOUCH</span>
+            <span className="eyebrow">05 / GET IN TOUCH</span>
             <div className="contact-layout">
               <div>
                 <h2 id="contact-title">
