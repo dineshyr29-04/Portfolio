@@ -48,7 +48,7 @@ export default function Achievements() {
       <div className="page-width">
         <div className="section-heading" data-reveal>
           <div>
-            <span className="eyebrow">02 / ACHIEVEMENTS & LEADERSHIP</span>
+            <span className="eyebrow">03 / ACHIEVEMENTS & LEADERSHIP</span>
             <h2 id="achievements-title">Achievements &amp; leadership.</h2>
           </div>
           <p>

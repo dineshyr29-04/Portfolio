@@ -22,9 +22,9 @@ const github = 'https://github.com/dineshyr29-04';
 const email = 'dineshyr2904@gmail.com';
 const navigation = [
   'Work',
+  'Skills',
   'Achievements',
   'Approach',
-  'Skills',
   'About',
   'Contact',
 ];
@@ -268,6 +268,7 @@ export default function App() {
             </a>
           </div>
         </section>
+        <TechnicalSkills />
         <Achievements />
         <section
           id="approach"
@@ -277,7 +278,7 @@ export default function App() {
           <div className="page-width">
             <div className="section-heading" data-reveal>
               <div>
-                <span className="eyebrow">03 / ENGINEERING APPROACH</span>
+                <span className="eyebrow">04 / ENGINEERING APPROACH</span>
                 <h2 id="focus-title">Below the surface.</h2>
               </div>
               <p>
@@ -358,7 +359,6 @@ export default function App() {
             </div>
           </div>
         </section>
-        <TechnicalSkills />
         <section
           id="about"
           className="about-section page-width"

@@ -44,7 +44,7 @@ export default function TechnicalSkills() {
     >
       <div className="section-heading" data-reveal>
         <div>
-          <span className="eyebrow">04 / TECHNICAL SKILLS</span>
+          <span className="eyebrow">02 / TECHNICAL SKILLS</span>
           <h2 id="skills-title">The tools behind the work.</h2>
         </div>
         <p>
