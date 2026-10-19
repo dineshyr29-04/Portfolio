@@ -1,16 +1,23 @@
 import './Experience.css';
 
-export default function Experience() {
+export default function Experience({
+  embedded = false,
+}: {
+  embedded?: boolean;
+}) {
+  const Container = embedded ? 'div' : 'section';
+  const Heading = embedded ? 'h3' : 'h2';
+  const RoleHeading = embedded ? 'h4' : 'h3';
   return (
-    <section
+    <Container
       id="experience"
-      className="career-section page-width"
+      className={`career-section ${embedded ? 'career-section--embedded' : 'page-width'}`}
       aria-labelledby="experience-title"
     >
       <div className="section-heading" data-reveal>
         <div>
-          <span className="eyebrow">05 / EXPERIENCE</span>
-          <h2 id="experience-title">My experience path.</h2>
+          <span className="eyebrow">EXPERIENCE</span>
+          <Heading id="experience-title">My experience path.</Heading>
         </div>
       </div>
       <ol className="career-timeline" aria-label="Experience timeline">
@@ -22,11 +29,11 @@ export default function Experience() {
             <span className="career-status">Current</span>
           </div>
           <div className="career-role">
-            <h3>AWS Student Builder Group</h3>
+            <RoleHeading>AWS Student Builder Group</RoleHeading>
             <p>Technical Lead</p>
           </div>
         </li>
       </ol>
-    </section>
+    </Container>
   );
 }

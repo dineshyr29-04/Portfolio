@@ -55,7 +55,7 @@
   background: var(--blue);
   outline: 5px solid var(--page);
 }
-.career-role h3 {
+.career-role :is(h3, h4) {
   font-size: 30px;
   line-height: 1.25;
   letter-spacing: -0.8px;
@@ -95,7 +95,7 @@
   .career-role {
     padding: 4px 0 8px 23px;
   }
-  .career-role h3 {
+  .career-role :is(h3, h4) {
     font-size: 25px;
   }
   .career-role p {
@@ -103,5 +103,29 @@
   }
   .career-section .section-heading {
     margin-bottom: 26px;
+  }
+}
+.career-section--embedded {
+  grid-column: 1 / -1;
+  padding-block: 36px 0;
+}
+.career-section--embedded #experience-title {
+  font-size: 28px;
+  letter-spacing: -0.8px;
+  line-height: 1.2;
+  font-weight: 400;
+}
+.career-section--embedded .career-entry {
+  grid-template-columns: 220px 1fr;
+}
+@media (max-width: 650px) {
+  .career-section--embedded {
+    padding-block: 30px 0;
+  }
+  .career-section--embedded .career-entry {
+    grid-template-columns: 1fr;
+  }
+  .career-section--embedded #experience-title {
+    font-size: 25px;
   }
 }
