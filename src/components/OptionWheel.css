@@ -1,0 +1,76 @@
+.approach-wheel-container {
+  min-width: 0;
+}
+.approach-wheel-hint {
+  display: none;
+}
+@media (min-width: 1001px) and (prefers-reduced-motion: no-preference) {
+  .focus-selector.approach-wheel {
+    position: relative;
+    height: 380px;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+    margin-top: -12px;
+  }
+  .approach-wheel::before {
+    content: '';
+    position: absolute;
+    top: calc(50% - 33px);
+    inset-inline: 0;
+    height: 66px;
+    border-block: 1px solid var(--border-on-dark);
+    background: #93c5fd08;
+    pointer-events: none;
+  }
+  .focus-selector.approach-wheel button {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    min-height: 58px;
+    padding: 12px 10px;
+    border: 0;
+    gap: 12px;
+    font-family: 'Manrope', 'Segoe UI', sans-serif;
+    font-size: clamp(16px, 1.55vw, 25px);
+    line-height: 1.35;
+    letter-spacing: -0.6px;
+    cursor: inherit;
+    transform-origin: left center;
+    transform: translate(
+        calc(var(--wheel-offset) * 10px),
+        calc(-50% + var(--wheel-distance) * 70px)
+      )
+      rotate(calc(var(--wheel-distance) * 1.5deg));
+    opacity: 0.65;
+    transition:
+      transform 420ms var(--ease),
+      color 220ms ease,
+      opacity 220ms ease;
+  }
+  .focus-selector.approach-wheel button[aria-selected='true'] {
+    color: var(--accent-on-dark);
+    opacity: 1;
+  }
+  .focus-selector.approach-wheel button:focus-visible {
+    outline: 2px solid var(--accent-on-dark);
+    outline-offset: -3px;
+  }
+  .approach-wheel button:hover {
+    opacity: 1;
+    color: var(--on-dark);
+  }
+  .approach-wheel:active,
+  .approach-wheel:active button {
+    cursor: grabbing;
+  }
+  .approach-wheel-hint {
+    display: block;
+    margin-top: 6px;
+    padding-left: 10px;
+    color: var(--muted-on-dark);
+    font: 9px/1.6 var(--font-mono);
+    letter-spacing: 0.8px;
+  }
+}

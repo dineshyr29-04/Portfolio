@@ -14,6 +14,7 @@ import TechnicalSkills from './components/TechnicalSkills';
 import Achievements from './components/Achievements';
 import Experience from './components/Experience';
 import PageMotion from './components/PageMotion';
+import OptionWheel from './components/OptionWheel';
 import MobileNavigation from './components/MobileNavigation';
 import useReveal from './hooks/useReveal';
 import './motion.css';
@@ -287,48 +288,11 @@ export default function App() {
               </p>
             </div>
             <div className="focus-layout">
-              <div
-                className="focus-selector"
-                role="tablist"
-                aria-label="Engineering approach"
-                aria-orientation="vertical"
-              >
-                {focuses.map((item, i) => (
-                  <button
-                    key={item.name}
-                    role="tab"
-                    id={`focus-tab-${i}`}
-                    aria-selected={focus === i}
-                    aria-controls="focus-panel"
-                    tabIndex={focus === i ? 0 : -1}
-                    onClick={() => setFocus(i)}
-                    onKeyDown={event => {
-                      if (
-                        ['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(
-                          event.key
-                        )
-                      ) {
-                        event.preventDefault();
-                        const next =
-                          event.key === 'Home'
-                            ? 0
-                            : event.key === 'End'
-                              ? focuses.length - 1
-                              : (focus +
-                                  (event.key === 'ArrowDown' ? 1 : -1) +
-                                  focuses.length) %
-                                focuses.length;
-                        setFocus(next);
-                        document.getElementById(`focus-tab-${next}`)?.focus();
-                      }
-                    }}
-                  >
-                    <span>{item.number}</span>
-                    {item.name}
-                    <ArrowRight size={17} />
-                  </button>
-                ))}
-              </div>
+              <OptionWheel
+                items={focuses.map(item => item.name)}
+                selected={focus}
+                onChange={setFocus}
+              />
               <div
                 key={selected.number}
                 className="focus-panel"
