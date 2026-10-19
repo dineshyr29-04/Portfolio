@@ -26,6 +26,8 @@ export default function PageMotion() {
         if (section.getBoundingClientRect().top <= window.innerHeight * 0.35)
           current = section.id;
       });
+      if (distance > 0 && window.scrollY >= distance - 2)
+        current = sections.at(-1)?.id ?? current;
       links.forEach(link => {
         if (link.hash === `#${current}`)
           link.setAttribute('aria-current', 'location');
