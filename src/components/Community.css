@@ -1,13 +1,13 @@
 .community-section {
   padding: 80px 0;
-  background: #e9ece1;
-  border-top: 1px solid #d4d9c8;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
 }
 .community-layout {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 90px;
-  border-top: 1px solid #bdc6af;
+  border-top: 1px solid var(--border);
   padding-top: 34px;
 }
 .hackathon-note h3 {
@@ -20,7 +20,7 @@
 .hackathon-note > p {
   font-size: 14px;
   line-height: 1.85;
-  color: #626d55;
+  color: var(--muted);
   max-width: 340px;
   margin-top: 23px;
 }
@@ -34,7 +34,7 @@
 }
 .achievement-list li {
   padding: 16px 0;
-  border-top: 1px solid #c8d0bd;
+  border-top: 1px solid var(--border);
 }
 .achievement-list h4 {
   margin: 0;
@@ -44,15 +44,12 @@
 }
 .achievement-list p {
   margin: 7px 0 0;
-  color: #626d55;
-  font-size: 12px;
+  color: var(--muted);
+  font-size: 14px;
   line-height: 1.8;
 }
 .club-role p.club-description {
-  font:
-    12px/1.8 Arial,
-    Helvetica,
-    sans-serif;
+  font: 14px/1.8 var(--font-sans);
   margin-top: 12px;
   max-width: 350px;
 }
@@ -64,14 +61,12 @@
   display: flex;
   align-items: center;
   gap: 21px;
-  border-top: 1px solid #c8d0bd;
+  border-top: 1px solid var(--border);
   padding: 25px 0;
 }
 .club-index {
-  font:
-    10px 'Courier New',
-    monospace;
-  color: #778369;
+  font: 10px var(--font-mono);
+  color: var(--muted);
 }
 .club-role h3 {
   font-size: 23px;
@@ -79,19 +74,15 @@
   font-weight: 400;
 }
 .club-role p {
-  font:
-    11px 'Courier New',
-    monospace;
+  font: 11px var(--font-mono);
   line-height: 1.7;
   margin-top: 9px;
-  color: #626d55;
+  color: var(--muted);
 }
 .club-marker {
   margin-left: auto;
-  font:
-    20px 'Courier New',
-    monospace;
-  color: #a34125;
+  font: 20px var(--font-mono);
+  color: var(--blue);
 }
 @media (max-width: 900px) {
   .community-layout {
