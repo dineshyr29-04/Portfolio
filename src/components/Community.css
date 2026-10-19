@@ -27,6 +27,35 @@
 .hackathon-note .text-link {
   margin-top: 25px;
 }
+.achievement-list {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0 0;
+}
+.achievement-list li {
+  padding: 16px 0;
+  border-top: 1px solid #c8d0bd;
+}
+.achievement-list h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.achievement-list p {
+  margin: 7px 0 0;
+  color: #626d55;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.club-role p.club-description {
+  font:
+    12px/1.8 Arial,
+    Helvetica,
+    sans-serif;
+  margin-top: 12px;
+  max-width: 350px;
+}
 .club-roles > .micro-label {
   display: block;
   margin-bottom: 22px;
