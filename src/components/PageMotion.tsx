@@ -9,9 +9,7 @@ export default function PageMotion() {
       ...document.querySelectorAll<HTMLElement>('main section[id]'),
     ];
     const links = [
-      ...document.querySelectorAll<HTMLAnchorElement>(
-        '.navigation a[href^="#"]'
-      ),
+      ...document.querySelectorAll<HTMLAnchorElement>('a[data-section-link]'),
     ];
     const update = () => {
       frame = 0;
