@@ -82,10 +82,9 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .collage-preview,
+  .collage-card,
   .card-open,
-  .collage-caption > svg,
-  .screenshot-preview img,
+  .card-details-label svg,
   .toolset li {
     transition: none;
   }
