@@ -1,5 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
-import './Community.css';
+import './Achievements.css';
 
 const roles = [
   {
@@ -38,18 +38,18 @@ const achievements = [
   },
 ];
 
-export default function Community() {
+export default function Achievements() {
   return (
     <section
-      id="community"
-      className="community-section"
-      aria-labelledby="community-title"
+      id="achievements"
+      className="achievements-section"
+      aria-labelledby="achievements-title"
     >
       <div className="page-width">
         <div className="section-heading" data-reveal>
           <div>
-            <span className="eyebrow">06 / HACKATHONS & CLUBS</span>
-            <h2 id="community-title">Building with people.</h2>
+            <span className="eyebrow">02 / ACHIEVEMENTS & LEADERSHIP</span>
+            <h2 id="achievements-title">Achievements &amp; leadership.</h2>
           </div>
           <p>
             Beyond individual projects.
@@ -57,13 +57,10 @@ export default function Community() {
             Teams, clubs, and shared ideas.
           </p>
         </div>
-        <div className="community-layout">
+        <div className="achievements-layout">
           <div className="hackathon-note">
-            <span className="micro-label">HACKATHONS</span>
-            <h3 data-reveal>
-              Hackathons &amp;
-              <br />
-              <span className="serif-word">achievements.</span>
+            <h3 className="micro-label" data-reveal>
+              HACKATHONS
             </h3>
             <ul className="achievement-list">
               {achievements.map((item, index) => (
@@ -82,7 +79,9 @@ export default function Community() {
             </a>
           </div>
           <div className="club-roles">
-            <span className="micro-label">CLUB LEADERSHIP</span>
+            <h3 className="micro-label" data-reveal>
+              CLUB LEADERSHIP
+            </h3>
             {roles.map((item, index) => (
               <div
                 className="club-role"
@@ -92,7 +91,7 @@ export default function Community() {
               >
                 <span className="club-index">0{index + 1}</span>
                 <div>
-                  <h3>{item.club}</h3>
+                  <h4>{item.club}</h4>
                   <p>{item.role}</p>
                   {item.description && (
                     <p className="club-description">{item.description}</p>

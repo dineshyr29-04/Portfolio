@@ -13,7 +13,7 @@ import {
 import './portfolio.css';
 import ProjectGallery from './components/ProjectGallery';
 import TechnicalSkills from './components/TechnicalSkills';
-import Community from './components/Community';
+import Achievements from './components/Achievements';
 import Experience from './components/Experience';
 import PageMotion from './components/PageMotion';
 import useReveal from './hooks/useReveal';
@@ -23,11 +23,10 @@ const github = 'https://github.com/dineshyr29-04';
 const email = 'dineshyr2904@gmail.com';
 const navigation = [
   'Work',
-  'Focus',
+  'Achievements',
+  'Approach',
   'Skills',
   'About',
-  'Experience',
-  'Community',
   'Contact',
 ];
 const projects = [
@@ -70,21 +69,10 @@ const projects = [
     summary:
       'Drug batch validation using electrochemical sensor inputs and clustering.',
     stack: 'React · K-Means · Data science',
-    source: `${github}/drug-secure`,
+    source: 'https://github.com/abbysallord/drug-secure',
     live: 'https://drug-secure.vercel.app',
     detail:
       'An Ayurvedic drug quality-control project using E-Tongue sensor inputs and K-Means clustering to explore patterns across batches.',
-  },
-  {
-    name: 'ThinkNode Portal',
-    category: 'Cloud / application development',
-    summary:
-      'A customer portal for cloud services, SaaS workflows, and analytics.',
-    stack: 'JavaScript · Node.js · HTML / CSS',
-    source: `${github}?tab=repositories&q=thinknode`,
-    live: 'https://thinknode-customers.vercel.app/',
-    detail:
-      'Co-founded and built the customer portal, bringing cloud service workflows and analytics dashboards into a shared application.',
   },
   {
     name: 'AgroNova',
@@ -242,11 +230,12 @@ export default function App() {
           <div className="hero-bottom">
             <div className="hero-description">
               <p>
-                I’m Dinesh. I build software and care about how it works
-                underneath.
+                I’m Dinesh. I build with Rust, explore distributed systems, and
+                develop full-stack applications.
               </p>
               <p className="muted">
-                System design, low-level programming, and AI used with intent.
+                From HTTP traffic and service boundaries to the interfaces
+                people use.
               </p>
               <a className="primary-link" href="#work">
                 Explore my work <ArrowDown size={17} />
@@ -259,7 +248,7 @@ export default function App() {
                 'C / C++ / Rust & Linux',
                 'AI & automation',
               ].map((name, i) => (
-                <a key={name} href="#focus" onClick={() => setFocus(i)}>
+                <a key={name} href="#approach" onClick={() => setFocus(i)}>
                   <span>0{i + 1}</span>
                   {name}
                   <ArrowUpRight size={15} />
@@ -301,15 +290,16 @@ export default function App() {
             </a>
           </div>
         </section>
+        <Achievements />
         <section
-          id="focus"
+          id="approach"
           className="focus-section"
           aria-labelledby="focus-title"
         >
           <div className="page-width">
             <div className="section-heading" data-reveal>
               <div>
-                <span className="eyebrow">02 / ENGINEERING FOCUS</span>
+                <span className="eyebrow">03 / ENGINEERING APPROACH</span>
                 <h2 id="focus-title">Below the surface.</h2>
               </div>
               <p>
@@ -321,7 +311,7 @@ export default function App() {
               <div
                 className="focus-selector"
                 role="tablist"
-                aria-label="Engineering focus"
+                aria-label="Engineering approach"
                 aria-orientation="vertical"
               >
                 {focuses.map((item, i) => (
@@ -368,7 +358,9 @@ export default function App() {
                 aria-labelledby={`focus-tab-${focus}`}
                 tabIndex={0}
               >
-                <span className="micro-label">FOCUS / {selected.number}</span>
+                <span className="micro-label">
+                  APPROACH / {selected.number}
+                </span>
                 <h3>{selected.title}</h3>
                 <p>{selected.description}</p>
                 <div
@@ -395,7 +387,7 @@ export default function App() {
           aria-labelledby="about-title"
         >
           <div className="about-intro" data-reveal>
-            <span className="eyebrow">04 / THE PERSON</span>
+            <span className="eyebrow">05 / THE PERSON</span>
             <h2 id="about-title">
               Curious about <br />
               the whole stack.
@@ -425,16 +417,15 @@ export default function App() {
               engineering decisions myself.
             </p>
           </div>
+          <Experience embedded />
         </section>
-        <Experience />
-        <Community />
         <section
           id="contact"
           className="contact-section"
           aria-labelledby="contact-title"
         >
           <div className="page-width">
-            <span className="eyebrow">07 / GET IN TOUCH</span>
+            <span className="eyebrow">06 / GET IN TOUCH</span>
             <div className="contact-layout" data-reveal>
               <div>
                 <h2 id="contact-title">
