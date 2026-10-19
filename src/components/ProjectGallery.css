@@ -37,6 +37,76 @@
 .collage-item--4 {
   padding-top: 52px;
 }
+.collage-item--featured {
+  grid-column: 1 / -1;
+  padding: 0 0 12px;
+}
+.collage-item--featured .collage-card {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  background: #dfe5d5;
+  border: 1px solid #bcc7ac;
+}
+.collage-item--featured .collage-preview {
+  aspect-ratio: 1.65;
+  border: 0;
+  border-right: 1px solid #bcc7ac;
+  border-radius: 0;
+}
+.collage-item--featured .collage-caption {
+  padding: 40px;
+  margin: 0;
+  align-self: center;
+}
+.collage-item--featured .collage-caption h3 {
+  font-size: clamp(38px, 4.5vw, 64px);
+  letter-spacing: -2px;
+  margin-top: 17px;
+}
+.collage-item--featured .collage-caption > svg {
+  display: none;
+}
+.featured-card-action {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 30px;
+  font-size: 12px;
+  color: #5b684c;
+}
+.flagship-visual {
+  position: absolute;
+  inset: 0;
+  padding: 26px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #293322;
+  color: #e0e7d5;
+}
+.flagship-visual .visual-caption {
+  color: #d3ddc4;
+}
+.flagship-monogram {
+  font:
+    italic clamp(90px, 14vw, 190px)/0.85 Georgia,
+    serif;
+  letter-spacing: -16px;
+  align-self: center;
+}
+.flagship-monogram > span {
+  color: #d5a17b;
+}
+.flagship-signature {
+  font:
+    10px 'Courier New',
+    monospace;
+  letter-spacing: 5px;
+  align-self: flex-end;
+}
+.dialog-preview .flagship-monogram {
+  font-size: 140px;
+}
 .collage-card {
   display: block;
   width: 100%;
@@ -362,6 +432,29 @@
   }
 }
 @media (max-width: 650px) {
+  .collage-item--featured .collage-card {
+    grid-template-columns: 1fr;
+  }
+  .collage-item--featured .collage-preview {
+    border-right: 0;
+    border-bottom: 1px solid #bcc7ac;
+  }
+  .collage-item--featured .collage-caption {
+    padding: 25px;
+  }
+  .collage-item--featured .collage-caption h3 {
+    font-size: 42px;
+    margin-top: 10px;
+  }
+  .flagship-monogram {
+    font-size: 132px;
+  }
+  .flagship-visual {
+    padding: 23px;
+  }
+  .featured-card-action {
+    margin-top: 22px;
+  }
   .gallery-guide {
     font-size: 8px;
     align-items: start;

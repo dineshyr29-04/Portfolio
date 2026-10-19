@@ -1,0 +1,96 @@
+.community-section {
+  padding: 80px 0;
+  background: #e9ece1;
+  border-top: 1px solid #d4d9c8;
+}
+.community-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 90px;
+  border-top: 1px solid #bdc6af;
+  padding-top: 34px;
+}
+.hackathon-note h3 {
+  font-size: 43px;
+  line-height: 1.08;
+  font-weight: 400;
+  letter-spacing: -1.5px;
+  margin-top: 24px;
+}
+.hackathon-note > p {
+  font-size: 14px;
+  line-height: 1.85;
+  color: #626d55;
+  max-width: 340px;
+  margin-top: 23px;
+}
+.hackathon-note .text-link {
+  margin-top: 25px;
+}
+.club-roles > .micro-label {
+  display: block;
+  margin-bottom: 22px;
+}
+.club-role {
+  display: flex;
+  align-items: center;
+  gap: 21px;
+  border-top: 1px solid #c8d0bd;
+  padding: 25px 0;
+}
+.club-index {
+  font:
+    10px 'Courier New',
+    monospace;
+  color: #778369;
+}
+.club-role h3 {
+  font-size: 23px;
+  letter-spacing: -0.5px;
+  font-weight: 400;
+}
+.club-role p {
+  font:
+    11px 'Courier New',
+    monospace;
+  line-height: 1.7;
+  margin-top: 9px;
+  color: #626d55;
+}
+.club-marker {
+  margin-left: auto;
+  font:
+    20px 'Courier New',
+    monospace;
+  color: #a34125;
+}
+@media (max-width: 900px) {
+  .community-layout {
+    gap: 45px;
+  }
+  .club-role h3 {
+    font-size: 21px;
+  }
+}
+@media (max-width: 650px) {
+  .community-section {
+    padding: 51px 0;
+  }
+  .community-layout {
+    grid-template-columns: 1fr;
+    gap: 38px;
+    padding-top: 25px;
+  }
+  .hackathon-note h3 {
+    font-size: 37px;
+  }
+  .hackathon-note > p {
+    font-size: 13px;
+  }
+  .club-role {
+    padding: 23px 0;
+  }
+  .club-role h3 {
+    font-size: 22px;
+  }
+}

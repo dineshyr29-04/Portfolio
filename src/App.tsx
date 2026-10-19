@@ -13,13 +13,24 @@ import {
 import './portfolio.css';
 import ProjectGallery from './components/ProjectGallery';
 import TechnicalSkills from './components/TechnicalSkills';
+import Community from './components/Community';
 import useReveal from './hooks/useReveal';
 import './motion.css';
 
 const github = 'https://github.com/dineshyr29-04';
 const email = 'dineshyr2904@gmail.com';
-const navigation = ['Work', 'Focus', 'Skills', 'About', 'Contact'];
+const navigation = ['Work', 'Focus', 'Skills', 'About', 'Community', 'Contact'];
 const projects = [
+  {
+    name: 'Exaprop',
+    category: 'Featured project',
+    featured: true,
+    summary: '',
+    stack: '',
+    source: '',
+    live: '',
+    detail: '',
+  },
   {
     name: 'Openloop',
     category: 'Automation / orchestration',
@@ -103,8 +114,8 @@ const focuses = [
     number: '02',
     title: 'Understand what runs underneath.',
     description:
-      'C, C++, and Linux are my foundation for going closer to the machine. My focus is on understanding memory, execution, and the cost of abstractions.',
-    tools: 'C / C++ / Linux / Git',
+      'C, C++, Rust, and Linux are my foundation for going closer to the machine. My focus is on understanding memory, execution, and the cost of abstractions.',
+    tools: 'C / C++ / Rust / Linux / Git',
     nodes: ['Source', 'Compiler', 'Program'],
     note: 'A current area of study: how memory layout and resource ownership shape program behavior.',
   },
@@ -228,7 +239,7 @@ export default function App() {
               <span className="micro-label">WHERE MY INTERESTS MEET</span>
               {[
                 'Systems & architecture',
-                'C / C++ & Linux',
+                'C / C++ / Rust & Linux',
                 'AI & automation',
               ].map((name, i) => (
                 <a key={name} href="#focus" onClick={() => setFocus(i)}>
@@ -396,26 +407,16 @@ export default function App() {
               reading the code, testing the assumptions, and making the
               engineering decisions myself.
             </p>
-            <div className="experience">
-              <span className="micro-label">EXPERIENCE & COMMUNITY</span>
-              <div>
-                <span>HackArena</span>
-                <span>Co-Founder & Lead Developer</span>
-              </div>
-              <div>
-                <span>AWS Cloud Club</span>
-                <span>Tech Relationship Head</span>
-              </div>
-            </div>
           </div>
         </section>
+        <Community />
         <section
           id="contact"
           className="contact-section"
           aria-labelledby="contact-title"
         >
           <div className="page-width">
-            <span className="eyebrow">05 / GET IN TOUCH</span>
+            <span className="eyebrow">06 / GET IN TOUCH</span>
             <div className="contact-layout" data-reveal>
               <div>
                 <h2 id="contact-title">

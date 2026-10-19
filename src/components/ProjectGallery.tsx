@@ -10,6 +10,7 @@ type Project = {
   source: string;
   live: string;
   detail: string;
+  featured?: boolean;
 };
 
 const screenshots: Record<string, string> = {
@@ -20,6 +21,16 @@ const screenshots: Record<string, string> = {
 };
 
 function ProjectVisual({ project }: { project: Project }) {
+  if (project.featured)
+    return (
+      <div className="flagship-visual" aria-hidden="true">
+        <span className="visual-caption">MAIN PROJECT / 01</span>
+        <span className="flagship-monogram">
+          e<span>.</span>
+        </span>
+        <span className="flagship-signature">EXAPROP</span>
+      </div>
+    );
   const screenshot = screenshots[project.name];
   if (screenshot)
     return (
@@ -96,7 +107,7 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
       <div className="project-collage">
         {projects.map((project, index) => (
           <article
-            className={`collage-item collage-item--${index + 1}`}
+            className={`collage-item collage-item--${index + 1 - (projects[0]?.featured ? 1 : 0)}${project.featured ? ' collage-item--featured' : ''}`}
             key={project.name}
             data-reveal
             data-reveal-delay={(index % 2) * 70}
@@ -120,11 +131,20 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
                 <div>
                   <span className="project-category">{project.category}</span>
                   <h3>{project.name}</h3>
+                  {project.featured && (
+                    <span className="featured-card-action">
+                      Take a closer look <ArrowRight size={16} />
+                    </span>
+                  )}
                 </div>
                 <ArrowUpRight size={19} />
               </div>
-              <p className="collage-summary">{project.summary}</p>
-              <span className="collage-stack">{project.stack}</span>
+              {project.summary && (
+                <p className="collage-summary">{project.summary}</p>
+              )}
+              {project.stack && (
+                <span className="collage-stack">{project.stack}</span>
+              )}
             </button>
           </article>
         ))}
@@ -158,11 +178,16 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
             <div className="project-dialog-body">
               <span className="eyebrow">A CLOSER LOOK</span>
               <h2 id="project-dialog-title">{active.name}</h2>
-              <p>{active.detail}</p>
-              <div className="dialog-tools">
-                <span className="micro-label">BUILT WITH</span>
-                <p>{active.stack}</p>
-              </div>
+              {active.detail && <p>{active.detail}</p>}
+              {active.featured && !active.detail && (
+                <p>For a walkthrough of Exaprop, get in touch.</p>
+              )}
+              {active.stack && (
+                <div className="dialog-tools">
+                  <span className="micro-label">BUILT WITH</span>
+                  <p>{active.stack}</p>
+                </div>
+              )}
               <div className="dialog-links">
                 {active.live && (
                   <a
@@ -174,14 +199,24 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
                     Open live project <ArrowUpRight size={16} />
                   </a>
                 )}
-                <a
-                  className="text-link"
-                  href={active.source}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View source <ArrowUpRight size={16} />
-                </a>
+                {active.source && (
+                  <a
+                    className="text-link"
+                    href={active.source}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View source <ArrowUpRight size={16} />
+                  </a>
+                )}
+                {active.featured && !active.live && !active.source && (
+                  <a
+                    className="primary-link"
+                    href="mailto:dineshyr2904@gmail.com?subject=Exaprop%20project"
+                  >
+                    Ask me about Exaprop <ArrowUpRight size={16} />
+                  </a>
+                )}
               </div>
             </div>
           </div>
