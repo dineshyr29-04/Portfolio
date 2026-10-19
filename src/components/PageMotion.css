@@ -47,5 +47,4 @@
   position: sticky;
   top: 0;
   background: var(--header-surface);
-  backdrop-filter: blur(12px);
 }
