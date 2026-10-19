@@ -2,7 +2,7 @@
   position: fixed;
   inset: 0 0 auto;
   height: 2px;
-  background: #b34325;
+  background: var(--blue);
   transform: scaleX(0);
   transform-origin: left;
   z-index: 100;
@@ -14,17 +14,17 @@
 .navigation a::after {
   content: '';
   position: absolute;
-  bottom: -8px;
+  bottom: 0;
   left: 0;
   right: 0;
   height: 1px;
-  background: #b34325;
+  background: var(--blue);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 240ms ease;
 }
 .navigation a[aria-current='location'] {
-  color: #a34125;
+  color: var(--blue);
 }
 .navigation a[aria-current='location']::after,
 .navigation a:hover::after,
@@ -46,6 +46,6 @@
 .site-header {
   position: sticky;
   top: 0;
-  background: #f5f4eef5;
+  background: var(--header-surface);
   backdrop-filter: blur(12px);
 }
