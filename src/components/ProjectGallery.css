@@ -53,10 +53,12 @@
   border-right: 1px solid #bcc7ac;
   border-radius: 0;
 }
-.collage-item--featured .collage-caption {
+.collage-item--featured .collage-copy {
   padding: 40px;
-  margin: 0;
   align-self: center;
+}
+.collage-item--featured .collage-caption {
+  margin: 0;
 }
 .collage-item--featured .collage-caption h3 {
   font-size: clamp(38px, 4.5vw, 64px);
@@ -439,7 +441,7 @@
     border-right: 0;
     border-bottom: 1px solid #bcc7ac;
   }
-  .collage-item--featured .collage-caption {
+  .collage-item--featured .collage-copy {
     padding: 25px;
   }
   .collage-item--featured .collage-caption h3 {

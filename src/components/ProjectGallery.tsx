@@ -45,24 +45,23 @@ function ProjectVisual({ project }: { project: Project }) {
         />
       </div>
     );
-  const automation = project.name === 'Openloop';
+  const openLoop = project.name === 'OpenLoop';
   return (
     <div
-      className={`workflow-preview ${automation ? 'workflow-preview--automation' : 'workflow-preview--platform'}`}
+      className={`workflow-preview ${openLoop ? 'workflow-preview--automation' : 'workflow-preview--platform'}`}
       aria-hidden="true"
     >
       <span className="visual-caption">
-        {automation ? 'WORKFLOW ORCHESTRATION' : 'HACKATHON PLATFORM'}
+        {openLoop
+          ? 'NATIONAL HACKATHON / WEBSITE'
+          : 'CODE FOR CHANGE / WEBSITE'}
       </span>
       <span className="visual-title">
-        {automation ? 'openloop' : 'HackArena'}
+        {openLoop ? 'OpenLoop' : 'Sankalp'}
         <span>_</span>
       </span>
       <div className="visual-flow">
-        {(automation
-          ? ['Event', 'Pipeline', 'Task']
-          : ['Teams', 'Build', 'Review']
-        ).map((node, index) => (
+        {['Design', 'Build', 'Launch'].map((node, index) => (
           <div key={node}>
             {index > 0 && <ArrowRight size={17} />}
             <span>
@@ -73,9 +72,9 @@ function ProjectVisual({ project }: { project: Project }) {
         ))}
       </div>
       <span className="visual-caption visual-caption--bottom">
-        {automation
-          ? 'CONNECT. COORDINATE. EXECUTE.'
-          : 'FROM TEAM FORMATION TO JUDGING.'}
+        {openLoop
+          ? '24-HOUR NATIONAL HACKATHON'
+          : '24-HOUR HACKATHON / OFFICIAL WEBSITE'}
       </span>
     </div>
   );
@@ -127,24 +126,26 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
                   {String(index + 1).padStart(2, '0')}
                 </span>
               </div>
-              <div className="collage-caption">
-                <div>
-                  <span className="project-category">{project.category}</span>
-                  <h3>{project.name}</h3>
-                  {project.featured && (
-                    <span className="featured-card-action">
-                      Take a closer look <ArrowRight size={16} />
-                    </span>
-                  )}
+              <div className="collage-copy">
+                <div className="collage-caption">
+                  <div>
+                    <span className="project-category">{project.category}</span>
+                    <h3>{project.name}</h3>
+                  </div>
+                  <ArrowUpRight size={19} />
                 </div>
-                <ArrowUpRight size={19} />
+                {project.summary && (
+                  <p className="collage-summary">{project.summary}</p>
+                )}
+                {project.stack && (
+                  <span className="collage-stack">{project.stack}</span>
+                )}
+                {project.featured && (
+                  <span className="featured-card-action">
+                    Take a closer look <ArrowRight size={16} />
+                  </span>
+                )}
               </div>
-              {project.summary && (
-                <p className="collage-summary">{project.summary}</p>
-              )}
-              {project.stack && (
-                <span className="collage-stack">{project.stack}</span>
-              )}
             </button>
           </article>
         ))}
@@ -180,7 +181,7 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
               <h2 id="project-dialog-title">{active.name}</h2>
               {active.detail && <p>{active.detail}</p>}
               {active.featured && !active.detail && (
-                <p>For a walkthrough of Exaprop, get in touch.</p>
+                <p>For a walkthrough of {active.name}, get in touch.</p>
               )}
               {active.stack && (
                 <div className="dialog-tools">
@@ -214,7 +215,7 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
                     className="primary-link"
                     href="mailto:dineshyr2904@gmail.com?subject=Exaprop%20project"
                   >
-                    Ask me about Exaprop <ArrowUpRight size={16} />
+                    Ask me about {active.name} <ArrowUpRight size={16} />
                   </a>
                 )}
               </div>

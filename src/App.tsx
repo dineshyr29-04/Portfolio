@@ -22,36 +22,37 @@ const email = 'dineshyr2904@gmail.com';
 const navigation = ['Work', 'Focus', 'Skills', 'About', 'Community', 'Contact'];
 const projects = [
   {
-    name: 'Exaprop',
-    category: 'Featured project',
+    name: 'ExaProp',
+    category: 'Featured / distributed systems',
     featured: true,
-    summary: '',
-    stack: '',
-    source: '',
+    summary:
+      'Open-source observability and resilience engineering for distributed systems, built in Rust.',
+    stack: 'Rust · Tokio · Hyper',
+    source: `${github}/exaprop`,
     live: '',
-    detail: '',
+    detail:
+      'An open-source, Rust-based distributed systems observability and resilience engineering tool, built with Tokio and Hyper. The focus is on HTTP traffic monitoring and anomaly detection, with fault injection planned for a future release.',
   },
   {
-    name: 'Openloop',
-    category: 'Automation / orchestration',
-    summary:
-      'An automation engine for coordinating AI pipelines and repetitive tasks.',
-    stack: 'TypeScript · Python · YAML',
+    name: 'OpenLoop',
+    category: 'National hackathon / website',
+    summary: 'Led website development for a 24-hour national hackathon.',
+    stack: '',
     source: `${github}/Openloop`,
     live: '',
     detail:
-      'Event-driven workflows for coordinating long-running tasks. This project brings together my interests in automation, application architecture, and practical AI tooling.',
+      'Led the website development for OpenLoop, a 24-hour national hackathon.',
   },
   {
-    name: 'HackArena',
-    category: 'Platform engineering',
+    name: 'Project Sankalp',
+    category: 'Code for Change / hackathon website',
     summary:
-      'A hackathon platform connecting teams, event tracking, and judging workflows.',
-    stack: 'React · Node.js · PostgreSQL',
+      'Developed the official website for Project Sankalp — Code for Change, a 24-hour hackathon.',
+    stack: '',
     source: `${github}/Sankalp`,
     live: 'https://project-sankalp.dev',
     detail:
-      'Co-founded and developed the platform. The work spans participant-facing interfaces, team collaboration, and automated scoring workflows backed by PostgreSQL.',
+      'Developed the official website for Project Sankalp — Code for Change, a 24-hour hackathon.',
   },
   {
     name: 'Drug Secure',
