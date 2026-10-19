@@ -3,6 +3,7 @@ import './TechnicalSkills.css';
 const languages = [
   { name: 'C', context: 'Systems fundamentals' },
   { name: 'C++', context: 'Low-level programming' },
+  { name: 'Rust', context: 'Memory-safe systems' },
   { name: 'Python', context: 'Data & automation' },
   { name: 'TypeScript', context: 'Typed applications' },
   { name: 'JavaScript', context: 'Web & services' },
