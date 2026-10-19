@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, ArrowUpRight, X } from 'lucide-react';
+import { ArrowUpRight, X } from 'lucide-react';
 import './ProjectGallery.css';
 
 type Project = {
@@ -12,73 +12,6 @@ type Project = {
   detail: string;
   featured?: boolean;
 };
-
-const screenshots: Record<string, string> = {
-  'Drug Secure': '/project-drug-secure.png',
-  'ThinkNode Portal': '/project-thinknode.png',
-  AgroNova: '/project-agro-nova.png',
-  CardioNerve: '/project-cardio-nerve.png',
-};
-
-function ProjectVisual({ project }: { project: Project }) {
-  if (project.featured)
-    return (
-      <div className="flagship-visual" aria-hidden="true">
-        <span className="visual-caption">MAIN PROJECT / 01</span>
-        <span className="flagship-monogram">
-          e<span>.</span>
-        </span>
-        <span className="flagship-signature">EXAPROP</span>
-      </div>
-    );
-  const screenshot = screenshots[project.name];
-  if (screenshot)
-    return (
-      <div className="screenshot-preview">
-        <img
-          src={screenshot}
-          alt={`${project.name} website preview`}
-          loading="lazy"
-          decoding="async"
-          width="1920"
-          height="1080"
-        />
-      </div>
-    );
-  const openLoop = project.name === 'OpenLoop';
-  return (
-    <div
-      className={`workflow-preview ${openLoop ? 'workflow-preview--automation' : 'workflow-preview--platform'}`}
-      aria-hidden="true"
-    >
-      <span className="visual-caption">
-        {openLoop
-          ? 'NATIONAL HACKATHON / WEBSITE'
-          : 'CODE FOR CHANGE / WEBSITE'}
-      </span>
-      <span className="visual-title">
-        {openLoop ? 'OpenLoop' : 'Sankalp'}
-        <span>_</span>
-      </span>
-      <div className="visual-flow">
-        {['Design', 'Build', 'Launch'].map((node, index) => (
-          <div key={node}>
-            {index > 0 && <ArrowRight size={17} />}
-            <span>
-              <i />
-              {node}
-            </span>
-          </div>
-        ))}
-      </div>
-      <span className="visual-caption visual-caption--bottom">
-        {openLoop
-          ? '24-HOUR NATIONAL HACKATHON'
-          : '24-HOUR HACKATHON / OFFICIAL WEBSITE'}
-      </span>
-    </div>
-  );
-}
 
 export default function ProjectGallery({ projects }: { projects: Project[] }) {
   const [active, setActive] = useState<Project | null>(null);
@@ -106,7 +39,7 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
       <div className="project-collage">
         {projects.map((project, index) => (
           <article
-            className={`collage-item collage-item--${index + 1 - (projects[0]?.featured ? 1 : 0)}${project.featured ? ' collage-item--featured' : ''}`}
+            className={`collage-item${project.featured ? ' collage-item--featured' : ''}`}
             key={project.name}
             data-reveal
             data-reveal-delay={(index % 2) * 70}
@@ -117,35 +50,34 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
               aria-label={`Explore ${project.name}`}
               aria-haspopup="dialog"
             >
-              <div className="collage-preview">
-                <ProjectVisual project={project} />
-                <span className="card-open">
-                  <ArrowUpRight size={20} />
-                </span>
+              <span className="card-meta">
                 <span className="card-index">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-              </div>
-              <div className="collage-copy">
-                <div className="collage-caption">
-                  <div>
-                    <span className="project-category">{project.category}</span>
-                    <h3>{project.name}</h3>
-                  </div>
+                <span className="card-category">{project.category}</span>
+                <span className="card-open">
                   <ArrowUpRight size={19} />
-                </div>
+                </span>
+              </span>
+              <div className="card-body">
+                <h3>{project.name}</h3>
                 {project.summary && (
                   <p className="collage-summary">{project.summary}</p>
                 )}
-                {project.stack && (
-                  <span className="collage-stack">{project.stack}</span>
-                )}
-                {project.featured && (
-                  <span className="featured-card-action">
-                    Take a closer look <ArrowRight size={16} />
-                  </span>
-                )}
               </div>
+              <span className="card-footer">
+                <span className="card-tools">
+                  {project.stack
+                    .split(' · ')
+                    .filter(Boolean)
+                    .map(tool => (
+                      <span key={tool}>{tool}</span>
+                    ))}
+                </span>
+                <span className="card-details-label">
+                  View project <ArrowUpRight size={13} />
+                </span>
+              </span>
             </button>
           </article>
         ))}
@@ -172,9 +104,6 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
               >
                 <X size={20} />
               </button>
-            </div>
-            <div className="dialog-preview">
-              <ProjectVisual project={active} />
             </div>
             <div className="project-dialog-body">
               <span className="eyebrow">A CLOSER LOOK</span>

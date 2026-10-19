@@ -4,7 +4,7 @@
   gap: 20px;
   align-items: center;
   border-top: 1px solid #bdc3b5;
-  padding: 18px 0 28px;
+  padding: 18px 0 27px;
   font:
     10px 'Courier New',
     monospace;
@@ -18,287 +18,185 @@
 }
 .project-collage {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 38px 28px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
 }
 .collage-item {
-  grid-column: span 6;
   min-width: 0;
-}
-.collage-item--1,
-.collage-item--4 {
-  grid-column: span 7;
-}
-.collage-item--2,
-.collage-item--3 {
-  grid-column: span 5;
-}
-.collage-item--2,
-.collage-item--4 {
-  padding-top: 52px;
-}
-.collage-item--featured {
-  grid-column: 1 / -1;
-  padding: 0 0 12px;
-}
-.collage-item--featured .collage-card {
-  display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  background: #dfe5d5;
-  border: 1px solid #bcc7ac;
-}
-.collage-item--featured .collage-preview {
-  aspect-ratio: 1.65;
-  border: 0;
-  border-right: 1px solid #bcc7ac;
-  border-radius: 0;
-}
-.collage-item--featured .collage-copy {
-  padding: 40px;
-  align-self: center;
-}
-.collage-item--featured .collage-caption {
-  margin: 0;
-}
-.collage-item--featured .collage-caption h3 {
-  font-size: clamp(38px, 4.5vw, 64px);
-  letter-spacing: -2px;
-  margin-top: 17px;
-}
-.collage-item--featured .collage-caption > svg {
-  display: none;
-}
-.featured-card-action {
   display: flex;
-  align-items: center;
-  gap: 22px;
-  margin-top: 30px;
-  font-size: 12px;
-  color: #5b684c;
-}
-.flagship-visual {
-  position: absolute;
-  inset: 0;
-  padding: 26px 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: #293322;
-  color: #e0e7d5;
-}
-.flagship-visual .visual-caption {
-  color: #d3ddc4;
-}
-.flagship-monogram {
-  font:
-    italic clamp(90px, 14vw, 190px)/0.85 Georgia,
-    serif;
-  letter-spacing: -16px;
-  align-self: center;
-}
-.flagship-monogram > span {
-  color: #d5a17b;
-}
-.flagship-signature {
-  font:
-    10px 'Courier New',
-    monospace;
-  letter-spacing: 5px;
-  align-self: flex-end;
-}
-.dialog-preview .flagship-monogram {
-  font-size: 140px;
 }
 .collage-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  padding: 0;
+  height: 100%;
+  min-height: 272px;
+  padding: 27px 29px 23px;
   text-align: left;
-  background: none;
-  border: 0;
-  border-radius: 2px;
-}
-.collage-preview {
-  position: relative;
-  aspect-ratio: 1.65;
-  overflow: hidden;
-  background: #dce0d3;
-  border: 1px solid #c8cebc;
+  background: #f2f3eb;
+  border: 1px solid #cdd3c1;
   border-radius: 3px;
-  isolation: isolate;
+  color: #2d3426;
   transition:
-    box-shadow 280ms ease,
-    transform 280ms ease;
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    background 220ms ease;
 }
-.collage-item--2 .collage-preview,
-.collage-item--3 .collage-preview {
-  aspect-ratio: 1.35;
-}
-.card-open {
-  position: absolute;
-  right: 17px;
-  top: 17px;
-  display: grid;
-  place-items: center;
-  width: 39px;
-  height: 39px;
-  border-radius: 50%;
-  background: #f5f4ee;
-  color: #283020;
-  z-index: 2;
-  box-shadow: 0 2px 8px #00000012;
-  transition:
-    transform 240ms ease,
-    background 240ms ease,
-    color 240ms ease;
-}
-.card-index {
-  position: absolute;
-  left: 15px;
-  bottom: 15px;
-  background: #f5f4ee;
-  color: #48503d;
-  padding: 6px 9px;
-  font:
-    10px 'Courier New',
-    monospace;
-  z-index: 2;
-}
-.collage-caption {
+.card-meta {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 19px;
+  gap: 14px;
+  min-height: 28px;
+  width: 100%;
+  font:
+    9px/1.6 'Courier New',
+    monospace;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #6c765f;
 }
-.collage-caption h3 {
-  font-size: 28px;
-  font-weight: 400;
-  letter-spacing: -0.8px;
-  margin-top: 6px;
+.card-index {
+  padding-right: 14px;
+  border-right: 1px solid #c8d0bb;
+  flex-shrink: 0;
 }
-.collage-caption > svg {
-  color: #8b927e;
+.card-category {
+  min-width: 0;
+}
+.card-open {
+  display: grid;
+  place-items: center;
+  align-self: flex-start;
+  margin-left: auto;
+  width: 28px;
+  height: 28px;
+  color: #788369;
+  flex-shrink: 0;
   transition:
-    transform 240ms ease,
-    color 240ms ease;
+    transform 220ms ease,
+    color 220ms ease;
+}
+.card-body {
+  padding: 28px 0;
+  flex: 1;
+}
+.card-body h3 {
+  font-size: 31px;
+  letter-spacing: -1px;
+  font-weight: 400;
+  line-height: 1.15;
 }
 .collage-summary {
   font-size: 13px;
-  line-height: 1.75;
-  color: #616a56;
-  max-width: 420px;
-  margin-top: 10px;
+  line-height: 1.8;
+  color: #68725b;
+  max-width: 430px;
+  margin-top: 14px;
 }
-.collage-stack {
-  display: block;
-  margin-top: 13px;
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding-top: 17px;
+  border-top: 1px solid #d8ddcf;
+  min-height: 44px;
+}
+.card-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.card-tools > span {
+  font:
+    9px/1.6 'Courier New',
+    monospace;
+  color: #6c765f;
+}
+.card-tools > span + span::before {
+  content: '/';
+  margin-right: 7px;
+  color: #a2ab96;
+}
+.card-details-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
   font:
     10px 'Courier New',
     monospace;
-  color: #69715e;
-  line-height: 1.7;
-}
-.screenshot-preview {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  background: #e4e5da;
-}
-.screenshot-preview img {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 120%;
-  max-width: none;
-  object-fit: cover;
-  object-position: center bottom;
-  transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
-  filter: saturate(0.72);
-}
-.workflow-preview {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 30px 9%;
-  background: #d5dccb;
-  color: #343e29;
-}
-.workflow-preview--platform {
-  background: #dedbd2;
-  color: #514535;
-}
-.visual-caption {
-  font:
-    8px 'Courier New',
-    monospace;
-  letter-spacing: 1.4px;
-  opacity: 0.7;
-}
-.visual-title {
-  font-size: clamp(32px, 4vw, 57px);
-  letter-spacing: -2.5px;
-  line-height: 1.2;
-  margin: 18px 0 25px;
-}
-.visual-title > span {
-  color: #a34125;
-}
-.visual-flow {
-  display: flex;
-  gap: 9px;
-}
-.visual-flow > div {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  flex: 1;
-  min-width: 0;
-}
-.visual-flow > div > span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border: 1px solid #9ca88d;
-  background: #f5f4ee55;
-  padding: 13px 6px;
-  flex: 1;
-  font:
-    10px 'Courier New',
-    monospace;
-}
-.visual-flow i {
-  display: block;
-  width: 5px;
-  height: 5px;
-  background: #778a60;
-  border-radius: 50%;
-}
-.visual-flow svg {
-  width: 13px;
+  color: #58644b;
   flex-shrink: 0;
-  opacity: 0.65;
 }
-.workflow-preview--platform .visual-flow > div > span {
-  border-color: #b2a895;
+.card-details-label svg {
+  transition: transform 220ms ease;
 }
-.workflow-preview--platform .visual-flow i {
-  background: #a57b57;
+.collage-item--featured {
+  grid-column: 1/-1;
 }
-.visual-caption--bottom {
-  margin-top: 28px;
-  font-size: 7px;
+.collage-item--featured .collage-card {
+  background: #293322;
+  color: #f1f3e9;
+  border-color: #293322;
+  min-height: 286px;
+  padding: 29px 36px 25px;
+}
+.collage-item--featured .card-meta {
+  color: #bcc9ab;
+}
+.collage-item--featured .card-index {
+  border-color: #59694b;
+}
+.collage-item--featured .card-open {
+  color: #d2a282;
+}
+.collage-item--featured .card-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 45px;
+  padding: 33px 0;
+}
+.collage-item--featured .card-body h3 {
+  font-size: clamp(45px, 5vw, 65px);
+  letter-spacing: -2px;
+}
+.collage-item--featured .collage-summary {
+  margin: 0;
+  color: #c2cdb3;
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 430px;
+}
+.collage-item--featured .card-footer {
+  border-color: #4f6043;
+  padding-top: 19px;
+}
+.collage-item--featured .card-tools > span {
+  color: #c2cdb3;
+}
+.collage-item--featured .card-tools > span + span::before {
+  color: #768768;
+}
+.collage-item--featured .card-details-label {
+  color: #e1b494;
+}
+.collage-card:focus-visible {
+  outline: 2px solid #b34325;
+  outline-offset: 5px;
+}
+.collage-card:active .card-open {
+  transform: scale(0.92);
 }
 .project-dialog {
   padding: 0;
   border: 1px solid #bfc5b4;
-  border-radius: 5px;
+  border-radius: 4px;
   background: #f5f4ee;
   color: #232620;
-  width: min(720px, calc(100% - 32px));
+  width: min(640px, calc(100% - 32px));
   max-height: calc(100dvh - 40px);
   margin: auto;
   overscroll-behavior: contain;
@@ -313,7 +211,8 @@
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  padding: 12px 18px;
+  padding: 15px 24px;
+  border-bottom: 1px solid #d4d8c9;
 }
 .project-dialog-top .micro-label {
   font-size: 9px;
@@ -331,28 +230,22 @@
 .dialog-close:hover {
   background: #e2e6d8;
 }
-.dialog-preview {
-  position: relative;
-  aspect-ratio: 2.1;
-  overflow: hidden;
-  border-block: 1px solid #d4d8c9;
-}
 .project-dialog-body {
-  padding: 30px 36px 36px;
+  padding: 35px 36px 38px;
 }
 .project-dialog-body .eyebrow {
-  margin-bottom: 13px;
+  margin-bottom: 16px;
 }
 .project-dialog-body > p {
   font-size: 15px;
   line-height: 1.85;
   color: #667059;
-  margin-top: 20px;
+  margin-top: 23px;
 }
 .dialog-tools {
   border-top: 1px solid #d4d8c9;
-  margin-top: 25px;
-  padding-top: 19px;
+  margin-top: 28px;
+  padding-top: 20px;
 }
 .dialog-tools p {
   font:
@@ -366,97 +259,63 @@
   display: flex;
   align-items: center;
   gap: 28px;
-  margin-top: 25px;
+  margin-top: 28px;
 }
 .dialog-links .primary-link {
   margin: 0;
   gap: 22px;
 }
-.project-dialog .visual-title {
-  font-size: 46px;
-  margin: 14px 0 20px;
-}
-.project-dialog .workflow-preview {
-  padding: 24px 12%;
-}
-.project-dialog .visual-caption--bottom {
-  margin-top: 18px;
-}
-.collage-card:active .card-open {
-  transform: scale(0.93);
-}
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .collage-card:hover .collage-preview {
-    transform: translateY(-5px);
-    box-shadow: 0 13px 24px #333d2412;
+  .collage-card:hover {
+    transform: translateY(-3px);
+    background: #f6f7ef;
+    border-color: #98a787;
+    box-shadow: 0 8px 20px #3546270a;
   }
-  .collage-card:hover .screenshot-preview img {
-    transform: scale(1.035);
+  .collage-item--featured .collage-card:hover {
+    background: #303d28;
+    border-color: #657d52;
   }
-  .collage-card:hover .card-open {
-    background: #b34325;
-    color: #fff;
-    transform: rotate(8deg);
-  }
-  .collage-card:hover .collage-caption > svg {
+  .collage-card:hover .card-open,
+  .collage-card:hover .card-details-label svg {
+    transform: translate(2px, -2px);
     color: #a34125;
-    transform: translate(3px, -3px);
   }
-}
-.collage-card:focus-visible .card-open {
-  background: #b34325;
-  color: #fff;
+  .collage-item--featured .collage-card:hover .card-open,
+  .collage-item--featured .collage-card:hover .card-details-label svg {
+    color: #e1b494;
+  }
 }
 @media (max-width: 900px) {
-  .project-collage {
-    gap: 30px 22px;
+  .collage-card {
+    padding: 23px;
+    min-height: 285px;
   }
-  .visual-flow > div > span {
-    font-size: 9px;
-    gap: 4px;
+  .card-body h3 {
+    font-size: 28px;
   }
-  .visual-flow,
-  .visual-flow > div {
-    gap: 5px;
+  .card-meta {
+    font-size: 8px;
+    gap: 10px;
   }
-  .visual-flow i {
-    display: none;
+  .card-index {
+    padding-right: 10px;
   }
-  .workflow-preview {
-    padding-inline: 7%;
+  .card-footer {
+    gap: 12px;
+    align-items: flex-end;
   }
-  .visual-caption {
-    font-size: 7px;
-    letter-spacing: 0.8px;
+  .card-tools {
+    max-width: 65%;
   }
-  .collage-caption h3 {
-    font-size: 25px;
+  .collage-item--featured .collage-card {
+    padding: 28px;
+  }
+  .collage-item--featured .card-body {
+    gap: 30px;
   }
 }
 @media (max-width: 650px) {
-  .collage-item--featured .collage-card {
-    grid-template-columns: 1fr;
-  }
-  .collage-item--featured .collage-preview {
-    border-right: 0;
-    border-bottom: 1px solid #bcc7ac;
-  }
-  .collage-item--featured .collage-copy {
-    padding: 25px;
-  }
-  .collage-item--featured .collage-caption h3 {
-    font-size: 42px;
-    margin-top: 10px;
-  }
-  .flagship-monogram {
-    font-size: 132px;
-  }
-  .flagship-visual {
-    padding: 23px;
-  }
-  .featured-card-action {
-    margin-top: 22px;
-  }
   .gallery-guide {
     font-size: 8px;
     align-items: start;
@@ -464,60 +323,58 @@
     gap: 24px;
   }
   .gallery-guide > span:last-child {
-    max-width: 160px;
+    max-width: 155px;
   }
   .project-collage {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 15px;
   }
-  .collage-item,
-  .collage-item--1,
-  .collage-item--2,
-  .collage-item--3,
-  .collage-item--4 {
-    grid-column: 1;
-    padding: 0;
+  .collage-card {
+    padding: 23px;
+    min-height: 260px;
   }
-  .collage-preview,
-  .collage-item--2 .collage-preview,
-  .collage-item--3 .collage-preview {
-    aspect-ratio: 1.55;
+  .card-body {
+    padding: 25px 0;
   }
-  .collage-caption {
-    margin-top: 16px;
+  .card-body h3 {
+    font-size: 29px;
   }
   .collage-summary {
     font-size: 13px;
   }
-  .collage-stack {
-    margin-top: 10px;
+  .card-category {
+    max-width: 225px;
   }
-  .card-open {
-    width: 35px;
-    height: 35px;
-    right: 12px;
-    top: 12px;
+  .card-footer {
+    padding-top: 17px;
   }
-  .visual-title {
-    font-size: 42px;
-    margin: 17px 0 21px;
+  .card-details-label {
+    font-size: 9px;
+    gap: 6px;
   }
-  .visual-caption {
-    font-size: 8px;
+  .collage-item--featured .collage-card {
+    padding: 25px;
+    min-height: 320px;
   }
-  .visual-caption--bottom {
-    font-size: 7px;
-    margin-top: 22px;
+  .collage-item--featured .card-body {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 26px 0;
   }
-  .visual-flow > div > span {
-    padding: 12px 5px;
-    font-size: 10px;
+  .collage-item--featured .card-body h3 {
+    font-size: 46px;
+  }
+  .collage-item--featured .collage-summary {
+    font-size: 14px;
+  }
+  .project-dialog-top {
+    padding: 13px 18px;
   }
   .project-dialog-body {
-    padding: 24px;
+    padding: 27px 24px 30px;
   }
   .project-dialog-body h2 {
-    font-size: 32px;
+    font-size: 33px;
   }
   .project-dialog-body > p {
     font-size: 14px;
@@ -525,17 +382,5 @@
   .dialog-links {
     gap: 22px;
     flex-wrap: wrap;
-  }
-  .dialog-preview {
-    aspect-ratio: 1.6;
-  }
-  .project-dialog .visual-title {
-    font-size: 36px;
-  }
-  .project-dialog .visual-caption {
-    font-size: 7px;
-  }
-  .project-dialog .workflow-preview {
-    padding-inline: 8%;
   }
 }
