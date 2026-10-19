@@ -235,7 +235,7 @@ export default function App() {
             <span className="hero-line">
               <span>
                 From the <span className="serif-word">inside</span> out
-                <span className="orange">.</span>
+                <span className="text-accent">.</span>
               </span>
             </span>
           </h1>
