@@ -40,10 +40,6 @@
 .eyebrow,
 .hero-meta,
 .hero-footnote,
-.project-category,
-.project-number,
-.project-stack,
-.project-table-heading,
 .focus-tools,
 .focus-selector button > span,
 .site-footer,
@@ -204,6 +200,7 @@
 }
 .section-heading {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 30px;
   align-items: end;
@@ -226,107 +223,6 @@ h2 {
   font-size: 14px;
   line-height: 1.7;
   color: var(--text-secondary);
-}
-.project-table-heading {
-  display: grid;
-  grid-template-columns: 1.8fr 1fr 100px;
-  gap: 35px;
-  font-size: 9px;
-  letter-spacing: 1px;
-  color: var(--text-secondary);
-  padding-bottom: 17px;
-  border-bottom: 1px solid var(--border);
-}
-.project-table-heading > span:last-child {
-  text-align: right;
-}
-.project {
-  padding: 29px 0 19px;
-  border-bottom: 1px solid var(--border);
-}
-.project-main {
-  display: grid;
-  grid-template-columns: 1.8fr 1fr 100px;
-  gap: 35px;
-  align-items: center;
-}
-.project-info {
-  display: flex;
-  gap: 24px;
-}
-.project-number {
-  font-size: 10px;
-  color: var(--text-secondary);
-  margin-top: 5px;
-}
-.project-category {
-  font-size: 9px;
-  letter-spacing: 0.7px;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-.project h3 {
-  font-weight: 500;
-  letter-spacing: -0.7px;
-  font-size: 27px;
-  margin: 8px 0;
-}
-.project-info p {
-  color: var(--text-secondary);
-  font-size: 13px;
-  line-height: 1.65;
-  max-width: 360px;
-}
-.project-stack {
-  font-size: 11px;
-  color: var(--text-secondary);
-  line-height: 1.9;
-  max-width: 205px;
-}
-.project-links {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: end;
-  font-size: 12px;
-}
-.project-links a {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.project-links a:hover {
-  color: var(--blue);
-}
-.project-details {
-  margin: 14px 0 0 39px;
-  font-size: 11px;
-  color: var(--text-secondary);
-  max-width: 680px;
-}
-.project-details summary {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  cursor: pointer;
-  width: fit-content;
-  list-style: none;
-  padding: 5px 0;
-}
-.project-details summary::-webkit-details-marker {
-  display: none;
-}
-.project-details summary > span {
-  font-size: 16px;
-}
-.project-details[open] summary > span {
-  transform: rotate(45deg);
-}
-.project-details > p {
-  font-size: 13px;
-  line-height: 1.8;
-  padding: 10px 0 6px;
-  max-width: 590px;
 }
 .text-link {
   display: inline-flex;
@@ -447,6 +343,7 @@ h2 {
   display: grid;
   grid-template-columns: 1fr 1.25fr;
   gap: 100px;
+  row-gap: 48px;
 }
 .about-intro .text-link {
   margin-top: 31px;
@@ -463,25 +360,6 @@ h2 {
   color: var(--navy);
   margin-bottom: 24px;
   letter-spacing: -0.3px;
-}
-.experience {
-  margin-top: 37px;
-}
-.experience > .micro-label {
-  display: block;
-  margin-bottom: 17px;
-}
-.experience > div {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  border-top: 1px solid var(--border);
-  padding: 16px 0;
-  font-size: 12px;
-}
-.experience > div > span:last-child {
-  color: var(--text-secondary);
-  text-align: right;
 }
 .contact-section {
   border-block: 1px solid var(--border);
@@ -602,17 +480,6 @@ h2 {
   .about-section {
     gap: 50px;
   }
-  .project-main,
-  .project-table-heading {
-    grid-template-columns: 1.8fr 0.8fr 75px;
-    gap: 20px;
-  }
-  .project-info {
-    gap: 16px;
-  }
-  .project-details {
-    margin-left: 31px;
-  }
   .contact-layout {
     grid-template-columns: 1fr 170px;
     gap: 35px;
@@ -732,50 +599,6 @@ h2 {
     font-size: 33px;
     letter-spacing: -1.2px;
   }
-  .project-table-heading {
-    display: none;
-  }
-  .project {
-    padding: 25px 0 18px;
-  }
-  .project:first-of-type {
-    border-top: 1px solid var(--border);
-  }
-  .project-main {
-    grid-template-columns: 1fr auto;
-    gap: 14px;
-  }
-  .project-info {
-    grid-column: 1/-1;
-    gap: 14px;
-  }
-  .project h3 {
-    font-size: 25px;
-  }
-  .project-info p {
-    font-size: 13px;
-    max-width: none;
-  }
-  .project-number {
-    font-size: 9px;
-  }
-  .project-stack {
-    margin-left: 26px;
-    font-size: 10px;
-    max-width: none;
-  }
-  .project-links {
-    flex-direction: row;
-    gap: 16px;
-    font-size: 11px;
-  }
-  .project-links a {
-    gap: 4px;
-  }
-  .project-details {
-    margin-left: 26px;
-    margin-top: 8px;
-  }
   .focus-section {
     padding: 52px 0;
   }
@@ -823,9 +646,6 @@ h2 {
   }
   .about-content > p.about-lead {
     font-size: 20px;
-  }
-  .experience > div {
-    font-size: 11px;
   }
   .contact-section {
     padding: 46px 0 42px;
