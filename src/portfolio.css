@@ -5,6 +5,20 @@
   font-weight: 500 600;
   font-display: swap;
 }
+@font-face {
+  font-family: 'Fraunces';
+  src: url('/fonts/fraunces-latin-normal.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fraunces';
+  src: url('/fonts/fraunces-latin-italic.woff2') format('woff2');
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+}
 .page-width {
   width: calc(100% - 112px);
   margin-inline: auto;
@@ -22,6 +36,7 @@
   z-index: 10;
 }
 .wordmark {
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
   font-weight: 700;
   font-size: 25px;
   letter-spacing: -1.6px;
@@ -106,24 +121,24 @@
   font-size: 18px;
 }
 .hero h1 {
-  font-family: 'Manrope', 'Segoe UI', Arial, sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: clamp(65px, 7.7vw, 108px);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.08;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.045em;
   margin-top: 62px;
 }
 .serif-word {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
 }
 .text-accent {
   color: var(--blue);
 }
 .hero .serif-word {
   font-family: inherit;
-  font-style: normal;
+  font-style: italic;
   font-weight: inherit;
   color: var(--blue);
 }
@@ -224,10 +239,15 @@
   margin-bottom: 22px;
 }
 h2 {
+  font-family: 'Fraunces', Georgia, serif;
   font-size: 42px;
   line-height: 1.1;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: -1.8px;
+}
+h3,
+h4 {
+  font-family: 'Manrope', 'Segoe UI', Arial, sans-serif;
 }
 .section-heading > p {
   font-size: 14px;
@@ -517,7 +537,7 @@ h2 {
   }
   .hero h1 {
     font-size: clamp(46px, 10vw, 65px);
-    letter-spacing: -0.05em;
+    letter-spacing: -0.04em;
     margin-top: 45px;
   }
   .hero-bottom {
