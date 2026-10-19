@@ -70,9 +70,6 @@
   font-size: 12px;
   min-height: 44px;
 }
-.menu-button {
-  display: none;
-}
 .skip-link {
   position: fixed;
   top: -90px;
@@ -496,42 +493,6 @@ h2 {
   }
   .wordmark {
     font-size: 23px;
-  }
-  .header-resume {
-    margin-left: auto;
-  }
-  .menu-button {
-    min-height: 44px;
-    min-width: 44px;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    background: none;
-    border: 0;
-    padding: 8px;
-  }
-  .menu-button svg {
-    width: 21px;
-    height: 21px;
-  }
-  .navigation {
-    display: none;
-    position: absolute;
-    top: 72px;
-    left: 0;
-    right: 0;
-    background: var(--page);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 20px 24px;
-  }
-  .navigation.is-open {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  .navigation a {
-    padding: 14px 0;
-    font-size: 14px;
   }
   .hero {
     padding-top: 28px;

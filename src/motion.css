@@ -188,9 +188,6 @@
   .site-footer a:hover {
     color: var(--blue);
   }
-  .navigation.is-open {
-    animation: panel-enter 180ms ease-out both;
-  }
   .primary-link,
   .dialog-close {
     transition:

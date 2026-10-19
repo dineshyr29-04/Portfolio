@@ -7,8 +7,6 @@ import {
   Check,
   Copy,
   Download,
-  Menu,
-  X,
 } from 'lucide-react';
 import './portfolio.css';
 import ProjectGallery from './components/ProjectGallery';
@@ -16,6 +14,7 @@ import TechnicalSkills from './components/TechnicalSkills';
 import Achievements from './components/Achievements';
 import Experience from './components/Experience';
 import PageMotion from './components/PageMotion';
+import MobileNavigation from './components/MobileNavigation';
 import useReveal from './hooks/useReveal';
 import './motion.css';
 
@@ -132,20 +131,11 @@ const focuses = [
 
 export default function App() {
   useReveal();
-  const [menuOpen, setMenuOpen] = useState(false);
   const [focus, setFocus] = useState(0);
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>(
     'idle'
   );
   const selected = focuses[focus];
-  useEffect(() => {
-    if (!menuOpen) return;
-    const close = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMenuOpen(false);
-    };
-    window.addEventListener('keydown', close);
-    return () => window.removeEventListener('keydown', close);
-  }, [menuOpen]);
   useEffect(() => {
     if (copyState === 'idle') return;
     const timer = window.setTimeout(() => setCopyState('idle'), 3000);
@@ -173,15 +163,11 @@ export default function App() {
         </a>
         <nav
           aria-label="Main navigation"
-          className={menuOpen ? 'navigation is-open' : 'navigation'}
+          className="navigation"
           id="navigation"
         >
           {navigation.map((item, i) => (
-            <a
-              href={`#${item.toLowerCase()}`}
-              key={item}
-              onClick={() => setMenuOpen(false)}
-            >
+            <a href={`#${item.toLowerCase()}`} key={item} data-section-link>
               <span>0{i + 1}</span> {item}
             </a>
           ))}
@@ -194,15 +180,7 @@ export default function App() {
         >
           Résumé <ArrowUpRight size={15} />
         </a>
-        <button
-          className="menu-button"
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-          aria-controls="navigation"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          {menuOpen ? <X /> : <Menu />}
-        </button>
+        <MobileNavigation items={navigation} />
       </header>
       <main id="main">
         <section
