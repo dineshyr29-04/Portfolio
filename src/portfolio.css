@@ -1,5 +1,5 @@
 .page-width {
-  width: min(1160px, calc(100% - 112px));
+  width: calc(100% - 112px);
   margin-inline: auto;
 }
 .site-header {
@@ -441,9 +441,6 @@ h2 {
   align-items: center;
 }
 @media (min-width: 1500px) {
-  .site-header {
-    padding-inline: max(56px, calc((100vw - 1320px) / 2));
-  }
   .hero {
     padding-top: 60px;
   }
