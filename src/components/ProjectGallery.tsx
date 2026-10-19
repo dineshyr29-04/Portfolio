@@ -44,12 +44,7 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
             data-reveal
             data-reveal-delay={(index % 2) * 70}
           >
-            <button
-              className="collage-card"
-              onClick={() => setActive(project)}
-              aria-label={`Explore ${project.name}`}
-              aria-haspopup="dialog"
-            >
+            <div className="collage-card">
               <span className="card-meta">
                 <span className="card-index">
                   {String(index + 1).padStart(2, '0')}
@@ -62,7 +57,12 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
               <div className="card-body">
                 <h3>{project.name}</h3>
                 {project.summary && (
-                  <p className="collage-summary">{project.summary}</p>
+                  <p
+                    className="collage-summary"
+                    id={`project-summary-${index}`}
+                  >
+                    {project.summary}
+                  </p>
                 )}
               </div>
               <span className="card-footer">
@@ -78,7 +78,17 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
                   View project <ArrowUpRight size={13} />
                 </span>
               </span>
-            </button>
+              <button
+                type="button"
+                className="card-hit-area"
+                onClick={() => setActive(project)}
+                aria-label={`Explore ${project.name}`}
+                aria-describedby={
+                  project.summary ? `project-summary-${index}` : undefined
+                }
+                aria-haspopup="dialog"
+              />
+            </div>
           </article>
         ))}
       </div>

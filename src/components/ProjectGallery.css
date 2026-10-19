@@ -3,12 +3,10 @@
   justify-content: space-between;
   gap: 20px;
   align-items: center;
-  border-top: 1px solid #bdc3b5;
+  border-top: 1px solid var(--border);
   padding: 18px 0 27px;
-  font:
-    10px 'Courier New',
-    monospace;
-  color: #636c58;
+  font: 10px var(--font-mono);
+  color: var(--muted);
   letter-spacing: 0.4px;
 }
 .gallery-guide > span:last-child {
@@ -26,22 +24,23 @@
   display: flex;
 }
 .collage-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
-  min-height: 272px;
+  min-height: 286px;
   padding: 27px 29px 23px;
   text-align: left;
-  background: #f2f3eb;
-  border: 1px solid #cdd3c1;
-  border-radius: 3px;
-  color: #2d3426;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--navy);
   transition:
-    transform 220ms ease,
-    border-color 220ms ease,
-    box-shadow 220ms ease,
-    background 220ms ease;
+    transform var(--motion-fast) var(--ease),
+    border-color var(--motion-fast) var(--ease),
+    box-shadow var(--motion-fast) var(--ease),
+    background var(--motion-fast) var(--ease);
 }
 .card-meta {
   display: flex;
@@ -49,16 +48,14 @@
   gap: 14px;
   min-height: 28px;
   width: 100%;
-  font:
-    9px/1.6 'Courier New',
-    monospace;
+  font: 11px/1.6 var(--font-mono);
   letter-spacing: 0.6px;
   text-transform: uppercase;
-  color: #6c765f;
+  color: var(--muted);
 }
 .card-index {
   padding-right: 14px;
-  border-right: 1px solid #c8d0bb;
+  border-right: 1px solid var(--border);
   flex-shrink: 0;
 }
 .card-category {
@@ -71,7 +68,7 @@
   margin-left: auto;
   width: 28px;
   height: 28px;
-  color: #788369;
+  color: var(--muted);
   flex-shrink: 0;
   transition:
     transform 220ms ease,
@@ -82,25 +79,26 @@
   flex: 1;
 }
 .card-body h3 {
-  font-size: 31px;
+  font-size: 32px;
   letter-spacing: -1px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.15;
 }
 .collage-summary {
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.8;
-  color: #68725b;
+  color: var(--muted);
   max-width: 430px;
   margin-top: 14px;
 }
 .card-footer {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
   padding-top: 17px;
-  border-top: 1px solid #d8ddcf;
+  border-top: 1px solid var(--border);
   min-height: 44px;
 }
 .card-tools {
@@ -109,25 +107,21 @@
   gap: 7px;
 }
 .card-tools > span {
-  font:
-    9px/1.6 'Courier New',
-    monospace;
-  color: #6c765f;
+  font: 11px/1.6 var(--font-mono);
+  color: var(--muted);
 }
 .card-tools > span + span::before {
   content: '/';
   margin-right: 7px;
-  color: #a2ab96;
+  color: var(--muted);
 }
 .card-details-label {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   white-space: nowrap;
-  font:
-    10px 'Courier New',
-    monospace;
-  color: #58644b;
+  font: 11px var(--font-mono);
+  color: var(--muted);
   flex-shrink: 0;
 }
 .card-details-label svg {
@@ -137,20 +131,20 @@
   grid-column: 1/-1;
 }
 .collage-item--featured .collage-card {
-  background: #293322;
-  color: #f1f3e9;
-  border-color: #293322;
+  background: var(--navy);
+  color: var(--on-dark);
+  border-color: var(--navy);
   min-height: 286px;
   padding: 29px 36px 25px;
 }
 .collage-item--featured .card-meta {
-  color: #bcc9ab;
+  color: var(--muted-on-dark);
 }
 .collage-item--featured .card-index {
-  border-color: #59694b;
+  border-color: var(--border-on-dark);
 }
 .collage-item--featured .card-open {
-  color: #d2a282;
+  color: var(--accent-on-dark);
 }
 .collage-item--featured .card-body {
   display: grid;
@@ -165,45 +159,59 @@
 }
 .collage-item--featured .collage-summary {
   margin: 0;
-  color: #c2cdb3;
+  color: var(--muted-on-dark);
   font-size: 15px;
   line-height: 1.8;
   max-width: 430px;
 }
 .collage-item--featured .card-footer {
-  border-color: #4f6043;
+  border-color: var(--border-on-dark);
   padding-top: 19px;
 }
 .collage-item--featured .card-tools > span {
-  color: #c2cdb3;
+  color: var(--muted-on-dark);
 }
 .collage-item--featured .card-tools > span + span::before {
-  color: #768768;
+  color: var(--muted-on-dark);
 }
 .collage-item--featured .card-details-label {
-  color: #e1b494;
+  color: var(--accent-on-dark);
 }
-.collage-card:focus-visible {
-  outline: 2px solid #b34325;
+.card-hit-area {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: inherit;
+  padding: 0;
+  background: transparent;
+  z-index: 1;
+}
+.card-hit-area:focus-visible {
+  outline: 2px solid var(--blue);
   outline-offset: 5px;
+}
+.collage-card:focus-within {
+  border-color: var(--blue);
 }
 .collage-card:active .card-open {
   transform: scale(0.92);
 }
 .project-dialog {
   padding: 0;
-  border: 1px solid #bfc5b4;
+  border: 1px solid var(--border);
   border-radius: 4px;
-  background: #f5f4ee;
-  color: #232620;
+  background: var(--surface);
+  color: var(--navy);
   width: min(640px, calc(100% - 32px));
   max-height: calc(100dvh - 40px);
   margin: auto;
   overscroll-behavior: contain;
-  box-shadow: 0 30px 100px #10150d33;
+  box-shadow: 0 30px 100px var(--dialog-shadow);
 }
 .project-dialog::backdrop {
-  background: #1a211acc;
+  background: var(--dialog-backdrop);
   backdrop-filter: blur(5px);
 }
 .project-dialog-top {
@@ -212,7 +220,7 @@
   align-items: center;
   gap: 20px;
   padding: 15px 24px;
-  border-bottom: 1px solid #d4d8c9;
+  border-bottom: 1px solid var(--border);
 }
 .project-dialog-top .micro-label {
   font-size: 9px;
@@ -221,14 +229,14 @@
 .dialog-close {
   display: grid;
   place-items: center;
-  border: 1px solid #d4d8c9;
+  border: 1px solid var(--border);
   background: none;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
 }
 .dialog-close:hover {
-  background: #e2e6d8;
+  background: var(--light-blue);
 }
 .project-dialog-body {
   padding: 35px 36px 38px;
@@ -239,19 +247,17 @@
 .project-dialog-body > p {
   font-size: 15px;
   line-height: 1.85;
-  color: #667059;
+  color: var(--muted);
   margin-top: 23px;
 }
 .dialog-tools {
-  border-top: 1px solid #d4d8c9;
+  border-top: 1px solid var(--border);
   margin-top: 28px;
   padding-top: 20px;
 }
 .dialog-tools p {
-  font:
-    12px 'Courier New',
-    monospace;
-  color: #48533d;
+  font: 12px var(--font-mono);
+  color: var(--navy);
   line-height: 1.8;
   margin-top: 9px;
 }
@@ -265,25 +271,34 @@
   margin: 0;
   gap: 22px;
 }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+@media (hover: hover) {
   .collage-card:hover {
-    transform: translateY(-3px);
-    background: #f6f7ef;
-    border-color: #98a787;
-    box-shadow: 0 8px 20px #3546270a;
-  }
-  .collage-item--featured .collage-card:hover {
-    background: #303d28;
-    border-color: #657d52;
+    border-color: var(--blue);
   }
   .collage-card:hover .card-open,
   .collage-card:hover .card-details-label svg {
-    transform: translate(2px, -2px);
-    color: #a34125;
+    color: var(--blue);
+  }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .collage-card:hover {
+    transform: translateY(-4px);
+    background: var(--surface);
+    border-color: var(--blue);
+    box-shadow: 0 8px 20px var(--card-shadow);
+  }
+  .collage-item--featured .collage-card:hover {
+    background: var(--navy-hover);
+    border-color: var(--blue);
+  }
+  .collage-card:hover .card-open,
+  .collage-card:hover .card-details-label svg {
+    transform: translate(3px, -3px);
+    color: var(--blue);
   }
   .collage-item--featured .collage-card:hover .card-open,
   .collage-item--featured .collage-card:hover .card-details-label svg {
-    color: #e1b494;
+    color: var(--accent-on-dark);
   }
 }
 @media (max-width: 900px) {
@@ -295,7 +310,7 @@
     font-size: 28px;
   }
   .card-meta {
-    font-size: 8px;
+    font-size: 10px;
     gap: 10px;
   }
   .card-index {
@@ -306,7 +321,7 @@
     align-items: flex-end;
   }
   .card-tools {
-    max-width: 65%;
+    min-width: 0;
   }
   .collage-item--featured .collage-card {
     padding: 28px;
@@ -340,7 +355,7 @@
     font-size: 29px;
   }
   .collage-summary {
-    font-size: 13px;
+    font-size: 14px;
   }
   .card-category {
     max-width: 225px;
@@ -349,7 +364,7 @@
     padding-top: 17px;
   }
   .card-details-label {
-    font-size: 9px;
+    font-size: 10px;
     gap: 6px;
   }
   .collage-item--featured .collage-card {
