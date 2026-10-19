@@ -1,8 +1,32 @@
 @import 'tailwindcss';
 :root {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #232620;
-  background: #f5f4ee;
+  --blue: #2563eb;
+  --blue-hover: #1d4ed8;
+  --navy: #0b1736;
+  --navy-hover: #12264e;
+  --page: #f5f8ff;
+  --surface: #ffffff;
+  --light-blue: #dbeafe;
+  --muted: #64748b;
+  /* Slightly stronger for small text on the tinted page background. */
+  --text-secondary: #627289;
+  --border: #dce5f2;
+  --on-dark: #ffffff;
+  --muted-on-dark: #c4d1e8;
+  --accent-on-dark: #93c5fd;
+  --border-on-dark: #30456b;
+  --header-surface: rgba(245, 248, 255, 0.96);
+  --dialog-shadow: rgba(11, 23, 54, 0.2);
+  --dialog-backdrop: rgba(11, 23, 54, 0.72);
+  --card-shadow: rgba(37, 99, 235, 0.07);
+  --font-sans: 'Segoe UI', Arial, Helvetica, sans-serif;
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  --ease: cubic-bezier(0.2, 0.65, 0.3, 1);
+  --motion-fast: 220ms;
+  color-scheme: light;
+  font-family: var(--font-sans);
+  color: var(--navy);
+  background: var(--page);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -14,6 +38,7 @@
   box-sizing: border-box;
 }
 html {
+  scrollbar-gutter: stable;
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
 }
@@ -40,6 +65,10 @@ summary {
 button {
   cursor: pointer;
 }
+button,
+a {
+  scroll-margin-block: 100px;
+}
 h1,
 h2,
 h3,
@@ -50,12 +79,12 @@ button:focus-visible,
 a:focus-visible,
 summary:focus-visible,
 [tabindex]:focus-visible {
-  outline: 2px solid #b34325;
+  outline: 2px solid var(--blue);
   outline-offset: 6px;
 }
 ::selection {
-  background: #e9c7b5;
-  color: #232620;
+  background: var(--light-blue);
+  color: var(--navy);
 }
 svg {
   flex-shrink: 0;
