@@ -1,0 +1,446 @@
+.gallery-guide {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  border-top: 1px solid #bdc3b5;
+  padding: 18px 0 28px;
+  font:
+    10px 'Courier New',
+    monospace;
+  color: #636c58;
+  letter-spacing: 0.4px;
+}
+.gallery-guide > span:last-child {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.project-collage {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 38px 28px;
+}
+.collage-item {
+  grid-column: span 6;
+  min-width: 0;
+}
+.collage-item--1,
+.collage-item--4 {
+  grid-column: span 7;
+}
+.collage-item--2,
+.collage-item--3 {
+  grid-column: span 5;
+}
+.collage-item--2,
+.collage-item--4 {
+  padding-top: 52px;
+}
+.collage-card {
+  display: block;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-radius: 2px;
+}
+.collage-preview {
+  position: relative;
+  aspect-ratio: 1.65;
+  overflow: hidden;
+  background: #dce0d3;
+  border: 1px solid #c8cebc;
+  border-radius: 3px;
+  isolation: isolate;
+  transition:
+    box-shadow 280ms ease,
+    transform 280ms ease;
+}
+.collage-item--2 .collage-preview,
+.collage-item--3 .collage-preview {
+  aspect-ratio: 1.35;
+}
+.card-open {
+  position: absolute;
+  right: 17px;
+  top: 17px;
+  display: grid;
+  place-items: center;
+  width: 39px;
+  height: 39px;
+  border-radius: 50%;
+  background: #f5f4ee;
+  color: #283020;
+  z-index: 2;
+  box-shadow: 0 2px 8px #00000012;
+  transition:
+    transform 240ms ease,
+    background 240ms ease,
+    color 240ms ease;
+}
+.card-index {
+  position: absolute;
+  left: 15px;
+  bottom: 15px;
+  background: #f5f4ee;
+  color: #48503d;
+  padding: 6px 9px;
+  font:
+    10px 'Courier New',
+    monospace;
+  z-index: 2;
+}
+.collage-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 19px;
+}
+.collage-caption h3 {
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.8px;
+  margin-top: 6px;
+}
+.collage-caption > svg {
+  color: #8b927e;
+  transition:
+    transform 240ms ease,
+    color 240ms ease;
+}
+.collage-summary {
+  font-size: 13px;
+  line-height: 1.75;
+  color: #616a56;
+  max-width: 420px;
+  margin-top: 10px;
+}
+.collage-stack {
+  display: block;
+  margin-top: 13px;
+  font:
+    10px 'Courier New',
+    monospace;
+  color: #69715e;
+  line-height: 1.7;
+}
+.screenshot-preview {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #e4e5da;
+}
+.screenshot-preview img {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 120%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center bottom;
+  transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  filter: saturate(0.72);
+}
+.workflow-preview {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px 9%;
+  background: #d5dccb;
+  color: #343e29;
+}
+.workflow-preview--platform {
+  background: #dedbd2;
+  color: #514535;
+}
+.visual-caption {
+  font:
+    8px 'Courier New',
+    monospace;
+  letter-spacing: 1.4px;
+  opacity: 0.7;
+}
+.visual-title {
+  font-size: clamp(32px, 4vw, 57px);
+  letter-spacing: -2.5px;
+  line-height: 1.2;
+  margin: 18px 0 25px;
+}
+.visual-title > span {
+  color: #a34125;
+}
+.visual-flow {
+  display: flex;
+  gap: 9px;
+}
+.visual-flow > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex: 1;
+  min-width: 0;
+}
+.visual-flow > div > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #9ca88d;
+  background: #f5f4ee55;
+  padding: 13px 6px;
+  flex: 1;
+  font:
+    10px 'Courier New',
+    monospace;
+}
+.visual-flow i {
+  display: block;
+  width: 5px;
+  height: 5px;
+  background: #778a60;
+  border-radius: 50%;
+}
+.visual-flow svg {
+  width: 13px;
+  flex-shrink: 0;
+  opacity: 0.65;
+}
+.workflow-preview--platform .visual-flow > div > span {
+  border-color: #b2a895;
+}
+.workflow-preview--platform .visual-flow i {
+  background: #a57b57;
+}
+.visual-caption--bottom {
+  margin-top: 28px;
+  font-size: 7px;
+}
+.project-dialog {
+  padding: 0;
+  border: 1px solid #bfc5b4;
+  border-radius: 5px;
+  background: #f5f4ee;
+  color: #232620;
+  width: min(720px, calc(100% - 32px));
+  max-height: calc(100dvh - 40px);
+  margin: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 30px 100px #10150d33;
+}
+.project-dialog::backdrop {
+  background: #1a211acc;
+  backdrop-filter: blur(5px);
+}
+.project-dialog-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 18px;
+}
+.project-dialog-top .micro-label {
+  font-size: 9px;
+  line-height: 1.7;
+}
+.dialog-close {
+  display: grid;
+  place-items: center;
+  border: 1px solid #d4d8c9;
+  background: none;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+.dialog-close:hover {
+  background: #e2e6d8;
+}
+.dialog-preview {
+  position: relative;
+  aspect-ratio: 2.1;
+  overflow: hidden;
+  border-block: 1px solid #d4d8c9;
+}
+.project-dialog-body {
+  padding: 30px 36px 36px;
+}
+.project-dialog-body .eyebrow {
+  margin-bottom: 13px;
+}
+.project-dialog-body > p {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #667059;
+  margin-top: 20px;
+}
+.dialog-tools {
+  border-top: 1px solid #d4d8c9;
+  margin-top: 25px;
+  padding-top: 19px;
+}
+.dialog-tools p {
+  font:
+    12px 'Courier New',
+    monospace;
+  color: #48533d;
+  line-height: 1.8;
+  margin-top: 9px;
+}
+.dialog-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 25px;
+}
+.dialog-links .primary-link {
+  margin: 0;
+  gap: 22px;
+}
+.project-dialog .visual-title {
+  font-size: 46px;
+  margin: 14px 0 20px;
+}
+.project-dialog .workflow-preview {
+  padding: 24px 12%;
+}
+.project-dialog .visual-caption--bottom {
+  margin-top: 18px;
+}
+.collage-card:active .card-open {
+  transform: scale(0.93);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .collage-card:hover .collage-preview {
+    transform: translateY(-5px);
+    box-shadow: 0 13px 24px #333d2412;
+  }
+  .collage-card:hover .screenshot-preview img {
+    transform: scale(1.035);
+  }
+  .collage-card:hover .card-open {
+    background: #b34325;
+    color: #fff;
+    transform: rotate(8deg);
+  }
+  .collage-card:hover .collage-caption > svg {
+    color: #a34125;
+    transform: translate(3px, -3px);
+  }
+}
+.collage-card:focus-visible .card-open {
+  background: #b34325;
+  color: #fff;
+}
+@media (max-width: 900px) {
+  .project-collage {
+    gap: 30px 22px;
+  }
+  .visual-flow > div > span {
+    font-size: 9px;
+    gap: 4px;
+  }
+  .visual-flow,
+  .visual-flow > div {
+    gap: 5px;
+  }
+  .visual-flow i {
+    display: none;
+  }
+  .workflow-preview {
+    padding-inline: 7%;
+  }
+  .visual-caption {
+    font-size: 7px;
+    letter-spacing: 0.8px;
+  }
+  .collage-caption h3 {
+    font-size: 25px;
+  }
+}
+@media (max-width: 650px) {
+  .gallery-guide {
+    font-size: 8px;
+    align-items: start;
+    line-height: 1.8;
+    gap: 24px;
+  }
+  .gallery-guide > span:last-child {
+    max-width: 160px;
+  }
+  .project-collage {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .collage-item,
+  .collage-item--1,
+  .collage-item--2,
+  .collage-item--3,
+  .collage-item--4 {
+    grid-column: 1;
+    padding: 0;
+  }
+  .collage-preview,
+  .collage-item--2 .collage-preview,
+  .collage-item--3 .collage-preview {
+    aspect-ratio: 1.55;
+  }
+  .collage-caption {
+    margin-top: 16px;
+  }
+  .collage-summary {
+    font-size: 13px;
+  }
+  .collage-stack {
+    margin-top: 10px;
+  }
+  .card-open {
+    width: 35px;
+    height: 35px;
+    right: 12px;
+    top: 12px;
+  }
+  .visual-title {
+    font-size: 42px;
+    margin: 17px 0 21px;
+  }
+  .visual-caption {
+    font-size: 8px;
+  }
+  .visual-caption--bottom {
+    font-size: 7px;
+    margin-top: 22px;
+  }
+  .visual-flow > div > span {
+    padding: 12px 5px;
+    font-size: 10px;
+  }
+  .project-dialog-body {
+    padding: 24px;
+  }
+  .project-dialog-body h2 {
+    font-size: 32px;
+  }
+  .project-dialog-body > p {
+    font-size: 14px;
+  }
+  .dialog-links {
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  .dialog-preview {
+    aspect-ratio: 1.6;
+  }
+  .project-dialog .visual-title {
+    font-size: 36px;
+  }
+  .project-dialog .visual-caption {
+    font-size: 7px;
+  }
+  .project-dialog .workflow-preview {
+    padding-inline: 8%;
+  }
+}

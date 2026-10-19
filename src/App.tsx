@@ -11,6 +11,7 @@ import {
   X,
 } from 'lucide-react';
 import './portfolio.css';
+import ProjectGallery from './components/ProjectGallery';
 
 const github = 'https://github.com/dineshyr29-04';
 const email = 'dineshyr2904@gmail.com';
@@ -257,56 +258,7 @@ export default function App() {
                 <br />A look at what I’ve been working on.
               </p>
             </div>
-            <div className="project-table-heading">
-              <span>PROJECT / CONTEXT</span>
-              <span>TOOLS & TECHNOLOGIES</span>
-              <span>EXPLORE</span>
-            </div>
-            {projects.map((project, index) => (
-              <article className="project" key={project.name}>
-                <div className="project-main">
-                  <div className="project-info">
-                    <span className="project-number">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <div>
-                      <span className="project-category">
-                        {project.category}
-                      </span>
-                      <h3>{project.name}</h3>
-                      <p>{project.summary}</p>
-                    </div>
-                  </div>
-                  <p className="project-stack">{project.stack}</p>
-                  <div className="project-links">
-                    <a
-                      href={project.source}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`${project.name} source on GitHub`}
-                    >
-                      Source <ArrowUpRight size={14} />
-                    </a>
-                    {project.live && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={`Visit ${project.name}`}
-                      >
-                        Live <ArrowUpRight size={14} />
-                      </a>
-                    )}
-                  </div>
-                </div>
-                <details className="project-details">
-                  <summary>
-                    Project context <span>+</span>
-                  </summary>
-                  <p>{project.detail}</p>
-                </details>
-              </article>
-            ))}
+            <ProjectGallery projects={projects} />
             <a
               className="text-link repository-link"
               href={github}
@@ -411,8 +363,7 @@ export default function App() {
           <div className="about-intro">
             <span className="eyebrow">03 / THE PERSON</span>
             <h2 id="about-title">
-              Curious about{' '}
-              <br />
+              Curious about <br />
               the whole stack.
             </h2>
             <a
