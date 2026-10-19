@@ -13,6 +13,8 @@ import {
 import './portfolio.css';
 import ProjectGallery from './components/ProjectGallery';
 import TechnicalSkills from './components/TechnicalSkills';
+import useReveal from './hooks/useReveal';
+import './motion.css';
 
 const github = 'https://github.com/dineshyr29-04';
 const email = 'dineshyr2904@gmail.com';
@@ -119,6 +121,7 @@ const focuses = [
 ];
 
 export default function App() {
+  useReveal();
   const [menuOpen, setMenuOpen] = useState(false);
   const [focus, setFocus] = useState(0);
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>(
@@ -249,7 +252,7 @@ export default function App() {
           aria-labelledby="work-title"
         >
           <div className="page-width">
-            <div className="section-heading">
+            <div className="section-heading" data-reveal>
               <div>
                 <span className="eyebrow">01 / SELECTED WORK</span>
                 <h2 id="work-title">Built to do something.</h2>
@@ -276,7 +279,7 @@ export default function App() {
           aria-labelledby="focus-title"
         >
           <div className="page-width">
-            <div className="section-heading">
+            <div className="section-heading" data-reveal>
               <div>
                 <span className="eyebrow">02 / ENGINEERING FOCUS</span>
                 <h2 id="focus-title">Below the surface.</h2>
@@ -330,6 +333,7 @@ export default function App() {
                 ))}
               </div>
               <div
+                key={selected.number}
                 className="focus-panel"
                 id="focus-panel"
                 role="tabpanel"
@@ -362,7 +366,7 @@ export default function App() {
           className="about-section page-width"
           aria-labelledby="about-title"
         >
-          <div className="about-intro">
+          <div className="about-intro" data-reveal>
             <span className="eyebrow">04 / THE PERSON</span>
             <h2 id="about-title">
               Curious about <br />
@@ -376,7 +380,7 @@ export default function App() {
               Download résumé <Download size={15} />
             </a>
           </div>
-          <div className="about-content">
+          <div className="about-content" data-reveal data-reveal-delay="60">
             <p className="about-lead">
               I like taking things apart, understanding the pieces, and putting
               them back together with a clearer idea of why they work.
@@ -412,7 +416,7 @@ export default function App() {
         >
           <div className="page-width">
             <span className="eyebrow">05 / GET IN TOUCH</span>
-            <div className="contact-layout">
+            <div className="contact-layout" data-reveal>
               <div>
                 <h2 id="contact-title">
                   Something worth
