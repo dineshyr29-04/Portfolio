@@ -15,6 +15,7 @@ import ProjectGallery from './components/ProjectGallery';
 import TechnicalSkills from './components/TechnicalSkills';
 import Community from './components/Community';
 import Experience from './components/Experience';
+import PageMotion from './components/PageMotion';
 import useReveal from './hooks/useReveal';
 import './motion.css';
 
@@ -173,6 +174,7 @@ export default function App() {
   return (
     <>
       <Analytics />
+      <PageMotion />
       <a className="skip-link" href="#main">
         Skip to content
       </a>
@@ -227,10 +229,15 @@ export default function App() {
             </span>
           </div>
           <h1 id="intro-title">
-            Good software.
-            <br />
-            From the <span className="serif-word">inside</span> out
-            <span className="orange">.</span>
+            <span className="hero-line">
+              <span>Good software.</span>
+            </span>
+            <span className="hero-line">
+              <span>
+                From the <span className="serif-word">inside</span> out
+                <span className="orange">.</span>
+              </span>
+            </span>
           </h1>
           <div className="hero-bottom">
             <div className="hero-description">

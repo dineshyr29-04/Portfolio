@@ -1,0 +1,51 @@
+.reading-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 2px;
+  background: #b34325;
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 100;
+  pointer-events: none;
+}
+.navigation a {
+  position: relative;
+}
+.navigation a::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #b34325;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 240ms ease;
+}
+.navigation a[aria-current='location'] {
+  color: #a34125;
+}
+.navigation a[aria-current='location']::after,
+.navigation a:hover::after,
+.navigation a:focus-visible::after {
+  transform: scaleX(1);
+}
+@media (max-width: 650px) {
+  .navigation a::after {
+    bottom: 8px;
+    right: auto;
+    width: 24px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .navigation a::after {
+    transition: none;
+  }
+}
+.site-header {
+  position: sticky;
+  top: 0;
+  background: #f5f4eef5;
+  backdrop-filter: blur(12px);
+}

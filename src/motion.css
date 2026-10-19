@@ -1,4 +1,59 @@
-/* Short, one-time entrances. No continuous background animation. */
+/* One-time entrances and lightweight feedback; content is visible by default. */
+.hero-line {
+  display: block;
+  overflow: clip;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.hero-line > span {
+  display: block;
+}
+@keyframes line-enter {
+  from {
+    opacity: 0;
+    transform: translateY(105%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes index-enter {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes rule-enter {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes dialog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes backdrop-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 @keyframes enter-softly {
   from {
     opacity: 0;
@@ -20,20 +75,118 @@
   }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .hero h1 {
-    animation: enter-softly 650ms cubic-bezier(0.2, 0.65, 0.3, 1) both;
+  .hero-line > span {
+    animation: line-enter 850ms cubic-bezier(0.16, 0.75, 0.25, 1) both;
+  }
+  .hero-line:nth-child(2) > span {
+    animation-delay: 110ms;
+  }
+  .hero-meta {
+    animation: enter-softly 500ms ease-out both;
   }
   .hero-description {
     animation: enter-softly 600ms 100ms cubic-bezier(0.2, 0.65, 0.3, 1) both;
   }
-  .hero-index {
-    animation: enter-softly 600ms 180ms cubic-bezier(0.2, 0.65, 0.3, 1) both;
+  .hero-index > .micro-label {
+    animation: enter-softly 500ms 200ms ease-out both;
+  }
+  .hero-index > a {
+    animation: index-enter 600ms 230ms cubic-bezier(0.2, 0.65, 0.3, 1) both;
+  }
+  .hero-index > a:nth-of-type(2) {
+    animation-delay: 300ms;
+  }
+  .hero-index > a:nth-of-type(3) {
+    animation-delay: 370ms;
+  }
+  .hero-footnote {
+    position: relative;
+    border-top-color: transparent;
+  }
+  .hero-footnote::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #d9dad1;
+    transform-origin: left;
+    animation: rule-enter 900ms 250ms cubic-bezier(0.2, 0.65, 0.3, 1) both;
   }
   .focus-panel {
     animation: panel-enter 260ms ease-out both;
   }
   .project-dialog[open] {
-    animation: enter-softly 250ms cubic-bezier(0.2, 0.65, 0.3, 1) both;
+    animation: dialog-enter 280ms cubic-bezier(0.2, 0.65, 0.3, 1) both;
+  }
+  .project-dialog[open]::backdrop {
+    animation: backdrop-enter 220ms ease-out both;
+  }
+  .career-role {
+    border-left-color: transparent;
+  }
+  .career-role::after {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #cbd3bf;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 850ms 120ms cubic-bezier(0.2, 0.65, 0.3, 1);
+  }
+  .career-entry[data-revealed='true'] .career-role::after {
+    transform: scaleY(1);
+  }
+  .language-item {
+    transition: background 220ms ease;
+  }
+  .language-item h3 {
+    transition:
+      transform 240ms ease,
+      color 240ms ease;
+  }
+  .toolset li {
+    transition:
+      transform 200ms ease,
+      border-color 200ms ease,
+      background 200ms ease,
+      color 200ms ease;
+  }
+  .contact-email {
+    position: relative;
+  }
+  .contact-email::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #a34125;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 350ms ease;
+  }
+  .contact-email:hover::after,
+  .contact-email:focus-visible::after {
+    transform: scaleX(1);
+  }
+  .contact-email svg {
+    transition: transform 250ms ease;
+  }
+  .achievement-list li,
+  .club-role {
+    transition: border-color 220ms ease;
+  }
+  .site-footer a {
+    transition: color 200ms ease;
+  }
+  .site-footer a:hover {
+    color: #a34125;
   }
   .navigation.is-open {
     animation: panel-enter 180ms ease-out both;
@@ -65,6 +218,23 @@
     transform: scale(0.98);
   }
   @media (hover: hover) {
+    .language-item:hover {
+      background: #e7ebde66;
+    }
+    .language-item:hover h3 {
+      transform: translateY(-3px);
+      color: #9d4329;
+    }
+    .toolset li:hover {
+      transform: translateY(-2px);
+    }
+    .contact-email:hover svg {
+      transform: translate(3px, -3px);
+    }
+    .achievement-list li:hover,
+    .club-role:hover {
+      border-color: #8c9c7b;
+    }
     .primary-link:hover svg {
       transform: translateY(2px);
     }
