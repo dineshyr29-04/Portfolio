@@ -12,14 +12,15 @@ export default function useReveal() {
           if (!entry.isIntersecting) return;
           observer.unobserve(entry.target);
           const element = entry.target as HTMLElement;
+          element.dataset.revealed = 'true';
           if (motion.matches || !element.animate) return;
           const animation = element.animate(
             [
-              { opacity: 0, transform: 'translateY(14px)' },
+              { opacity: 0, transform: 'translateY(20px)' },
               { opacity: 1, transform: 'translateY(0)' },
             ],
             {
-              duration: 520,
+              duration: 650,
               delay: Number(element.dataset.revealDelay || 0),
               easing: 'cubic-bezier(0.2, 0.65, 0.3, 1)',
               fill: 'backwards',

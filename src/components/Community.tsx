@@ -58,16 +58,20 @@ export default function Community() {
           </p>
         </div>
         <div className="community-layout">
-          <div className="hackathon-note" data-reveal>
+          <div className="hackathon-note">
             <span className="micro-label">HACKATHONS</span>
-            <h3>
+            <h3 data-reveal>
               Hackathons &amp;
               <br />
               <span className="serif-word">achievements.</span>
             </h3>
             <ul className="achievement-list">
-              {achievements.map(item => (
-                <li key={item.title}>
+              {achievements.map((item, index) => (
+                <li
+                  key={item.title}
+                  data-reveal
+                  data-reveal-delay={(index % 3) * 65}
+                >
                   <h4>{item.title}</h4>
                   <p>{item.detail}</p>
                 </li>
@@ -77,10 +81,15 @@ export default function Community() {
               Explore the projects <ArrowUpRight size={16} />
             </a>
           </div>
-          <div className="club-roles" data-reveal data-reveal-delay="60">
+          <div className="club-roles">
             <span className="micro-label">CLUB LEADERSHIP</span>
             {roles.map((item, index) => (
-              <div className="club-role" key={item.club}>
+              <div
+                className="club-role"
+                key={item.club}
+                data-reveal
+                data-reveal-delay={index * 75}
+              >
                 <span className="club-index">0{index + 1}</span>
                 <div>
                   <h3>{item.club}</h3>
