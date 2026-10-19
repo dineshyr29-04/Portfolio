@@ -14,7 +14,6 @@ const roles = [
     description:
       'Leading web development activities, website projects, and technical collaboration.',
   },
-  { club: 'AWS Cloud Club', role: 'Tech Relationship Head', description: '' },
 ];
 const achievements = [
   {
@@ -49,7 +48,7 @@ export default function Community() {
       <div className="page-width">
         <div className="section-heading" data-reveal>
           <div>
-            <span className="eyebrow">05 / HACKATHONS & CLUBS</span>
+            <span className="eyebrow">06 / HACKATHONS & CLUBS</span>
             <h2 id="community-title">Building with people.</h2>
           </div>
           <p>

@@ -14,12 +14,21 @@ import './portfolio.css';
 import ProjectGallery from './components/ProjectGallery';
 import TechnicalSkills from './components/TechnicalSkills';
 import Community from './components/Community';
+import Experience from './components/Experience';
 import useReveal from './hooks/useReveal';
 import './motion.css';
 
 const github = 'https://github.com/dineshyr29-04';
 const email = 'dineshyr2904@gmail.com';
-const navigation = ['Work', 'Focus', 'Skills', 'About', 'Community', 'Contact'];
+const navigation = [
+  'Work',
+  'Focus',
+  'Skills',
+  'About',
+  'Experience',
+  'Community',
+  'Contact',
+];
 const projects = [
   {
     name: 'ExaProp',
@@ -410,6 +419,7 @@ export default function App() {
             </p>
           </div>
         </section>
+        <Experience />
         <Community />
         <section
           id="contact"
@@ -417,7 +427,7 @@ export default function App() {
           aria-labelledby="contact-title"
         >
           <div className="page-width">
-            <span className="eyebrow">06 / GET IN TOUCH</span>
+            <span className="eyebrow">07 / GET IN TOUCH</span>
             <div className="contact-layout" data-reveal>
               <div>
                 <h2 id="contact-title">
