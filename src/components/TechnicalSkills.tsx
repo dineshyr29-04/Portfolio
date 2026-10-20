@@ -1,39 +1,5 @@
 import './TechnicalSkills.css';
-
-const languages = [
-  { name: 'C', context: 'Systems fundamentals' },
-  { name: 'C++', context: 'Low-level programming' },
-  { name: 'Rust', context: 'Memory-safe systems' },
-  { name: 'Python', context: 'Data & automation' },
-  { name: 'TypeScript', context: 'Typed applications' },
-  { name: 'JavaScript', context: 'Web & services' },
-  { name: 'SQL', context: 'Working with data' },
-];
-const toolsets = [
-  {
-    title: 'Applications',
-    note: 'Interfaces & services',
-    tools: [
-      'React',
-      'Next.js',
-      'HTML / CSS',
-      'Tailwind CSS',
-      'Node.js',
-      'Express.js',
-      'REST APIs',
-    ],
-  },
-  {
-    title: 'Systems & tooling',
-    note: 'Development & deployment',
-    tools: ['Linux', 'Git', 'Docker', 'Redis', 'Vercel'],
-  },
-  {
-    title: 'Data & machine learning',
-    note: 'Storage, analysis & models',
-    tools: ['PostgreSQL', 'MongoDB', 'MySQL', 'PyTorch', 'Jupyter', 'K-Means'],
-  },
-];
+import { languages, toolsets } from '../data/portfolioData';
 
 export default function TechnicalSkills() {
   return (

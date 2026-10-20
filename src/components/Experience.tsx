@@ -1,4 +1,5 @@
 import './Experience.css';
+import { experiences } from '../data/portfolioData';
 
 export default function Experience({
   embedded = false,
@@ -21,18 +22,18 @@ export default function Experience({
         </div>
       </div>
       <ol className="career-timeline" aria-label="Experience timeline">
-        <li className="career-entry" data-reveal>
-          <div className="career-period">
-            <span>
-              <time dateTime="2026">2026</time> — Present
-            </span>
-            <span className="career-status">Current</span>
-          </div>
-          <div className="career-role">
-            <RoleHeading>AWS Student Builder Group</RoleHeading>
-            <p>Technical Lead</p>
-          </div>
-        </li>
+        {experiences.map((entry, index) => (
+          <li className="career-entry" key={index} data-reveal>
+            <div className="career-period">
+              <span>{entry.period}</span>
+              {entry.status && <span className="career-status">{entry.status}</span>}
+            </div>
+            <div className="career-role">
+              <RoleHeading>{entry.organization}</RoleHeading>
+              <p>{entry.role}</p>
+            </div>
+          </li>
+        ))}
       </ol>
     </Container>
   );
