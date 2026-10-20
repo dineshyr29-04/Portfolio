@@ -48,7 +48,18 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
               className="collage-card"
               layoutId={sharedId('card', project)}
               transition={{ type: 'spring', stiffness: 340, damping: 32 }}
-              style={{ borderRadius: 6 }}
+              style={{ borderRadius: 12, cursor: 'pointer' }}
+              onClick={() => setActive(project)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setActive(project);
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-haspopup="dialog"
+              aria-label={`Explore ${project.name}`}
             >
               <span className="card-meta">
                 <span className="card-index">
@@ -60,7 +71,7 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
                 >
                   {project.category}
                 </motion.span>
-                <span className="card-open">
+                <span className="card-open" aria-hidden="true">
                   <ArrowUpRight size={19} />
                 </span>
               </span>
@@ -90,16 +101,6 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
                   View project <ArrowUpRight size={13} />
                 </span>
               </span>
-              <button
-                type="button"
-                className="card-hit-area"
-                onClick={() => setActive(project)}
-                aria-label={`Explore ${project.name}`}
-                aria-describedby={
-                  project.summary ? `project-summary-${index}` : undefined
-                }
-                aria-haspopup="dialog"
-              />
             </motion.div>
           </article>
         ))}
