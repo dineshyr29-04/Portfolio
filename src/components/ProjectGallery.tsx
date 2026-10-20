@@ -1,5 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useId, useState } from 'react';
+import {
+  AnimatePresence,
+  LayoutGroup,
+  motion,
+  useReducedMotion,
+} from 'framer-motion';
 import { ArrowUpRight, X } from 'lucide-react';
+import ExpandableProjectDialog from './ExpandableProjectDialog';
 import './ProjectGallery.css';
 
 type Project = {
@@ -15,21 +22,14 @@ type Project = {
 
 export default function ProjectGallery({ projects }: { projects: Project[] }) {
   const [active, setActive] = useState<Project | null>(null);
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog || !active) return;
-    const previousOverflow = document.body.style.overflow;
-    dialog.showModal();
-    document.body.style.overflow = 'hidden';
-    return () => {
-      dialog.close();
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [active]);
+  const id = useId();
+  const reduceMotion = useReducedMotion();
+  const close = useCallback(() => setActive(null), []);
+  const sharedId = (part: string, project: Project) =>
+    reduceMotion ? undefined : `${id}-${part}-${project.name}`;
 
   return (
-    <>
+    <LayoutGroup id={id}>
       <div className="gallery-guide">
         <span>PROJECT INDEX / {String(projects.length).padStart(2, '0')}</span>
         <span>
@@ -44,18 +44,30 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
             data-reveal
             data-reveal-delay={(index % 2) * 70}
           >
-            <div className="collage-card">
+            <motion.div
+              className="collage-card"
+              layoutId={sharedId('card', project)}
+              transition={{ type: 'spring', stiffness: 340, damping: 32 }}
+              style={{ borderRadius: 6 }}
+            >
               <span className="card-meta">
                 <span className="card-index">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="card-category">{project.category}</span>
+                <motion.span
+                  className="card-category"
+                  layoutId={sharedId('category', project)}
+                >
+                  {project.category}
+                </motion.span>
                 <span className="card-open">
                   <ArrowUpRight size={19} />
                 </span>
               </span>
               <div className="card-body">
-                <h3>{project.name}</h3>
+                <motion.h3 layoutId={sharedId('title', project)}>
+                  {project.name}
+                </motion.h3>
                 {project.summary && (
                   <p
                     className="collage-summary"
@@ -88,80 +100,98 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
                 }
                 aria-haspopup="dialog"
               />
-            </div>
+            </motion.div>
           </article>
         ))}
       </div>
-      <dialog
-        className="project-dialog"
-        ref={dialogRef}
-        aria-labelledby="project-dialog-title"
-        onCancel={() => setActive(null)}
-        onClose={() => setActive(null)}
-        onClick={event => {
-          if (event.target === event.currentTarget) setActive(null);
-        }}
-      >
+      <AnimatePresence>
         {active && (
-          <div className="project-dialog-content">
-            <div className="project-dialog-top">
-              <span className="micro-label">PROJECT / {active.category}</span>
-              <button
-                autoFocus
-                className="dialog-close"
-                onClick={() => setActive(null)}
-                aria-label="Close project"
-              >
-                <X size={20} />
-              </button>
-            </div>
-            <div className="project-dialog-body">
-              <span className="eyebrow">A CLOSER LOOK</span>
-              <h2 id="project-dialog-title">{active.name}</h2>
-              {active.detail && <p>{active.detail}</p>}
-              {active.featured && !active.detail && (
-                <p>For a walkthrough of {active.name}, get in touch.</p>
-              )}
-              {active.stack && (
-                <div className="dialog-tools">
-                  <span className="micro-label">BUILT WITH</span>
-                  <p>{active.stack}</p>
-                </div>
-              )}
-              <div className="dialog-links">
-                {active.live && (
-                  <a
-                    className="primary-link"
-                    href={active.live}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Open live project <ArrowUpRight size={16} />
-                  </a>
-                )}
-                {active.source && (
-                  <a
-                    className="text-link"
-                    href={active.source}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    View source <ArrowUpRight size={16} />
-                  </a>
-                )}
-                {active.featured && !active.live && !active.source && (
-                  <a
-                    className="primary-link"
-                    href="mailto:dineshyr2904@gmail.com?subject=Exaprop%20project"
-                  >
-                    Ask me about {active.name} <ArrowUpRight size={16} />
-                  </a>
-                )}
+          <ExpandableProjectDialog
+            key={active.name}
+            layoutId={`${id}-card-${active.name}`}
+            labelledBy={`${id}-project-title`}
+            onClose={close}
+          >
+            <div className="project-dialog-content">
+              <div className="project-dialog-top">
+                <span className="micro-label">
+                  PROJECT /{' '}
+                  <motion.span layoutId={sharedId('category', active)}>
+                    {active.category}
+                  </motion.span>
+                </span>
+                <button
+                  className="dialog-close"
+                  onClick={close}
+                  aria-label="Close project"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              <div className="project-dialog-body">
+                <span className="eyebrow">A CLOSER LOOK</span>
+                <motion.h2
+                  id={`${id}-project-title`}
+                  layoutId={sharedId('title', active)}
+                >
+                  {active.name}
+                </motion.h2>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    duration: reduceMotion ? 0 : 0.18,
+                    delay: reduceMotion ? 0 : 0.1,
+                  }}
+                  className="project-dialog-details"
+                >
+                  {active.detail && <p>{active.detail}</p>}
+                  {active.featured && !active.detail && (
+                    <p>For a walkthrough of {active.name}, get in touch.</p>
+                  )}
+                  {active.stack && (
+                    <div className="dialog-tools">
+                      <span className="micro-label">BUILT WITH</span>
+                      <p>{active.stack}</p>
+                    </div>
+                  )}
+                  <div className="dialog-links">
+                    {active.live && (
+                      <a
+                        className="primary-link"
+                        href={active.live}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Open live project <ArrowUpRight size={16} />
+                      </a>
+                    )}
+                    {active.source && (
+                      <a
+                        className="text-link"
+                        href={active.source}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        View source <ArrowUpRight size={16} />
+                      </a>
+                    )}
+                    {active.featured && !active.live && !active.source && (
+                      <a
+                        className="primary-link"
+                        href="mailto:dineshyr2904@gmail.com?subject=Exaprop%20project"
+                      >
+                        Ask me about {active.name} <ArrowUpRight size={16} />
+                      </a>
+                    )}
+                  </div>
+                </motion.div>
               </div>
             </div>
-          </div>
+          </ExpandableProjectDialog>
         )}
-      </dialog>
-    </>
+      </AnimatePresence>
+    </LayoutGroup>
   );
 }

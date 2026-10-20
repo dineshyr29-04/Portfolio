@@ -37,7 +37,6 @@
   border-radius: 6px;
   color: var(--navy);
   transition:
-    transform var(--motion-fast) var(--ease),
     border-color var(--motion-fast) var(--ease),
     box-shadow var(--motion-fast) var(--ease),
     background var(--motion-fast) var(--ease);
@@ -198,21 +197,34 @@
 .collage-card:active .card-open {
   transform: scale(0.92);
 }
+.project-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 20px 16px;
+  isolation: isolate;
+}
+.project-backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--dialog-backdrop);
+  backdrop-filter: blur(5px);
+}
 .project-dialog {
+  position: relative;
   padding: 0;
   border: 1px solid var(--border);
   border-radius: 4px;
   background: var(--surface);
   color: var(--navy);
-  width: min(640px, calc(100% - 32px));
+  width: min(640px, 100%);
   max-height: calc(100dvh - 40px);
   margin: auto;
   overscroll-behavior: contain;
+  overflow-y: auto;
   box-shadow: 0 30px 100px var(--dialog-shadow);
-}
-.project-dialog::backdrop {
-  background: var(--dialog-backdrop);
-  backdrop-filter: blur(5px);
 }
 .project-dialog-top {
   display: flex;
@@ -244,7 +256,7 @@
 .project-dialog-body .eyebrow {
   margin-bottom: 16px;
 }
-.project-dialog-body > p {
+.project-dialog-details > p {
   font-size: 15px;
   line-height: 1.85;
   color: var(--muted);
@@ -282,7 +294,6 @@
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .collage-card:hover {
-    transform: translateY(-4px);
     background: var(--surface);
     border-color: var(--blue);
     box-shadow: 0 8px 20px var(--card-shadow);
@@ -391,7 +402,7 @@
   .project-dialog-body h2 {
     font-size: 33px;
   }
-  .project-dialog-body > p {
+  .project-dialog-details > p {
     font-size: 14px;
   }
   .dialog-links {
