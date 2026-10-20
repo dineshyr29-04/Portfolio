@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 
 export default function ExpandableProjectDialog({
-  layoutId,
   labelledBy,
   onClose,
   children,
@@ -21,10 +20,10 @@ export default function ExpandableProjectDialog({
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
-    // Focus the first button in the dialog
+    // Focus close button on mount
     const timer = setTimeout(() => {
       dialogRef.current?.querySelector<HTMLButtonElement>('button')?.focus();
-    }, 50);
+    }, 40);
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
@@ -62,40 +61,42 @@ export default function ExpandableProjectDialog({
   }, [onClose]);
 
   return createPortal(
-    <div className="project-overlay" ref={overlayRef}>
+    <motion.div
+      className="project-overlay"
+      ref={overlayRef}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.18, ease: 'easeOut' }}
+    >
       {/* Blurred Dim Backdrop */}
-      <motion.div
+      <div
         className="project-backdrop"
         aria-hidden="true"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
         onClick={onClose}
       />
 
-      {/* Centered Modal Card with Spring + Scale */}
+      {/* Centered Modal Card with Silky-Smooth Spring Scale */}
       <motion.div
         ref={dialogRef}
         className="project-dialog"
         role="dialog"
         aria-modal="true"
         aria-labelledby={labelledBy}
-        layoutId={layoutId}
-        initial={{ opacity: 0, scale: 0.94, y: 18 }}
+        initial={{ opacity: 0, scale: 0.95, y: 16 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.96, y: 12 }}
+        exit={{ opacity: 0, scale: 0.96, y: 10 }}
         transition={{
           type: 'spring',
-          damping: 28,
-          stiffness: 340,
-          mass: 0.8,
+          damping: 30,
+          stiffness: 380,
+          mass: 0.6,
         }}
         onClick={(e) => e.stopPropagation()}
       >
         {children}
       </motion.div>
-    </div>,
+    </motion.div>,
     document.body
   );
 }

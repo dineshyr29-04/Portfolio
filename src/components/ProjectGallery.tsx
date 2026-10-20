@@ -1,10 +1,5 @@
-import { useCallback, useId, useState } from 'react';
-import {
-  AnimatePresence,
-  LayoutGroup,
-  motion,
-  useReducedMotion,
-} from 'framer-motion';
+import { useCallback, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUpRight, X } from 'lucide-react';
 import ExpandableProjectDialog from './ExpandableProjectDialog';
 import './ProjectGallery.css';
@@ -22,14 +17,10 @@ type Project = {
 
 export default function ProjectGallery({ projects }: { projects: Project[] }) {
   const [active, setActive] = useState<Project | null>(null);
-  const id = useId();
-  const reduceMotion = useReducedMotion();
   const close = useCallback(() => setActive(null), []);
-  const sharedId = (part: string, project: Project) =>
-    reduceMotion ? undefined : `${id}-${part}-${project.name}`;
 
   return (
-    <LayoutGroup id={id}>
+    <>
       <div className="gallery-guide">
         <span>PROJECT INDEX / {String(projects.length).padStart(2, '0')}</span>
         <span>
@@ -46,8 +37,9 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
           >
             <motion.div
               className="collage-card"
-              layoutId={sharedId('card', project)}
-              transition={{ type: 'spring', stiffness: 340, damping: 32 }}
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               style={{ borderRadius: 12, cursor: 'pointer' }}
               onClick={() => setActive(project)}
               onKeyDown={(e) => {
@@ -65,20 +57,15 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
                 <span className="card-index">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <motion.span
-                  className="card-category"
-                  layoutId={sharedId('category', project)}
-                >
+                <span className="card-category">
                   {project.category}
-                </motion.span>
+                </span>
                 <span className="card-open" aria-hidden="true">
                   <ArrowUpRight size={19} />
                 </span>
               </span>
               <div className="card-body">
-                <motion.h3 layoutId={sharedId('title', project)}>
-                  {project.name}
-                </motion.h3>
+                <h3>{project.name}</h3>
                 {project.summary && (
                   <p
                     className="collage-summary"
@@ -109,17 +96,13 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
         {active && (
           <ExpandableProjectDialog
             key={active.name}
-            layoutId={`${id}-card-${active.name}`}
-            labelledBy={`${id}-project-title`}
+            labelledBy={`project-title-${active.name}`}
             onClose={close}
           >
             <div className="project-dialog-content">
               <div className="project-dialog-top">
                 <span className="micro-label">
-                  PROJECT /{' '}
-                  <motion.span layoutId={sharedId('category', active)}>
-                    {active.category}
-                  </motion.span>
+                  PROJECT / <span>{active.category}</span>
                 </span>
                 <button
                   className="dialog-close"
@@ -131,22 +114,10 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
               </div>
               <div className="project-dialog-body">
                 <span className="eyebrow">A CLOSER LOOK</span>
-                <motion.h2
-                  id={`${id}-project-title`}
-                  layoutId={sharedId('title', active)}
-                >
+                <h2 id={`project-title-${active.name}`}>
                   {active.name}
-                </motion.h2>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    duration: reduceMotion ? 0 : 0.18,
-                    delay: reduceMotion ? 0 : 0.1,
-                  }}
-                  className="project-dialog-details"
-                >
+                </h2>
+                <div className="project-dialog-details">
                   {active.detail && <p>{active.detail}</p>}
                   {active.featured && !active.detail && (
                     <p>For a walkthrough of {active.name}, get in touch.</p>
@@ -187,12 +158,12 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
                       </a>
                     )}
                   </div>
-                </motion.div>
+                </div>
               </div>
             </div>
           </ExpandableProjectDialog>
         )}
       </AnimatePresence>
-    </LayoutGroup>
+    </>
   );
 }
